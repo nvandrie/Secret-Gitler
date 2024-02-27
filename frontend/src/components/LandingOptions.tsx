@@ -1,10 +1,23 @@
-import React from "react";
+import React from 'react';
 
-const LandingOptions = (props: { setAuthState: (state: string) => void }) => {
+interface AuthProps {
+  authState: string;
+  setAuthState: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const LandingOptions: React.FC<AuthProps> = ( { authState, setAuthState } ) => {
   return (
     <div>
-      <button onClick={() => props.setAuthState("LogIn")}> Log In Here</button>
-      <button onClick={() => props.setAuthState("SignUp")}>Sign Up Here</button>
+      {authState === 'default' && (
+        <div>
+          <button onClick={() => setAuthState("login")}> Log In Here</button>
+          <button onClick={() => setAuthState("signup")}>Sign Up Here</button>
+        </div>
+      )}
+      {authState === 'signup' && <p>SignUp component here</p>}
+      {authState === 'login' && <p>Login component here</p>}
     </div>
   );
 };
+
+export default LandingOptions;
