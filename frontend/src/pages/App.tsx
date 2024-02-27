@@ -1,4 +1,4 @@
-import "./App.css";
+import "../styling/App.css";
 
 function App() {
   return <h1>SECRET GITLER</h1>;
