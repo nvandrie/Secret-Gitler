@@ -13,6 +13,7 @@ const buttonStyle = {
   margin: "5px", // Margin between buttons
   borderRadius: "15px", // Rounded Corners
   cursor: "pointer", // Pointer cursor on hover
+  border: "none", // No border
   fontSize: "16px", // Text Size
   width: "200px", // Fixed width for all buttons
   fontFamily: "'Helvetica', sans-serif", // Font that we need to change
