@@ -7,16 +7,15 @@ interface AuthProps {
 }
 
 const buttonStyle = {
-  backgroundColor: "#E66443", // Green Background
+  backgroundColor: "#E66443", // Orange background
   color: "white", // White Text
   padding: "10px 20px", // Padding around text
   margin: "5px", // Margin between buttons
-  border: "none", // No border
   borderRadius: "15px", // Rounded Corners
   cursor: "pointer", // Pointer cursor on hover
   fontSize: "16px", // Text Size
   width: "200px", // Fixed width for all buttons
-  fontFamily: "'Helvetica', sans-serif", // Font Family
+  fontFamily: "'Helvetica', sans-serif", // Font that we need to change
   boxShadow: "inset 0 10px 15px -10px rgba(0, 0, 0, 0.4)", // Internal drop shadow
 };
 
