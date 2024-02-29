@@ -1,4 +1,6 @@
 import React from 'react';
+import SignUp from './SignUp';
+import LogIn from './LogIn';
 
 interface AuthProps {
   authState: string;
@@ -14,8 +16,8 @@ const LandingOptions: React.FC<AuthProps> = ( { authState, setAuthState } ) => {
           <button onClick={() => setAuthState("signup")}>Sign Up Here</button>
         </div>
       )}
-      {authState === 'signup' && <p>SignUp component here</p>}
-      {authState === 'login' && <p>Login component here</p>}
+      {authState === 'signup' && <SignUp />}
+      {authState === 'login' && <LogIn />}
     </div>
   );
 };

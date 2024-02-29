@@ -2,6 +2,7 @@ import LandingOptions from "../components/LandingOptions";
 import { useState } from "react";
 
 
+
 function LandingPage() {
     const landingOptions = ['default', 'signup', 'login'];
 
