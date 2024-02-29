@@ -1,0 +1,14 @@
+:root {
+    --dark-red: #990400;
+    --medium-red: #C13423;
+    --light-red: #E66443;
+    --white: white;
+    --dark-grey: #464442;
+    --light-blue: #61C8D9;
+    --medium-blue: #4BA7BA;
+    --dark-blue: #0B4E6E;
+    --beige: #E1C699;
+    --dark-beige: rgba(225, 198, 153, 0.8);
+
+    background-color: var(--dark-grey);
+}
