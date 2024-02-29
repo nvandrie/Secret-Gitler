@@ -13,7 +13,7 @@
     background-color: var(--dark-grey);
 }
 
-.LandingPage {
+.GenericPage {
     display: flex;
     align-items: center;
     justify-content: center;
