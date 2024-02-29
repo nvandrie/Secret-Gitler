@@ -1,6 +1,7 @@
 import "../styling/App.css";
 import LandingPage from "./LandingPage.tsx";
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 
@@ -14,10 +15,16 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <p>Message from backend: {message}</p>
-      <LandingPage />
-    </div>
+    <BrowserRouter>
+      <div>
+        {/* <p>Backend: {message}</p> */}
+        <Routes>
+          <Route path="/" element={<LandingPage/>} />
+          <Route path="/lobby" element={<LobbyPage/>} />
+          <Route path="/game" element={<GameplayPage/>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
