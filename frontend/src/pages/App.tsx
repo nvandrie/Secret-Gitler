@@ -1,7 +1,10 @@
 import "../styling/App.css";
 import LandingPage from "./LandingPage.tsx";
+import LobbyPage from "./LobbyPages.tsx";
+import GameplayPage from "./GamePlayPage.tsx";
 import text_logo from '/text_logo.png';
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 
@@ -15,11 +18,17 @@ function App() {
   }, []);
 
   return (
-    <div className='LandingPage'>
-      <img src={text_logo} alt="Image"/>
-      <p>Message from backend: {message}</p>
-      <LandingPage />
-    </div>
+    <BrowserRouter>
+      <div className='LandingPage'>
+        <img src={text_logo} alt="Image"/>
+        {/* <p>Backend: {message}</p> */}
+        <Routes>
+          <Route path="/" element={<LandingPage/>} />
+          <Route path="/lobby" element={<LobbyPage/>} />
+          <Route path="/game" element={<GameplayPage/>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -8,7 +8,7 @@ const port = 5001;
 app.use(cors());
 
 app.get('/api', (req: Request, res: Response) => {
-  res.send('Hello from Express!');
+  res.send('Connected');
 });
 
 app.listen(port, () => {
