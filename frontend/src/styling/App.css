@@ -1,14 +1,44 @@
 :root {
     --dark-red: #990400;
     --medium-red: #C13423;
-    --light-red: #E66443;
+    --light-red: #e36953;
     --white: white;
     --dark-grey: #464442;
     --light-blue: #61C8D9;
     --medium-blue: #4BA7BA;
     --dark-blue: #0B4E6E;
-    --beige: #E1C699;
+    --beige: #F6E1C2;
     --dark-beige: rgba(225, 198, 153, 0.8);
 
     background-color: var(--dark-grey);
+}
+
+.LandingPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 100px 100px;
+}
+
+.LandingButtonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 100px 100px;
+}
+
+.LandingButton {
+    background-color: var(--light-red);
+    color: var(--white);
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    width: 200px;
+    font-family: 'Helvetica', sans-serif;
+    box-shadow: inset 0 10px 15px -10px rgba(0, 0, 0, 0.4);
 }
