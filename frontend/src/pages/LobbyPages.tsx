@@ -1,5 +1,6 @@
 import LobbyOptions from "../components/LobbyOptions";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 function LobbyPage() {
   const landingOptions = ["default", "join", "create"];
@@ -9,6 +10,7 @@ function LobbyPage() {
   return (
     <div>
       <LobbyOptions authState={authState} setAuthState={setAuthState} />
+      <Link to="/game">Game</Link>
     </div>
   );
 }
