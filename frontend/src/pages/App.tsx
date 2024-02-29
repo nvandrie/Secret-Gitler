@@ -1,5 +1,7 @@
 import "../styling/App.css";
 import LandingPage from "./LandingPage.tsx";
+import LobbyPage from "./LobbyPages.tsx";
+import GameplayPage from "./GamePlayPage.tsx";
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
