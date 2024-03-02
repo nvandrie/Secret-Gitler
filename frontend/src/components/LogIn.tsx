@@ -1,14 +1,14 @@
 import {
   Container,
   Box,
-  Typography,
   TextField,
   Button,
   Grid,
 } from "@mui/material";
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import text_logo from '/text_logo.png';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -38,6 +38,7 @@ const Login = () => {
 
   return (
     <>
+      <img src={text_logo} alt="Image" className = "image"/>
       <Container maxWidth="xs">
         <Box
           sx={{
@@ -47,7 +48,6 @@ const Login = () => {
             alignItems: "center",
           }}
         >
-          {/* <Typography variant="h5">Login</Typography> */}
           <Box sx={{ mt: 1 }}>
           <CssTextField margin="normal"
               required
@@ -83,9 +83,9 @@ const Login = () => {
               <b>Login</b>
             </Button>
             <Grid container justifyContent={"flex-end"}>
-              {/* <Grid item>
+              <Grid item>
                 <Link to="/register">Don't have an account? Register</Link>
-              </Grid> */}
+              </Grid>
             </Grid>
           </Box>
         </Box>

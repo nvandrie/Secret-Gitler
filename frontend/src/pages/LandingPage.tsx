@@ -1,16 +1,22 @@
-import LandingOptions from "../components/LandingOptions";
-import { useState } from "react";
+import React from 'react';
+import '../styling/App.css';
+import text_logo from '/text_logo.png';
+import { Link } from "react-router-dom";
 
-function LandingPage() {
-    const landingOptions = ['default', 'signup', 'login'];
-
-    const [authState, setAuthState] = useState<string>(landingOptions[0]);
-
-    return (
-        <div>
-            <LandingOptions authState={authState} setAuthState={setAuthState}/>
+const LandingOptions = () => {
+  return (
+    <div>
+      <img src={text_logo} alt="Image" className = "image"/>
+        <div className="LandingButtonContainer">
+        <Link to="/login">
+          <button className="LandingButton">LogIn</button >
+        </Link>
+        <Link to="/register">
+          <button className="LandingButton">Sign Up</button>
+        </Link>
         </div>
-    )
-}
+    </div>
+  );
+};
 
-export default LandingPage;
+export default LandingOptions;

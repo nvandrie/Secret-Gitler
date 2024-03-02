@@ -4,11 +4,11 @@ import {
   Container,
   Grid,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+import text_logo from '/text_logo.png';
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -39,6 +39,7 @@ const Register = () => {
 
   return (
     <>
+    <img src={text_logo} alt="Image" className = "image"/>
       <Container maxWidth="xs">
         <Box
           sx={{
@@ -48,7 +49,6 @@ const Register = () => {
             alignItems: "center",
           }}
         >
-          {/* <Typography variant="h5">Register</Typography> */}
           <Box sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -102,9 +102,9 @@ const Register = () => {
               Register
             </Button>
             <Grid container justifyContent="flex-end">
-              {/* <Grid item>
+              <Grid item>
                 <Link to="/login">Already have an account? Login</Link>
-              </Grid> */}
+              </Grid>
             </Grid>
           </Box>
         </Box>
