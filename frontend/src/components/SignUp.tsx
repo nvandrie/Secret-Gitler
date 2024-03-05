@@ -60,7 +60,7 @@ const Register = () => {
                   label="Name"
                   autoFocus
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                   className ="loginText"
                 />
               </Grid>
@@ -73,7 +73,7 @@ const Register = () => {
                   label="Email Address"
                   name="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                   className ="loginText"
                 />
               </Grid>
@@ -86,7 +86,7 @@ const Register = () => {
                   type="password"
                   id="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                   className ="loginText"
                 />
               </Grid>

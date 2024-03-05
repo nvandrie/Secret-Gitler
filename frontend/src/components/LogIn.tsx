@@ -6,7 +6,7 @@ import {
   Grid,
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import text_logo from '/text_logo.png';
 
@@ -57,7 +57,7 @@ const Login = () => {
               name="email"
               autoFocus
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               className = "loginText" />
 
             <CssTextField margin="normal"
@@ -68,7 +68,7 @@ const Login = () => {
               name="password"
               autoFocus
               value={password}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPassword(e.target.value);
               }}
               className = "loginText" />

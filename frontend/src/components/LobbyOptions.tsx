@@ -1,5 +1,4 @@
 import React from "react";
-import { CSSProperties } from "react";
 import text_logo from '/text_logo.png';
 
 interface AuthProps {
