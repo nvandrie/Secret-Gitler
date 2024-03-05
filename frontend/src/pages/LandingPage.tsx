@@ -9,7 +9,7 @@ const LandingOptions = () => {
       <img src={text_logo} alt="Image" className="image" />
       <div className="LandingButtonContainer">
         <Link to="/login">
-          <button className="LandingButton">LogIn</button>
+          <button className="LandingButton">Log In</button>
         </Link>
         <Link to="/register">
           <button className="LandingButton">Sign Up</button>
