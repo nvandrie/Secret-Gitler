@@ -57,7 +57,7 @@ const Login = () => {
               name="email"
               autoFocus
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               className = "loginText" />
 
             <CssTextField margin="normal"
@@ -68,7 +68,7 @@ const Login = () => {
               name="password"
               autoFocus
               value={password}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPassword(e.target.value);
               }}
               className = "loginText" />
