@@ -1,6 +1,7 @@
 {
-  "dependencies": {
-    "@reduxjs/toolkit": "^2.2.1",
-    "redux": "^5.0.1"
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21"
   }
 }
+

@@ -1,14 +1,8 @@
-import {
-  Container,
-  Box,
-  TextField,
-  Button,
-  Grid,
-} from "@mui/material";
-import { styled } from '@mui/material/styles';
-import React, { useState } from "react";
+import { Container, Box, TextField, Button, Grid } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import text_logo from '/text_logo.png';
+import text_logo from "/text_logo.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,28 +11,28 @@ const Login = () => {
   const handleLogin = () => {};
 
   const CssTextField = styled(TextField)({
-    '& label.Mui-focused': {
-      color: '#A0AAB4', //someone play around with these values
+    "& label.Mui-focused": {
+      color: "#A0AAB4", //someone play around with these values
     },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: '#B2BAC2', //someone play around with these values
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "#B2BAC2", //someone play around with these values
     },
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-        borderColor: '#E0E3E7', //someone play around with these values
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#E0E3E7", //someone play around with these values
       },
-      '&:hover fieldset': {
-        borderColor: '#B2BAC2', //someone play around with these values
+      "&:hover fieldset": {
+        borderColor: "#B2BAC2", //someone play around with these values
       },
-      '&.Mui-focused fieldset': {
-        borderColor: '#6F7E8C', //someone play around with these values
+      "&.Mui-focused fieldset": {
+        borderColor: "#6F7E8C", //someone play around with these values
       },
     },
   });
 
   return (
     <>
-      <img src={text_logo} alt="Image" className = "image"/>
+      <img src={text_logo} alt="Image" className="image" />
       <Container maxWidth="xs">
         <Box
           sx={{
@@ -49,7 +43,8 @@ const Login = () => {
           }}
         >
           <Box sx={{ mt: 1 }}>
-          <CssTextField margin="normal"
+            <CssTextField
+              margin="normal"
               required
               fullWidth
               id="email"
@@ -60,7 +55,8 @@ const Login = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               className = "loginText" />
 
-            <CssTextField margin="normal"
+            <CssTextField
+              margin="normal"
               required
               fullWidth
               id="password"
@@ -71,14 +67,15 @@ const Login = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPassword(e.target.value);
               }}
-              className = "loginText" />
+              className="loginText"
+            />
             <Button
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor: "white", color: "black"}}
+              sx={{ mt: 3, mb: 2, backgroundColor: "white", color: "black" }}
               onClick={handleLogin}
               component={Link}
-              to="/lobby"
+              to="/createjoingamepage"
             >
               <b>Login</b>
             </Button>

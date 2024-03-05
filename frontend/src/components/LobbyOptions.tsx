@@ -28,3 +28,4 @@ const LobbyOptions: React.FC<AuthProps> = ({ authState, setAuthState }) => {
 };
 
 export default LobbyOptions;
+
