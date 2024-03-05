@@ -1,14 +1,8 @@
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Container, Grid, TextField } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { styled } from '@mui/material/styles';
-import text_logo from '/text_logo.png';
+import { styled } from "@mui/material/styles";
+import text_logo from "/text_logo.png";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -18,28 +12,28 @@ const Register = () => {
   const handleRegister = async () => {};
 
   const CssTextField = styled(TextField)({
-    '& label.Mui-focused': {
-      color: '#A0AAB4', //someone play around with these values
+    "& label.Mui-focused": {
+      color: "#A0AAB4", //someone play around with these values
     },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: '#B2BAC2', //someone play around with these values
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "#B2BAC2", //someone play around with these values
     },
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-        borderColor: '#E0E3E7', //someone play around with these values
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#E0E3E7", //someone play around with these values
       },
-      '&:hover fieldset': {
-        borderColor: '#B2BAC2', //someone play around with these values
+      "&:hover fieldset": {
+        borderColor: "#B2BAC2", //someone play around with these values
       },
-      '&.Mui-focused fieldset': {
-        borderColor: '#6F7E8C', //someone play around with these values
+      "&.Mui-focused fieldset": {
+        borderColor: "#6F7E8C", //someone play around with these values
       },
     },
   });
 
   return (
     <>
-    <img src={text_logo} alt="Image" className = "image"/>
+      <img src={text_logo} alt="Image" className="image" />
       <Container maxWidth="xs">
         <Box
           sx={{
@@ -61,7 +55,7 @@ const Register = () => {
                   autoFocus
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className ="loginText"
+                  className="loginText"
                 />
               </Grid>
 
@@ -74,7 +68,7 @@ const Register = () => {
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className ="loginText"
+                  className="loginText"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -87,7 +81,7 @@ const Register = () => {
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className ="loginText"
+                  className="loginText"
                 />
               </Grid>
             </Grid>
@@ -97,7 +91,7 @@ const Register = () => {
               sx={{ mt: 3, mb: 2, backgroundColor: "white", color: "black" }}
               onClick={handleRegister}
               component={Link}
-              to="/lobby"
+              to="/createjoingamepage"
             >
               Register
             </Button>
