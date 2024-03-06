@@ -13,7 +13,7 @@ const CreateJoinGamePage = () => {
             Create Game
           </button>
         </Link>
-        <Link to="/register">
+        <Link to="/lobby">
           <button className="LandingButton">Join Game</button>
         </Link>
       </div>
