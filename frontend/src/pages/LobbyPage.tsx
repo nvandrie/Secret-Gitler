@@ -1,8 +1,12 @@
 import React from "react";
-import Button from "@mui/material/Button";
+import { useSelector } from 'react-redux';
+import { RootState } from "../store";
 
 const LobbyPage: React.FC = () => {
-  return <p>Temprary</p>;
+
+  const variable = useSelector((state: RootState) => state.lobby.variable);
+  
+  return <p>{variable}</p>;
 };
 
 export default LobbyPage;
