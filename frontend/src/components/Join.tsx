@@ -1,7 +1,7 @@
 const Join = () => {
   return (
     <div>
-      <h1>Log In component will be here.</h1>
+      <h1>Join component will be here.</h1>
     </div>
   );
 };

@@ -29,7 +29,6 @@ function App() {
           <Route path="/createjoingamepage" element={<CreateJoinGamePage />} />
           <Route path="/game" element={<GameplayPage />} />
           <Route path="/register" element={<SignUp />} />
-          <Route path="/register" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
         </Routes>
       </div>
