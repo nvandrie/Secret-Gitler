@@ -1,48 +1,91 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store.ts';
-import { addElement } from "../../slices/facistBoardSlice.ts";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { addElement } from "../../slices/facistBoardSlice";
+import fascist_policy_card from "/fascist_policy.png";
 
 interface GameBoardProps {
   outerStyle?: React.CSSProperties; // Style for the outer container
   cardStyle?: React.CSSProperties; // Style for the individual cards
 }
 
-const MAX_CARDS = 5; // Maximum number of cards allowed
-const CARD_WIDTH = 100; // Width of each card in pixels
-const CARD_HEIGHT = 80; // Height of each card in pixels
-const OUTER_WIDTH = 550; // Width of the outer rectangle in pixels
-const OUTER_HEIGHT = 100; // Height of the outer rectangle in pixels
+const MAX_CARDS = 5;
+const CARD_WIDTH = 70;
+const CARD_HEIGHT = 98;
+const OUTER_WIDTH = (CARD_WIDTH + 10) * MAX_CARDS;
+const OUTER_HEIGHT = 100;
 
-const FacistBoard: React.FC<GameBoardProps> = ({ outerStyle, cardStyle }) => {
+const FascistGameBoard: React.FC<GameBoardProps> = ({
+  outerStyle,
+  cardStyle,
+}) => {
   const dispatch = useDispatch();
-  const elements = useSelector((state: RootState) => state.facistBoard.elements);
+  const elements = useSelector(
+    (state: RootState) => state.facistBoard.elements
+  );
 
   const handleAddElement = () => {
     if (elements.length < MAX_CARDS) {
-      // Example: add a random string as the element
-      // would most likely have image adding here
-      const randomString = Math.random().toString(36).substring(4);
-      dispatch(addElement(randomString));
+      dispatch(
+        addElement({ path: fascist_policy_card, alt: "Fascist policy card" })
+      );
     }
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-      <div style={{ border: '1px solid black', padding: '10px', borderRadius: '5px', width: OUTER_WIDTH, height: OUTER_HEIGHT, marginBottom: '20px', ...outerStyle }}>
-        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+    <div
+      style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+    >
+      <div
+        style={{
+          border: "1px solid black",
+          padding: "10px",
+          borderRadius: "5px",
+          width: OUTER_WIDTH,
+          height: OUTER_HEIGHT,
+          marginBottom: "10px",
+          ...outerStyle,
+        }}
+      >
+        <div
+          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+        >
           {elements.map((element, index) => (
-            <div key={index} style={{ marginRight: '10px', marginBottom: '10px', width: CARD_WIDTH, height: CARD_HEIGHT, flexShrink: 0, ...cardStyle }}>
-              <div style={{ border: '1px solid black', padding: '5px', borderRadius: '5px', height: '100%' }}>Card {element}</div>
+            <div
+              key={index}
+              style={{
+                marginRight: "10px",
+                marginBottom: "10px",
+                width: CARD_WIDTH,
+                height: CARD_HEIGHT,
+                flexShrink: 0,
+                display: "flex",
+                alignItems: "center", // Center items vertically
+                justifyContent: "center", // Center items horizontally
+                ...cardStyle,
+              }}
+            >
+              <img
+                src={element.path}
+                alt={element.alt}
+                style={{ maxWidth: "100%", maxHeight: "100%" }}
+              />
             </div>
           ))}
         </div>
       </div>
-      {elements.length < MAX_CARDS && (
-        <button onClick={handleAddElement} style={{ marginLeft: '10px', marginTop: '10px' }}>Add Card</button>
-      )}
+      <button
+        onClick={handleAddElement}
+        style={{
+          marginLeft: "10px",
+          marginTop: "10px",
+          visibility: elements.length < MAX_CARDS ? "visible" : "hidden",
+        }}
+      >
+        Add Card
+      </button>
     </div>
   );
 };
 
-export default FacistBoard;
+export default FascistGameBoard;

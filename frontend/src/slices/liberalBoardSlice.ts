@@ -1,24 +1,28 @@
-// gameBoardSlice.ts
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface GameState {
-  elements: string[];
+interface ImageElement {
+  path: string;
+  alt: string;
 }
 
-const initialState: GameState = {
+interface LiberalBoardState {
+  elements: ImageElement[];
+}
+
+const initialState: LiberalBoardState = {
   elements: [],
 };
 
-const gameSlice = createSlice({
-  name: 'game',
+const liberalBoardSlice = createSlice({
+  name: "lacistBoard",
   initialState,
   reducers: {
-    addElement: (state, action: PayloadAction<string>) => {
+    addElement: (state, action: PayloadAction<ImageElement>) => {
       state.elements.push(action.payload);
     },
   },
 });
 
-export const { addElement } = gameSlice.actions;
+export const { addElement } = liberalBoardSlice.actions;
 
-export default gameSlice.reducer;
+export default liberalBoardSlice.reducer;
