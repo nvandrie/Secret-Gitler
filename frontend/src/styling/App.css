@@ -21,7 +21,7 @@
     padding: 100px 100px;
 }
 
-.LandingButtonContainer {
+.ButtonContainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,21 +29,46 @@
     padding: 50px 50px;
 }
 
-.LandingButton {
+.ButtonContainer .Button {
+    position: relative;
     background-color: var(--light-red);
     color: var(--white);
     padding: 10px 20px;
-    margin: 5px;
+    margin: 10px;
     border-radius: 15px;
     cursor: pointer;
     border: none;
     font-size: 16px;
-    width: 200px;
+    width: 250px;
     font-family: 'Helvetica', sans-serif;
     box-shadow: inset 0 10px 15px -10px rgba(0, 0, 0, 0.4);
 }
 
-.loginText {
-    background-color: var(--light-red);
+.Button:disabled {
+    background-color: grey;
+}
+
+.ButtonContainer .TextField {
+    position: relative;
+    flex-direction: column;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 10px;
+    margin-bottom: 5px;
+    width: 250px;
+}
+
+.TextField:focus-within label {
     color: var(--white);
+}
+
+.TextField label {
+    color: var(--dark-grey);
+    font-size: 16px;
+}
+
+.TextField input {
+    background-color: var(--white);
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 15px;
 }

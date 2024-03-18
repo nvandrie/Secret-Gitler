@@ -5,7 +5,7 @@ import LobbyPage from "./LobbyPage.tsx";
 import GameplayPage from "./GamePlayPage.tsx";
 import SignUp from "../components/SignUp.tsx";
 import LogIn from "../components/LogIn.tsx";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "../styling/App.css";
 
@@ -28,7 +28,7 @@ function App() {
           <Route path="/lobby" element={<LobbyPage />} />
           <Route path="/createjoingamepage" element={<CreateJoinGamePage />} />
           <Route path="/game" element={<GameplayPage />} />
-          <Route path="/register" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
         </Routes>
       </div>
