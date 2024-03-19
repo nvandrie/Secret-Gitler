@@ -13,8 +13,8 @@ const initialState: LiberalBoardState = {
   elements: [],
 };
 
-const liberalBoardSlice = createSlice({
-  name: "lacistBoard",
+const gameSlice = createSlice({
+  name: 'liberalBoard',
   initialState,
   reducers: {
     addElement: (state, action: PayloadAction<ImageElement>) => {

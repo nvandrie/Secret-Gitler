@@ -2,12 +2,37 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import text_logo from "/text_logo.png";
+import { login } from "../slices/authSlice";
+import { useAppDispatch } from "../hooks/redux-hooks";
+import {
+  showNotification,
+  NotificationType,
+} from "./../slices/notificationSlice";
+
 
 const LogIn = () => {
+  const dispatch = useAppDispatch();
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleLogin = () => {};
+  const handleLogin = async () => {
+    // This is only a basic validation of inputs. Improve this as needed.
+    if (email && password) {
+      dispatch(
+        login({
+          email,
+          password,
+        })
+      );
+    } else {
+      dispatch(
+        showNotification({
+          message: "Please provide email and password",
+          type: NotificationType.Error,
+        })
+      );
+    }
+  };
 
   return (
     <>
@@ -18,12 +43,12 @@ const LogIn = () => {
           sx={{ "& fieldset": { border: "none" } }}
           fullWidth
           required
-          id="username"
-          label="Username"
-          name="username"
-          value={username}
+          id="email"
+          label="Email"
+          name="email"
+          value={email}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUsername(e.target.value)
+            setEmail(e.target.value)
           }
         />
         <TextField
@@ -43,7 +68,7 @@ const LogIn = () => {
         <Link to="/createjoingamepage">
           <button
             className="Button"
-            disabled={username === "" || password === ""}
+            disabled={email === "" || password === ""}
             onClick={handleLogin}
           >
             Log In
