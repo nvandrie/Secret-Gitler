@@ -1,7 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface ImageElement {
+  path: string;
+  alt: string;
+}
 
 interface FacistBoardState {
-  elements: string[];
+  elements: ImageElement[];
 }
 
 const initialState: FacistBoardState = {
@@ -9,10 +14,10 @@ const initialState: FacistBoardState = {
 };
 
 const facistBoardSlice = createSlice({
-  name: 'facistBoard',
+  name: "facistBoard",
   initialState,
   reducers: {
-    addElement: (state, action: PayloadAction<string>) => {
+    addElement: (state, action: PayloadAction<ImageElement>) => {
       state.elements.push(action.payload);
     },
   },
