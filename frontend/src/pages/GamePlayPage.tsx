@@ -11,14 +11,8 @@ function GamePlay() {
           alignItems: "center",
         }}
       >
-        <LiberalGameBoard
-          outerStyle={{ backgroundColor: "navy" }} //outer
-          cardStyle={{ backgroundColor: "lightyellow" }} //cards
-        />
-        <FacistGameBoard
-          outerStyle={{ backgroundColor: "red" }} //outer
-          cardStyle={{ backgroundColor: "lightyellow" }} //cards
-        />
+        <LiberalGameBoard />
+        <FacistGameBoard />
       </div>
     </div>
   );
