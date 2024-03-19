@@ -10,7 +10,7 @@ const CreateJoinGamePage = () => {
 
   const createLobby = async () => {
     try {
-      const response = await fetch("http://localhost:5001/api/create-lobby", {
+      const response = await fetch("http://localhost:3000/api/create-lobby", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

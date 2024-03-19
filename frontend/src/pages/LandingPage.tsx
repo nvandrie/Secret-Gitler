@@ -2,7 +2,9 @@ import "../styling/App.css";
 import text_logo from "/text_logo.png";
 import { Link } from "react-router-dom";
 
+
 const LandingOptions = () => {
+
   return (
     <div>
       <img src={text_logo} alt="Image" className="image" />

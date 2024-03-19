@@ -3,12 +3,36 @@ import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import text_logo from "/text_logo.png";
+import { login } from "../slices/authSlice";
+import { useAppDispatch } from "../hooks/redux-hooks";
+import {
+  showNotification,
+  NotificationType,
+} from "./../slices/notificationSlice";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleLogin = () => {};
+  const handleLogin = async () => {
+    // This is only a basic validation of inputs. Improve this as needed.
+    if (email && password) {
+      dispatch(
+        login({
+          email,
+          password,
+        })
+      );
+    } else {
+      dispatch(
+        showNotification({
+          message: "Please provide email and password",
+          type: NotificationType.Error,
+        })
+      );
+    }
+  };
 
   const CssTextField = styled(TextField)({
     "& label.Mui-focused": {
@@ -74,8 +98,6 @@ const Login = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2, backgroundColor: "white", color: "black" }}
               onClick={handleLogin}
-              component={Link}
-              to="/createjoingamepage"
             >
               <b>Login</b>
             </Button>
@@ -92,3 +114,5 @@ const Login = () => {
 };
 
 export default Login;
+
+

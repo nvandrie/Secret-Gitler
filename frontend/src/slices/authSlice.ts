@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../api/axiosInstance";
+import { AxiosError } from "axios";
 
 type User = {
   email: string;
@@ -21,6 +22,10 @@ type UserProfileData = {
   email: string;
 };
 
+type ErrorResponse = {
+  message: string;
+};
+
 type AuthApiState = {
   basicUserInfo?: UserBasicInfo | null;
   userProfileData?: UserProfileData | null;
@@ -37,43 +42,87 @@ const initialState: AuthApiState = {
   error: null,
 };
 
-export const login = createAsyncThunk("login", async (data: User) => {
-  const response = await axiosInstance.post("/login", data);
-  const resData = response.data;
+export const login = createAsyncThunk(
+  "login",
+  async (data: User, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/login", data);
+      const resData = response.data;
 
-  localStorage.setItem("userInfo", JSON.stringify(resData));
+      localStorage.setItem("userInfo", JSON.stringify(resData));
 
-  return resData;
-});
+      return resData;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
 
-export const register = createAsyncThunk("register", async (data: NewUser) => {
-  const response = await axiosInstance.post(
-    "/register",
-    data
-  );
-  const resData = response.data;
+        return rejectWithValue(errorResponse);
+      }
 
-  localStorage.setItem("userInfo", JSON.stringify(resData));
+      throw error;
+    }
+  }
+);
 
-  return resData;
-});
+export const register = createAsyncThunk(
+  "register",
+  async (data: NewUser, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/register", data);
+      const resData = response.data;
 
-export const logout = createAsyncThunk("logout", async () => {
-  const response = await axiosInstance.post("/logout", {});
-  const resData = response.data;
+      localStorage.setItem("userInfo", JSON.stringify(resData));
 
-  localStorage.removeItem("userInfo");
+      return resData;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
 
-  return resData;
-});
+        return rejectWithValue(errorResponse);
+      }
+
+      throw error;
+    }
+  }
+);
+
+export const logout = createAsyncThunk(
+  "logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/logout", {});
+      const resData = response.data;
+
+      localStorage.removeItem("userInfo");
+
+      return resData;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
+
+        return rejectWithValue(errorResponse);
+      }
+
+      throw error;
+    }
+  }
+);
 
 export const getUser = createAsyncThunk(
   "users/profile",
-  async (userId: string) => {
-    const response = await axiosInstance.get(
-      `/users/${userId}`
-    );
-    return response.data;
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/users/${userId}`);
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
+
+        return rejectWithValue(errorResponse);
+      }
+
+      throw error;
+    }
   }
 );
 
@@ -96,7 +145,12 @@ const authSlice = createSlice({
       )
       .addCase(login.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message || "Login failed";
+        if (action.payload) {
+          state.error =
+            (action.payload as ErrorResponse).message || "Login failed";
+        } else {
+          state.error = action.error.message || "Login failed";
+        }
       })
 
       .addCase(register.pending, (state) => {
@@ -112,7 +166,12 @@ const authSlice = createSlice({
       )
       .addCase(register.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message || "Registration failed";
+        if (action.payload) {
+          state.error =
+            (action.payload as ErrorResponse).message || "Registration failed";
+        } else {
+          state.error = action.error.message || "Registration failed";
+        }
       })
 
       .addCase(logout.pending, (state) => {
@@ -125,7 +184,12 @@ const authSlice = createSlice({
       })
       .addCase(logout.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message || "Logout failed";
+        if (action.payload) {
+          state.error =
+            (action.payload as ErrorResponse).message || "Logout failed";
+        } else {
+          state.error = action.error.message || "Logout failed";
+        }
       })
 
       .addCase(getUser.pending, (state) => {
@@ -138,7 +202,13 @@ const authSlice = createSlice({
       })
       .addCase(getUser.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message || "Get user profile data failed";
+        if (action.payload) {
+          state.error =
+            (action.payload as ErrorResponse).message ||
+            "Get user profile data failed";
+        } else {
+          state.error = action.error.message || "Get user profile data failed";
+        }
       });
   },
 });

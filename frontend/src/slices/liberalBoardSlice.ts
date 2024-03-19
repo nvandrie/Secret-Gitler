@@ -10,7 +10,7 @@ const initialState: GameState = {
 };
 
 const gameSlice = createSlice({
-  name: 'game',
+  name: 'liberalBoard',
   initialState,
   reducers: {
     addElement: (state, action: PayloadAction<string>) => {

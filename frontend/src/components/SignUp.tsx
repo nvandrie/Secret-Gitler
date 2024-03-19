@@ -3,13 +3,40 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import text_logo from "/text_logo.png";
+import { useAppDispatch } from "../hooks/redux-hooks";
+import { register } from "../slices/authSlice";
+import {
+  showNotification,
+  NotificationType,
+} from "./../slices/notificationSlice";
+
 
 const Register = () => {
+  const dispatch = useAppDispatch();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = async () => {};
+  const handleRegister = async () => {
+    // This is only a basic validation of inputs. Improve this as needed.
+    if (name && email && password) {
+      dispatch(
+        register({
+          name,
+          email,
+          password,
+        })
+      );
+    } else {
+      dispatch(
+        showNotification({
+          message: "Please fill out all the required fields",
+          type: NotificationType.Error,
+        })
+      );
+    }
+  };
 
   const CssTextField = styled(TextField)({
     "& label.Mui-focused": {
@@ -90,8 +117,6 @@ const Register = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2, backgroundColor: "white", color: "black" }}
               onClick={handleRegister}
-              component={Link}
-              to="/createjoingamepage"
             >
               Register
             </Button>
