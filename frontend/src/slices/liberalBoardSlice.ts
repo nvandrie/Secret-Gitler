@@ -13,7 +13,7 @@ const initialState: LiberalBoardState = {
   elements: [],
 };
 
-const gameSlice = createSlice({
+const liberalBoardSlice = createSlice({
   name: 'liberalBoard',
   initialState,
   reducers: {

@@ -11,18 +11,17 @@ import {
 
 const SignUp = () => {
   const dispatch = useAppDispatch();
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
 
   const handleSignup = async () => {
     // This is only a basic validation of inputs. Improve this as needed.
     if (name && email && password) {
       dispatch(
         register({
-          username,
+          name,
           email,
           password,
         })
@@ -35,7 +34,7 @@ const SignUp = () => {
         })
       );
     }
-    };
+  };
 
   return (
     <>
@@ -49,9 +48,9 @@ const SignUp = () => {
           id="username"
           label="Username"
           name="username"
-          value={username}
+          value={name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUsername(e.target.value)
+            setName(e.target.value)
           }
         />
         <TextField

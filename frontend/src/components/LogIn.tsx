@@ -9,7 +9,6 @@ import {
   NotificationType,
 } from "./../slices/notificationSlice";
 
-
 const LogIn = () => {
   const dispatch = useAppDispatch();
   const [username, setUsername] = useState("");
