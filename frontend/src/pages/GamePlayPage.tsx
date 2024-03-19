@@ -1,21 +1,20 @@
+import "../styling/Gameplay.css";
 import LiberalGameBoard from "../components/GameBoards/LiberalBoard";
 import FacistGameBoard from "../components/GameBoards/FacistBoard";
 
-function GamePlay() {
-  return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <LiberalGameBoard />
-        <FacistGameBoard />
-      </div>
-    </div>
-  );
-}
-
-export default GamePlay;
+const GamePlayPage = () => {
+    return (
+        <div className="grid-container">
+            <div className="players-display">
+            </div>
+            <div className="gameboards">
+                <LiberalGameBoard />
+                <FacistGameBoard />
+            </div>
+            <div className="draw-cards"></div>
+            <div className="chat-pop-up"></div>
+            <div className="display-role"></div>
+        </div>
+    );
+  };
+  export default GamePlayPage;
