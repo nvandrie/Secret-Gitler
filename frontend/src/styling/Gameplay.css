@@ -1,3 +1,17 @@
+:root {
+  --dark-red: #990400;
+  --medium-red: #C13423;
+  --light-red: #e36953;
+  --white: white;
+  --dark-grey: #464442;
+  --light-blue: #61C8D9;
+  --medium-blue: #4BA7BA;
+  --dark-blue: #0B4E6E;
+  --beige: #F6E1C2;
+  --dark-beige: rgba(225, 198, 153, 0.8);
+  background-color: var(--dark-grey);
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: 200px auto auto 50px;
@@ -22,6 +36,34 @@
     grid-column: 2 / 4;
     grid-row: 2 / 3;
     border: 1px solid black; 
+    display: flex;
+    flex-direction: row;
+  }
+
+  .card-display {
+    display: flex;
+    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+    gap: 10px;
+  }
+
+  .drawing-area {
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 33%
+  }
+
+  .deck-area {
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 33%
+  }
+
+  .selection-area {
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 33%
   }
 
   .chat-pop-up {
@@ -34,6 +76,18 @@
     grid-row: 3 / 4;
     grid-column: 1 / span 4;
     border: 1px solid black; 
+  }
+
+  .card {
+    height: 150px;
+    padding: 10px;
+    background-color: var(--beige);
+  }
+
+  .draw-card {
+    height: 100px;
+    padding: 10px;
+    background-color: var(--beige);
   }
 
 

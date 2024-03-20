@@ -1,8 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store.ts";
-import { addElement } from "../../slices/liberalBoardSlice.ts";
-import liberal_policy_card from "/liberal_policy.png";
 import liberal_board from "/liberal_board.png";
 
 interface GameBoardProps {}
@@ -18,18 +16,9 @@ const CARD_WIDTH = OUTER_WIDTH / (MAX_CARDS + 2) - PADDING;
 const CARD_HEIGHT = OUTER_HEIGHT;
 
 const LiberalGameBoard: React.FC<GameBoardProps> = ({}) => {
-  const dispatch = useDispatch();
   const elements = useSelector(
     (state: RootState) => state.liberalBoard.elements
   );
-
-  const handleAddElement = () => {
-    if (elements.length < MAX_CARDS) {
-      dispatch(
-        addElement({ path: liberal_policy_card, alt: "Liberal policy card" })
-      );
-    }
-  };
 
   return (
     <div
@@ -82,16 +71,6 @@ const LiberalGameBoard: React.FC<GameBoardProps> = ({}) => {
           ))}
         </div>
       </div>
-      <button
-        onClick={handleAddElement}
-        style={{
-          marginLeft: "10px",
-          marginTop: "10px",
-          visibility: elements.length < MAX_CARDS ? "visible" : "hidden",
-        }}
-      >
-        Add Card
-      </button>
     </div>
   );
 };
