@@ -7,7 +7,7 @@ import { useAppDispatch } from "../hooks/redux-hooks";
 import {
   showNotification,
   NotificationType,
-} from "./../slices/notificationSlice";
+} from "../slices/notificationSlice";
 
 const LogIn = () => {
   const dispatch = useAppDispatch();
@@ -34,7 +34,7 @@ const LogIn = () => {
   };
 
   return (
-    <>
+    <div className="GenericPage">
       <img src={text_logo} alt="Image" className="image" />
       <div className="ButtonContainer">
         <TextField
@@ -81,7 +81,7 @@ const LogIn = () => {
           Forgot password?
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -37,7 +37,7 @@ const SignUp = () => {
   };
 
   return (
-    <>
+    <div className="GenericPage">
       <img src={text_logo} alt="Image" className="image" />
       <div className="ButtonContainer">
         <TextField
@@ -107,7 +107,7 @@ const SignUp = () => {
           Already have an account? Log in here.
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 

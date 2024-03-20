@@ -29,21 +29,17 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="GenericPage">
       <img src={text_logo} alt="Image" className="image" />
       <div className="LandingButtonContainer">
         <Link to="/createjoingamepage">
-          <button className="LandingButton">
-            Start!
-          </button>
+          <button className="LandingButton">Start!</button>
         </Link>
         <h1>Home</h1>
         <h4>Name: {userProfileInfo?.name}</h4>
         <h4>Email: {userProfileInfo?.email}</h4>
-        <button onClick={handleLogout}>
-            Logout
-        </button>
-        </div>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
     </div>
   );
 };
