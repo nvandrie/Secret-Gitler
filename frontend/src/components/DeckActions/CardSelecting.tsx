@@ -1,11 +1,11 @@
-import '../styling/Gameplay.css';
+import '../../styling/Gameplay.css';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState } from "../../store";
 import fascist_policy_card from "/fascist_policy.png";
 import liberal_policy_card from "/liberal_policy.png";
-import { addElement } from "../slices/facistBoardSlice";
-import { addLiberalElement } from "../slices/liberalBoardSlice";
+import { addElement } from "../../slices/facistBoardSlice";
+import { addLiberalElement } from "../../slices/liberalBoardSlice";
 
 interface Card {
   type: 'facist' | 'liberal';
@@ -51,12 +51,14 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   }, [selectedCards]);
 
   return (
+    <div>
     <div className="card-display">
       {selectedCards.map((card, index) => (
         <div key={index} onClick={() => handleCardClick(card)}>
           {isVisible && (<img className="card" src={card.path} alt={card.type} />)}
         </div>
       ))}
+    </div>
     </div>
   );
 };

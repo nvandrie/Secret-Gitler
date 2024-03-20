@@ -41,32 +41,39 @@
     border: 1px solid black; 
     display: flex;
     flex-direction: row;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
   }
 
   .card-display {
     display: flex;
     flex-direction: row;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
-    gap: 10px;
+    padding: 10px
   }
 
   .drawing-area {
     padding: 10px;
-    border: 1px solid #ccc;
-    width: 33%
+    width: 40%;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
   }
 
   .deck-area {
     padding: 10px;
-    border: 1px solid #ccc;
-    width: 33%
+    width: 25%
   }
 
   .selection-area {
     padding: 10px;
-    border: 1px solid #ccc;
-    width: 33%
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
   }
 
   .chat-pop-up {
@@ -82,16 +89,35 @@
   }
 
   .card {
-    height: 150px;
-    padding: 10px;
+    height: 160px;
+    /* padding: 10px 10px; */
     background-color: var(--beige);
   }
 
-  .draw-card {
-    height: 100px;
-    padding: 10px;
-    background-color: var(--beige);
+  .container {
+    display: flex;
+    gap: 10px; /* Adjust the gap between rectangles */
   }
-
-
   
+  .rectangle {
+    width: 130px;
+    height: 180px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    background-color: var(--beige);
+  }
+  
+  .inner-rectangle {
+    width: 110px;
+    height: 160px;
+    background-color: var(--dark-beige);
+  }
+
+  .deck-text{
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    color: var(--white)
+  }
