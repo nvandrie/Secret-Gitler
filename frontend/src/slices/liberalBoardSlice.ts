@@ -17,12 +17,12 @@ const liberalBoardSlice = createSlice({
   name: 'liberalBoard',
   initialState,
   reducers: {
-    addElement: (state, action: PayloadAction<ImageElement>) => {
+    addLiberalElement: (state, action: PayloadAction<ImageElement>) => {
       state.elements.push(action.payload);
     },
   },
 });
 
-export const { addElement } = liberalBoardSlice.actions;
+export const { addLiberalElement } = liberalBoardSlice.actions;
 
 export default liberalBoardSlice.reducer;

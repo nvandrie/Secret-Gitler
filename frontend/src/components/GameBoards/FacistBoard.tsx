@@ -1,8 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { addElement } from "../../slices/facistBoardSlice";
-import fascist_policy_card from "/fascist_policy.png";
 import fascist_board from "/fascist_board.png";
 
 interface GameBoardProps {}
@@ -18,18 +16,9 @@ const CARD_WIDTH = OUTER_WIDTH / (MAX_CARDS + 1) - PADDING;
 const CARD_HEIGHT = OUTER_HEIGHT;
 
 const FascistGameBoard: React.FC<GameBoardProps> = ({}) => {
-  const dispatch = useDispatch();
   const elements = useSelector(
     (state: RootState) => state.facistBoard.elements
   );
-
-  const handleAddElement = () => {
-    if (elements.length < MAX_CARDS) {
-      dispatch(
-        addElement({ path: fascist_policy_card, alt: "Fascist policy card" })
-      );
-    }
-  };
 
   return (
     <div
@@ -82,16 +71,6 @@ const FascistGameBoard: React.FC<GameBoardProps> = ({}) => {
           ))}
         </div>
       </div>
-      <button
-        onClick={handleAddElement}
-        style={{
-          marginLeft: "10px",
-          marginTop: "10px",
-          visibility: elements.length < MAX_CARDS ? "visible" : "hidden",
-        }}
-      >
-        Add Card
-      </button>
     </div>
   );
 };
