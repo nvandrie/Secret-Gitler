@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import LiberalGameBoard from "../components/GameBoards/LiberalBoard";
 import FacistGameBoard from "../components/GameBoards/FacistBoard";
-import CardDrawing from "../components/CardDrawing";
-import CardSelecting from "../components/CardSelecting";
+import CardDrawing from "../components/DeckActions/CardDrawing";
+import CardSelecting from "../components/DeckActions/CardSelecting";
+import Deck from "../components/DeckActions/Deck"
 
 interface Card {
     type: 'facist' | 'liberal';
@@ -11,6 +12,7 @@ interface Card {
 
 const GamePlayPage = () => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
+  const [drawnCards, setDrawnCards] = useState<Card[]>([]);
 
   return (
     <div className="grid-container">
@@ -21,10 +23,10 @@ const GamePlayPage = () => {
       </div>
       <div className="draw-cards">
         <div className="drawing-area">
-          <CardDrawing setSelectedCards={setSelectedCards}/>
+          <CardDrawing setSelectedCards={setSelectedCards} deck_cards = {drawnCards}/>
         </div>
         <div className="deck-area">
-          
+          <Deck setSelectedCards={setDrawnCards}/>
         </div>
         <div className="selection-area">
           <CardSelecting selectedCards={selectedCards}/>
