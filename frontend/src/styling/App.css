@@ -1,114 +1,119 @@
 :root {
-    --dark-red: #990400;
-    --medium-red: #C13423;
-    --light-red: #e36953;
-    --white: white;
-    --dark-grey: #464442;
-    --light-blue: #61C8D9;
-    --medium-blue: #4BA7BA;
-    --dark-blue: #0B4E6E;
-    --beige: #F6E1C2;
-    --dark-beige: rgba(225, 198, 153, 0.8);
-    --black: black;
-    background-color: var(--dark-grey);
+  --dark-red: #990400;
+  --medium-red: #c13423;
+  --light-red: #e36953;
+  --white: white;
+  --dark-grey: #464442;
+  --light-blue: #61c8d9;
+  --medium-blue: #4ba7ba;
+  --dark-blue: #0b4e6e;
+  --beige: #f6e1c2;
+  --dark-beige: rgba(225, 198, 153, 0.8);
+  --black: black;
+  background-color: var(--dark-grey);
 }
 
 .GenericPage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .ButtonContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 50px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px 50px;
 }
 
 .ButtonContainer .Button {
-    position: relative;
-    background-color: var(--light-red);
-    color: var(--white);
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 15px;
-    cursor: pointer;
-    border: none;
-    font-size: 16px;
-    width: 250px;
-    font-family: 'Helvetica', sans-serif;
-    box-shadow: inset 0 10px 15px -10px rgba(0, 0, 0, 0.4);
+  position: relative;
+  background-color: var(--light-red);
+  color: var(--white);
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  width: 250px;
+  font-family: "Helvetica", sans-serif;
+  box-shadow: inset 0 10px 15px -10px rgba(0, 0, 0, 0.4);
 }
 
 .Button:disabled {
-    background-color: grey;
+  background-color: grey;
 }
 
 .ButtonContainer .TextField {
-    position: relative;
-    flex-direction: column;
-    font-family: 'Helvetica', sans-serif;
-    font-size: 10px;
-    margin-bottom: 5px;
-    width: 250px;
+  position: relative;
+  flex-direction: column;
+  font-family: "Helvetica", sans-serif;
+  font-size: 10px;
+  margin-bottom: 5px;
+  width: 250px;
 }
 
 .TextField:focus-within label {
-    color: var(--white);
+  color: var(--white);
 }
 
 .TextField label {
-    color: var(--dark-grey);
-    font-size: 16px;
+  color: var(--dark-grey);
+  font-size: 16px;
 }
 
 .TextField input {
-    background-color: var(--white);
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 15px;
+  background-color: var(--white);
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 15px;
 }
 
 .player-icon {
-    padding: 10px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .circle {
-    position: relative;
-    width: 75px;
-    height: 75px;
-    background-color: var(--white);
-    border-radius: 50%;
-    border-color: var(--black);
-    border-style: solid;
-    border-width: medium;
-  }
-  
-.player-name {
-    position: relative;
-    text-align: center;
-    background-color: var(--white);
-    color: var(--black);
-    border-radius: 15px;
-    border-color: var(--black);
-    border-style: solid;
-    border-width: medium;
-    font-size: 12px;
-    width: 75px;
-    font-family: 'Helvetica', sans-serif;
-    box-shadow: inset 0 10px 15px -10px rgba(0, 0, 0, 0.4);
-  }
+  position: relative;
+  width: 75px;
+  height: 75px;
+  background-color: var(--white);
+  border-radius: 50%;
+  border-color: var(--black);
+  border-style: solid;
+  border-width: medium;
+}
 
-  .president {
+.player-name {
+  position: relative;
+  text-align: center;
+  background-color: var(--white);
+  color: var(--black);
+  border-radius: 15px;
+  border-color: var(--black);
+  border-style: solid;
+  border-width: medium;
+  font-size: 12px;
+  width: 75px;
+  font-family: "Helvetica", sans-serif;
+  box-shadow: inset 0 10px 15px -10px rgba(0, 0, 0, 0.4);
+}
+
+.president {
     background-color: yellow;
   }
 
-  .chancellor {
+.chancellor {
     background-color: red;
-  }
+}
+
+.game-code {
+  font-size: 150px;
+  color: #f6e1c2;
+}
