@@ -10,12 +10,7 @@ const LobbyPage: React.FC = () => {
 
   return (
     <div className="GenericPage">
-      <div>
-        <h1 className="game-code">{variable}</h1>
-        <Link to="/game">
-          <button className="LandingButton">Start Game</button>
-        </Link>
-      </div>
+      <h1 className="game-code">{variable}</h1>
       <div className="players-display-horizontal">
         {players.map((player, index) => (
           <div key={index}>
@@ -23,6 +18,11 @@ const LobbyPage: React.FC = () => {
           </div>
         ))}
       </div>
+      <Link to="/game">
+        <div className="ButtonContainer">
+          <button className="Button">Start Game</button>
+        </div>
+      </Link>
     </div>
   );
 };
