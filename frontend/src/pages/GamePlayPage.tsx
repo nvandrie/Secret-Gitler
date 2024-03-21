@@ -88,7 +88,6 @@ const GamePlayPage = () => {
         <div className="deck-area">
           <Deck setSelectedCards={setDrawnCards} />
         </div>
-        <div className="deck-area"></div>
         <div className="selection-area">
           <CardSelecting selectedCards={selectedCards} />
         </div>

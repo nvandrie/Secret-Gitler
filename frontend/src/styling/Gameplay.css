@@ -14,10 +14,10 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: 200px auto auto 50px;
-  grid-template-rows: auto auto 50px;
-  height: 100vh;
-  width: 100%;
+    grid-template-columns: 200px auto auto 50px;
+    grid-template-rows: 57% 43%; 
+    height: 100vh; 
+    width: 100%; 
 }
 
 .players-display {
@@ -41,39 +41,44 @@
 .gameboards {
   grid-column: 2 / 4;
   grid-row: 1 / 2;
-  border: 1px solid black;
+  margin-top: 10px;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .draw-cards {
   grid-column: 2 / 4;
   grid-row: 2 / 3;
-  border: 1px solid black;
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Center the content horizontally */
-  align-items: center; /* Center the content vertically */
+  justify-content: center;
+  align-items: flex-start;
+
 }
 
 .card-display {
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Center the content horizontally */
-  align-items: center; /* Center the content vertically */
+  justify-content: center;
+  align-items: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
-  padding: 10px;
+  padding: 10px
 }
 
 .drawing-area {
   padding: 10px;
   width: 40%;
-  justify-content: center; /* Center the content horizontally */
-  align-items: center; /* Center the content vertically */
+  justify-content: center;
+  align-items: center;
 }
 
 .deck-area {
-  padding: 10px;
-  width: 25%;
+  width: 25%
 }
 
 .selection-area {
@@ -81,14 +86,8 @@
   width: 35%;
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Center the content horizontally */
-  align-items: center; /* Center the content vertically */
-}
-
-.chat-pop-up {
-  grid-column: 4 / 5;
-  grid-row: 1 / span 2;
-  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
 }
 
 .display-role {
