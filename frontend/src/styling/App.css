@@ -105,8 +105,12 @@
   box-shadow: inset 0 10px 15px -10px rgba(0, 0, 0, 0.4);
 }
 
-.highlighted {
-  background-color: yellow;
+.president {
+    background-color: yellow;
+  }
+
+.chancellor {
+    background-color: red;
 }
 
 .game-code {

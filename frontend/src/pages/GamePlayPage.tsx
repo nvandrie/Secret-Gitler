@@ -16,7 +16,7 @@ interface Player {
   role: "president" | "chancellor" | "default";
 }
 
-let playerData: Player[] = [
+const playerData: Player[] = [
   { name: "Player1", role: "president" },
   { name: "Player2", role: "default" },
   { name: "Player3", role: "default" },
@@ -28,20 +28,35 @@ let playerData: Player[] = [
 const GamePlayPage = () => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
   const [players, setPlayers] = useState<Player[]>(playerData);
-  const [presIndex, setPresIndex] = useState(0);
+  const [presIndex, setPresIndex] = useState<number>(0);
+  // const [chanIndex, setChanIndex] = useState<number>(-1);
 
   const updatePresident = () => {
-    setPresIndex(presIndex);
-    let new_players = players.map((x) => x);
-    new_players[presIndex].role = "default";
-    if (presIndex !== players.length - 1) {
-      setPresIndex(presIndex + 1);
-    } else {
-      setPresIndex(0);
-    }
-    new_players[presIndex].role = "president";
-    setPlayers(new_players);
+    setPlayers((prevPlayers) => {
+      const newPlayers = [...prevPlayers];
+      newPlayers[presIndex].role = "default";
+      const newPresIndex = presIndex === players.length - 1 ? 0 : presIndex + 1;
+      newPlayers[newPresIndex].role = "president";
+      setPresIndex(newPresIndex);
+      return newPlayers;
+    });
+    updateChancellor(-1);
   };
+
+  const updateChancellor = (index: number) => {
+    setPlayers((prevPlayers) => {
+      const newPlayers = [...prevPlayers];
+      newPlayers.forEach((player, i) => {
+        if (i === index && player.role !== "president") {
+          player.role = "chancellor";
+        } else if (player.role === "chancellor") {
+          player.role = "default";
+        }
+      });
+      return newPlayers;
+    });
+  };
+
   const [drawnCards, setDrawnCards] = useState<Card[]>([]);
 
   return (
@@ -49,7 +64,9 @@ const GamePlayPage = () => {
       <div className="players-display">
         {players.map((player, index) => (
           <div key={index}>
-            <PlayerIcon player={player} />
+            <div onClick={() => updateChancellor(index)}>
+              <PlayerIcon player={player} />
+            </div>
           </div>
         ))}
         <button onClick={updatePresident}>Update President</button>
