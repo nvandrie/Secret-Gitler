@@ -29,10 +29,9 @@ const GamePlayPage = () => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
   const [players, setPlayers] = useState<Player[]>(playerData);
   const [presIndex, setPresIndex] = useState<number>(0);
-  const [chanIndex, setChanIndex] = useState<number>(-1);
+  // const [chanIndex, setChanIndex] = useState<number>(-1);
 
   const updatePresident = () => {
-    setChanIndex(-1);
     setPlayers((prevPlayers) => {
       const newPlayers = [...prevPlayers];
       newPlayers[presIndex].role = "default";
@@ -41,13 +40,14 @@ const GamePlayPage = () => {
       setPresIndex(newPresIndex);
       return newPlayers;
     });
+    updateChancellor(-1);
   };
 
   const updateChancellor = (index: number) => {
     setPlayers((prevPlayers) => {
       const newPlayers = [...prevPlayers];
       newPlayers.forEach((player, i) => {
-        if (i === index) {
+        if (i === index && player.role !== "president") {
           player.role = "chancellor";
         } else if (player.role === "chancellor") {
           player.role = "default";
