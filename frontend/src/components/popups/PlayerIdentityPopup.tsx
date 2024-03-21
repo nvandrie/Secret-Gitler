@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../../styling/popup.css'; // Styles for the component
+import liberal_identity from "/liberal_identity.png";
+import facist_identity from "/facist_identity.png"
 
 const Popup: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,11 +19,11 @@ const Popup: React.FC = () => {
       </div>
         <h1 className='title-text'>Your Identity</h1>
         <div className='identities'>
-          <div className="rectangle">
-                  <div className="inner-rectangle"></div>
+          <div className="identiy-outline">
+            <img src={liberal_identity} alt="Image" className="identity" />
           </div>
-          <div className="rectangle">
-                  <div className="inner-rectangle"></div>
+          <div className="identiy-outline">
+            <img src={liberal_identity} alt="Image" className="identity" />
           </div>
           </div>
           </div>

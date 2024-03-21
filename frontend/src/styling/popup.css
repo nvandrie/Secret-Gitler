@@ -80,6 +80,16 @@
     z-index: 100;
   }
 
+  .identiy-outline{
+    height: 210px;
+    width: 160px;
+  }
+
+  .identity{
+    height: 100%;
+    width: 100%;
+  }
+
   .right-slide-out.visible-chat{
     width:40%;
   }

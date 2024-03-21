@@ -28,19 +28,17 @@ const Home = () => {
     }
   };
 
+
+  //<h4>Email: {userProfileInfo?.email}</h4>
   return (
     <div className="GenericPage">
       <img src={text_logo} alt="Image" className="image" />
-      <div className="LandingButtonContainer">
+      <h2 className="welcome">Welcome {userProfileInfo?.name}</h2>
         <Link to="/createjoingamepage">
-          <button className="LandingButton">Start!</button>
+          <button className="start-button">Fly To Germany!</button>
         </Link>
-        <h1>Home</h1>
-        <h4>Name: {userProfileInfo?.name}</h4>
-        <h4>Email: {userProfileInfo?.email}</h4>
-        <button onClick={handleLogout}>Logout</button>
+        <button className = "logout-button" onClick={handleLogout}>Logout</button>
       </div>
-    </div>
   );
 };
 
