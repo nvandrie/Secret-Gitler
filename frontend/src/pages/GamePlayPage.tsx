@@ -3,7 +3,9 @@ import LiberalGameBoard from "../components/GameBoards/LiberalBoard";
 import FacistGameBoard from "../components/GameBoards/FacistBoard";
 import CardDrawing from "../components/DeckActions/CardDrawing";
 import CardSelecting from "../components/DeckActions/CardSelecting";
-import Deck from "../components/DeckActions/Deck";
+import Deck from "../components/DeckActions/Deck"
+import Popup from '../components/popups/PlayerIdentityPopup';
+import Chat from '../components/popups/ChatPopup';
 import PlayerIcon from "../components/PlayerIcon";
 
 interface Card {
@@ -60,6 +62,7 @@ const GamePlayPage = () => {
   const [drawnCards, setDrawnCards] = useState<Card[]>([]);
 
   return (
+    <>
     <div className="grid-container">
       <div className="players-display">
         {players.map((player, index) => (
@@ -90,9 +93,10 @@ const GamePlayPage = () => {
           <CardSelecting selectedCards={selectedCards} />
         </div>
       </div>
-      <div className="chat-pop-up"></div>
-      <div className="display-role"></div>
     </div>
+    <Chat/>
+    <Popup/>
+    </>
   );
 };
 
