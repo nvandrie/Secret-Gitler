@@ -13,7 +13,7 @@ const PlayerIcon: React.FC<PlayerIconProps> = ({ player }) => {
   return (
     <div className="player-icon">
       <div className="circle"></div>
-      <div className={player.role === "president" ? "highlighted" : ""}>
+      <div className={player.role}>
         <div className="player-name">{player.name}</div>
       </div>
     </div>
