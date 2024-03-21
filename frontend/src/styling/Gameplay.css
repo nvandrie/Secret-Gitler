@@ -1,119 +1,132 @@
 :root {
   --dark-red: #990400;
-  --medium-red: #C13423;
+  --medium-red: #c13423;
   --light-red: #e36953;
   --white: white;
   --dark-grey: #464442;
-  --light-blue: #61C8D9;
-  --medium-blue: #4BA7BA;
-  --dark-blue: #0B4E6E;
-  --beige: #F6E1C2;
+  --light-blue: #61c8d9;
+  --medium-blue: #4ba7ba;
+  --dark-blue: #0b4e6e;
+  --beige: #f6e1c2;
   --dark-beige: rgba(225, 198, 153, 0.8);
   background-color: var(--dark-grey);
 }
 
 .grid-container {
-    display: grid;
-    grid-template-columns: 200px auto auto 50px;
-    grid-template-rows: 57% 43%; 
-    height: 100vh; 
-    width: 100%; 
-  }
-  
-  .players-display {
-    grid-column: 1 / 2;
-    grid-row: 1 / span 2;
-    border: 1px solid black;
-  }
-  
-  .gameboards {
-    grid-column: 2 / 4;
-    grid-row: 1 / 2;
-    margin-top: 10px;
-    align-self: flex-start;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .draw-cards {
-    grid-column: 2 / 4;
-    grid-row: 2 / 3;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-  }
+  display: grid;
+  grid-template-columns: 200px auto auto 50px;
+  grid-template-rows: auto auto 50px;
+  height: 100vh;
+  width: 100%;
+}
 
-  .card-display {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
-    padding: 10px
-  }
+.players-display {
+  display: flex;
+  grid-column: 1 / 2;
+  grid-row: 1 / span 2;
+  border: 1px solid black;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .drawing-area {
-    padding: 10px;
-    width: 40%;
-    justify-content: center;
-    align-items: center;
-  }
+.players-display-horizontal {
+  display: flex;
+  grid-column: 1 / 2;
+  grid-row: 1 / span 2;
+  border: 1px solid black;
+  flex-direction: row;
+  align-items: center;
+}
 
-  .deck-area {
-    width: 25%
-  }
+.gameboards {
+  grid-column: 2 / 4;
+  grid-row: 1 / 2;
+  border: 1px solid black;
+}
 
-  .selection-area {
-    padding: 10px;
-    width: 35%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
+.draw-cards {
+  grid-column: 2 / 4;
+  grid-row: 2 / 3;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+}
 
-  .chat-pop-up {
-    grid-column: 4 / 5;
-    grid-row: 1 / span 2;
-    border: 1px solid black; 
-  }
+.card-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  padding: 10px;
+}
 
-  .card {
-    height: 160px;
-    background-color: var(--beige);
-  }
+.drawing-area {
+  padding: 10px;
+  width: 40%;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+}
 
-  .container {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-  
-  .rectangle {
-    width: 130px;
-    height: 180px;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--beige);
-  }
-  
-  .inner-rectangle {
-    width: 110px;
-    height: 160px;
-    background-color: var(--dark-beige);
-  }
+.deck-area {
+  padding: 10px;
+  width: 25%;
+}
 
-  .deck-text{
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    color: var(--white)
-  }
+.selection-area {
+  padding: 10px;
+  width: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+}
 
+.chat-pop-up {
+  grid-column: 4 / 5;
+  grid-row: 1 / span 2;
+  border: 1px solid black;
+}
 
+.display-role {
+  grid-row: 3 / 4;
+  grid-column: 1 / span 4;
+  border: 1px solid black;
+}
+
+.card {
+  height: 160px;
+  /* padding: 10px 10px; */
+  background-color: var(--beige);
+}
+
+.container {
+  display: flex;
+  gap: 10px; /* Adjust the gap between rectangles */
+}
+
+.rectangle {
+  width: 130px;
+  height: 180px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  background-color: var(--beige);
+}
+
+.inner-rectangle {
+  width: 110px;
+  height: 160px;
+  background-color: var(--dark-beige);
+}
+
+.deck-text {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  color: var(--white);
+}

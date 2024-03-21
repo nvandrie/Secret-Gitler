@@ -27,7 +27,7 @@ const CreateJoinGamePage = () => {
   };
 
   return (
-    <div>
+    <div className="GenericPage">
       <img src={text_logo} alt="Image" className="image" />
       <div className="ButtonContainer">
         <Link to="/lobby">

@@ -2,11 +2,9 @@ import "../styling/App.css";
 import text_logo from "/text_logo.png";
 import { Link } from "react-router-dom";
 
-
 const LandingOptions = () => {
-
   return (
-    <div>
+    <div className="GenericPage">
       <img src={text_logo} alt="Image" className="image" />
       <div className="ButtonContainer">
         <Link to="/login">
