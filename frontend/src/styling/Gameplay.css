@@ -15,7 +15,7 @@
 .grid-container {
     display: grid;
     grid-template-columns: 200px auto auto 50px;
-    grid-template-rows: auto auto 50px; 
+    grid-template-rows: 57% 43%; 
     height: 100vh; 
     width: 100%; 
   }
@@ -29,24 +29,28 @@
   .gameboards {
     grid-column: 2 / 4;
     grid-row: 1 / 2;
-    border: 1px solid black; 
+    margin-top: 10px;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   .draw-cards {
     grid-column: 2 / 4;
     grid-row: 2 / 3;
-    border: 1px solid black; 
     display: flex;
     flex-direction: row;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
+    justify-content: center;
+    align-items: flex-start;
   }
 
   .card-display {
     display: flex;
     flex-direction: row;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
+    justify-content: center;
+    align-items: center;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
     padding: 10px
@@ -55,12 +59,11 @@
   .drawing-area {
     padding: 10px;
     width: 40%;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
+    justify-content: center;
+    align-items: center;
   }
 
   .deck-area {
-    padding: 10px;
     width: 25%
   }
 
@@ -69,8 +72,8 @@
     width: 35%;
     display: flex;
     flex-direction: row;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
+    justify-content: center;
+    align-items: center;
   }
 
   .chat-pop-up {
@@ -79,21 +82,15 @@
     border: 1px solid black; 
   }
 
-  .display-role {
-    grid-row: 3 / 4;
-    grid-column: 1 / span 4;
-    border: 1px solid black; 
-  }
-
   .card {
     height: 160px;
-    /* padding: 10px 10px; */
     background-color: var(--beige);
   }
 
   .container {
     display: flex;
-    gap: 10px; /* Adjust the gap between rectangles */
+    gap: 10px;
+    align-items: flex-start;
   }
   
   .rectangle {
@@ -101,8 +98,8 @@
     height: 180px;
     border: 1px solid black;
     display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
+    justify-content: center;
+    align-items: center;
     background-color: var(--beige);
   }
   
@@ -114,7 +111,9 @@
 
   .deck-text{
     display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
+    justify-content: center;
+    align-items: flex-start;
     color: var(--white)
   }
+
+

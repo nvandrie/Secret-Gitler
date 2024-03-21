@@ -27,13 +27,13 @@ const Deck: React.FC<DeckProps> = ({ setSelectedCards }) => {
   return (
     <div className="container">
         <div className="deck">
-        <h2 className="deck-text">Draw</h2>
+        <h3 className="deck-text">Draw</h3>
             <div className="rectangle" onClick={handleDeckClick}>
                 <div className="inner-rectangle"></div>
             </div>
       </div>
       <div className="deck">
-        <h2 className="deck-text">Discard</h2>
+        <h3 className="deck-text">Discard</h3>
             <div className="rectangle">
                 <div className="inner-rectangle"></div>
             </div>

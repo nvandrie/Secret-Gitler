@@ -4,6 +4,8 @@ import FacistGameBoard from "../components/GameBoards/FacistBoard";
 import CardDrawing from "../components/DeckActions/CardDrawing";
 import CardSelecting from "../components/DeckActions/CardSelecting";
 import Deck from "../components/DeckActions/Deck"
+import Popup from '../components/popups/PlayerIdentityPopup';
+import Chat from '../components/popups/ChatPopup';
 
 interface Card {
     type: 'facist' | 'liberal';
@@ -15,6 +17,7 @@ const GamePlayPage = () => {
   const [drawnCards, setDrawnCards] = useState<Card[]>([]);
 
   return (
+    <>
     <div className="grid-container">
       <div className="players-display"></div>
       <div className="gameboards">
@@ -33,9 +36,10 @@ const GamePlayPage = () => {
         </div>
         
       </div>
-      <div className="chat-pop-up"></div>
-      <div className="display-role"></div>
     </div>
+    <Chat/>
+    <Popup/>
+    </>
   );
 };
 
