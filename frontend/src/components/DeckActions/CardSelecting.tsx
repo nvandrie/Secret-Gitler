@@ -51,14 +51,12 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   }, [selectedCards]);
 
   return (
-    <div>
     <div className="card-display">
       {selectedCards.map((card, index) => (
-        <div key={index} onClick={() => handleCardClick(card)}>
+        <div className="selection-cards" key={index} onClick={() => handleCardClick(card)}>
           {isVisible && (<img className="card" src={card.path} alt={card.type} />)}
         </div>
       ))}
-    </div>
     </div>
   );
 };
