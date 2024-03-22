@@ -103,6 +103,7 @@
 .card {
   height: 160px;
   background-color: var(--beige);
+  border-radius: 10px;
 }
 
 .container {
