@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { Link } from "react-router-dom";
 import PlayerIcon from "../components/PlayerIcon";
+import { useNavigate } from "react-router-dom";
 
 const LobbyPage: React.FC = () => {
   const variable = useSelector((state: RootState) => state.lobby.variable);
   const [players, setPlayers] = useState<Player[]>(playerData);
+  const navigate = useNavigate();
 
   return (
     <div className="GenericPage">
@@ -18,11 +19,9 @@ const LobbyPage: React.FC = () => {
           </div>
         ))}
       </div>
-      <Link to="/game">
-        <div className="ButtonContainer">
+        <div className="ButtonContainer" onClick={() => {navigate("/game")}}>
           <button className="Button">Start Game</button>
         </div>
-      </Link>
     </div>
   );
 };

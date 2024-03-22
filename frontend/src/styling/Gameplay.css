@@ -90,6 +90,10 @@
   align-items: center;
 }
 
+.selection-cards{
+  margin:10px;
+}
+
 .display-role {
   grid-row: 3 / 4;
   grid-column: 1 / span 4;
