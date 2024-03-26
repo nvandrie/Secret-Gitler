@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRouter";
 import { authenticate } from "./middleware/authMiddleware";
 import { errorHandler } from "./middleware/errorMiddleware";
+import gameRouter from "./routes/gameRouter"
 
 interface UserBasicInfo {
   _id: string;
@@ -46,7 +47,8 @@ app.listen(port, () => {
 app.use(authRouter);
 app.use("/users", authenticate, userRouter);
 app.use(errorHandler);
-app.use(lobbyRouter)
+app.use(lobbyRouter);
+app.use(gameRouter);
 
 connectUserDB();
 
