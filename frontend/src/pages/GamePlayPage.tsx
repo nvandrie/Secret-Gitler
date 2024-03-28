@@ -7,6 +7,10 @@ import Deck from "../components/DeckActions/Deck"
 import Popup from '../components/popups/PlayerIdentityPopup';
 import Chat from '../components/popups/ChatPopup';
 import PlayerIcon from "../components/PlayerIcon";
+import Vote from "../components/popups/Vote"
+import { toggleVotingActivity } from '../slices/voteSlice'
+import { useDispatch } from 'react-redux';
+
 
 interface Card {
   type: "facist" | "liberal";
@@ -31,7 +35,7 @@ const GamePlayPage = () => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
   const [players, setPlayers] = useState<Player[]>(playerData);
   const [presIndex, setPresIndex] = useState<number>(0);
-  // const [chanIndex, setChanIndex] = useState<number>(-1);
+  const dispatch = useDispatch();
 
   const updatePresident = () => {
     setPlayers((prevPlayers) => {
@@ -46,6 +50,7 @@ const GamePlayPage = () => {
   };
 
   const updateChancellor = (index: number) => {
+    dispatch(toggleVotingActivity());
     setPlayers((prevPlayers) => {
       const newPlayers = [...prevPlayers];
       newPlayers.forEach((player, i) => {
@@ -95,6 +100,7 @@ const GamePlayPage = () => {
     </div>
     <Chat/>
     <Popup/>
+    <Vote/>
     </>
   );
 };

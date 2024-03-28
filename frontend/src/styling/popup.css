@@ -134,9 +134,59 @@
     transform: rotate(180deg);
     text-align: center;
     margin-left: -30px;
-    position: fixed; /* Position the text fixed */
-    top: 55%; /* Position at 50% from the top */
-    transform-origin: top right; /* Set transform origin */
+    position: fixed;
+    top: 55%; 
+    transform-origin: top right;
     transform: translate(-50%, -50%) rotate(180deg);
+  }
+
+  .votevisible-vote {
+    z-index: 2000;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .voteBox{
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .voteContainer{
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    top: 25%;
+    left: 25%; 
+  }
+  
+  .ya,
+  .nein {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .ya_button,
+  .nein_button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .ya_button {
+    background-color: green;
+    color: white;
+  }
+  
+  .nein_button {
+    background-color: red;
+    color: white;
   }
 
