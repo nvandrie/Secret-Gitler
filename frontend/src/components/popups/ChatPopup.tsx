@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../styling/popup.css'; // Import your CSS file
+import '../../styling/popup.css';
 
 const Chat: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);

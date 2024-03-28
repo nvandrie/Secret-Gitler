@@ -11,7 +11,6 @@ import {
 
 const LogIn = () => {
   const dispatch = useAppDispatch();
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = async () => {
