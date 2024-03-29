@@ -64,8 +64,6 @@ const GamePlayPage = () => {
     });
   };
 
-  const [drawnCards, setDrawnCards] = useState<Card[]>([]);
-
   return (
     <>
     <div className="grid-container">
@@ -87,11 +85,10 @@ const GamePlayPage = () => {
         <div className="drawing-area">
           <CardDrawing
             setSelectedCards={setSelectedCards}
-            deck_cards={drawnCards}
           />
         </div>
         <div className="deck-area">
-          <Deck setSelectedCards={setDrawnCards} />
+          <Deck/>
         </div>
         <div className="selection-area">
           <CardSelecting selectedCards={selectedCards} />

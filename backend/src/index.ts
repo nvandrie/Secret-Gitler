@@ -37,8 +37,8 @@ app.use(
 );
 
 app.use(cookieParser());
-app.use(bodyParser.json()); // To recognize the req obj as a json obj
-app.use(bodyParser.urlencoded({ extended: true })); // To recognize the req obj as strings or arrays. extended true to handle nested objects also
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
@@ -49,6 +49,7 @@ app.use("/users", authenticate, userRouter);
 app.use(errorHandler);
 app.use(lobbyRouter);
 app.use(gameRouter);
+
 
 connectUserDB();
 
