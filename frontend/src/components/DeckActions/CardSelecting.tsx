@@ -28,26 +28,25 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
     const liberal_elements = useSelector((state: RootState) => state.liberalBoard.elements);
     const discardedCards = useSelector((state: RootState) => state.deck.discardedCards);
   
-    const addLiberalCard = async () => {
+    const addLiberalCard = () => {
       if (liberal_elements.length < LIBERAL_MAX_CARDS) {
         dispatch(addLiberalElement({ path: liberal_policy_card, alt: "Liberal policy card" }));
-        await axiosInstance.post('/api/remove-card', { cardToRemove: JSON.stringify("liberal") } );
       }
     };
   
-    const addFacistCard = async () => {
+    const addFacistCard = () => {
       if (facist_elements.length < FACIST_MAX_CARDS) {
         dispatch(addElement({ path: fascist_policy_card, alt: "Fascist policy card" }));
-        await axiosInstance.post('/api/remove-card', { cardToRemove: JSON.stringify("facist") } );
       }
     };
   
-    const handleCardClick = (card: Card) => {
+    const handleCardClick = async (card: Card) => {
     if (card.type === 'liberal') {
         addLiberalCard();
     } else {
         addFacistCard();
     }
+    await axiosInstance.post('/api/remove-card', { cardToRemove: JSON.stringify(card.type) } );
     setIsVisible(false);
     dispatch(setDiscardedCards(discardedCards+1))
   };

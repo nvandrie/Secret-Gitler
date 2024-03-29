@@ -26,13 +26,11 @@ const Deck: React.FC = () => {
     const handleDeckClick = async () => {
       const response = await axiosInstance.post("/api/draw-cards");
       const drawnCards = response.data.drawnCards
-      console.log(response.data)
       dispatch(setCurrentCards(drawnCards));
       dispatch(setRemainingCards(response.data.remainingCards.length));
       dispatch(setDiscardedCards(response.data.discardCards.length - 3))
     };
 
-    
     return (
         <div className="container">
             <div className="deck">

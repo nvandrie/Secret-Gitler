@@ -51,7 +51,6 @@ const drawCards = (req: Request, res: Response): void => {
     deck.discardCards.push(...deck.drawnCards)
 
     res.json(deck);
-
 };
 
 
@@ -63,10 +62,13 @@ const removeCard = (req: Request, res: Response): void => {
         res.status(404).json({ message: "Deck not found" });
         return;
     }
-
     //remove card that has been played from deck
     deck.allCards.splice(deck.allCards.indexOf(cardToRemove), 1);
     deck.discardCards.splice(deck.discardCards.indexOf(cardToRemove), 1);
+
+    res.json(deck);
 };
 
 export { drawCards, newDeck, removeCard };
+
+
