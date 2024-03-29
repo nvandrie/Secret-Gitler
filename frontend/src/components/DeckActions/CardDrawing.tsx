@@ -1,5 +1,9 @@
-import React, { useState, useEffect  } from 'react';
-import "../../styling/Gameplay.css";
+import React, { useState, useEffect } from 'react';
+import fascist_policy_card from "/fascist_policy.png";
+import liberal_policy_card from "/liberal_policy.png";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from "../../store"
+import { setDiscardedCards } from '../../slices/deckSlice';
 
 interface Card {
   type: 'facist' | 'liberal';
@@ -8,26 +12,32 @@ interface Card {
 
 interface CardDrawingProps {
   setSelectedCards: (cards: Card[]) => void;
-  deck_cards: Card[];
 }
 
-const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards, deck_cards }) => {
+const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards }) => {
   const [selectedCards, setSelectedCardsState] = useState<Card[]>([]);
   const [isCardsVisible, setIsCardsVisible] = useState(true);
+  const dispatch = useDispatch();
+  const currentCards = useSelector((state: RootState) => state.deck.currentCards);
+  const discardedCards = useSelector((state: RootState) => state.deck.discardedCards);
+
+  const convertDataToCards = (data: string[]): Card[] => {
+    return data.map(type => ({ type: type as 'facist' | 'liberal', path: type === 'facist' ? fascist_policy_card : liberal_policy_card }));
+  };
 
   useEffect(() => {
     setIsCardsVisible(true);
     setSelectedCardsState([]);
-  }, [deck_cards]);
+  }, [currentCards]);
 
   const handleCardClick = (index: number) => {
-    if (selectedCards.length < 2) {
-      const updatedSelectedCards = [...selectedCards, deck_cards[index]];
-      setSelectedCardsState(updatedSelectedCards);
-
-      if (updatedSelectedCards.length === 2) {
-        setSelectedCards(updatedSelectedCards);
-        setIsCardsVisible(false)
+    if (isCardsVisible && selectedCards.length < 2) {
+      const clickedCard = convertDataToCards([currentCards[index]])[0];
+      setSelectedCardsState([...selectedCards, clickedCard]);
+      if (selectedCards.length === 1) {
+        setSelectedCards([...selectedCards, clickedCard]);
+        setIsCardsVisible(false);
+        dispatch(setDiscardedCards(discardedCards + 1));
       }
     }
   };
@@ -35,7 +45,7 @@ const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards, deck_cards 
   return (
     <div>
       <div className="card-display">
-        {deck_cards.map((card, index) => (
+        {convertDataToCards(currentCards).map((card, index) => (
           <div key={index} onClick={() => handleCardClick(index)}>
             {isCardsVisible && (<img className="card" src={card.path} alt={card.type} />)}
           </div>
@@ -46,3 +56,5 @@ const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards, deck_cards 
 };
 
 export default CardDrawing;
+
+

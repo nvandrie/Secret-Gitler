@@ -1,39 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import fascist_policy_card from "/fascist_policy.png";
-import liberal_policy_card from "/liberal_policy.png";
 import '../../styling/Gameplay.css';
 import axiosInstance from '../../api/axiosInstance';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from "../../store"
+import { setCurrentCards, setDiscardedCards, setRemainingCards } from '../../slices/deckSlice';
 
-
-interface Card {
-    type: 'liberal' | 'facist';
-    path: string;
-}
-
-interface DeckProps {
-    setSelectedCards: (cards: Card[]) => void;
-}
-
-const Deck: React.FC<DeckProps> = ({ setSelectedCards }) => {
-  const [deck, setDeck] = useState<Card[]>([]);
-  const [remainingCardsLength, setRemainingCardsLength] = useState(0)
-
-  const convertDataToCards = (data: string[]): Card[] => {
-    const newCards: Card[] = [];
-    for (let i = 0; i < data.length; i++) {
-      const type = data[i] as 'facist' | 'liberal';
-      newCards.push({ type, path: type === 'facist' ? fascist_policy_card : liberal_policy_card });
-    }
-    return newCards;
-  };
-
+const Deck: React.FC = () => {
+  const dispatch = useDispatch();
+  const remainingCards = useSelector((state: RootState) => state.deck.remainingCards);
+  const discardedCards = useSelector((state: RootState) => state.deck.discardedCards);
 
     useEffect(() => {
         const createNewDeck = async () => {
             try {
-                const response = await axiosInstance.post('/api/newDeck');
-                setDeck(convertDataToCards(response.data.remainingCards));
-                setRemainingCardsLength(response.data.remainingCards.length)
+                await axiosInstance.post('/api/new-deck');
+                dispatch(setRemainingCards(17));
+                dispatch(setDiscardedCards(0));
             } catch (error) {
                 console.error('Error creating new deck:', error);
             }
@@ -41,24 +23,23 @@ const Deck: React.FC<DeckProps> = ({ setSelectedCards }) => {
         createNewDeck();
     }, []);
 
-    const handleDeckClick = async () => {    
-      const drawnCards = deck.slice(0, 3);
-      setDeck(deck.slice(3));
-      setSelectedCards(drawnCards);
-    
-      const response = await axiosInstance.post('/api/update-cards', { discardCards: drawnCards })
-        setDeck(convertDataToCards(response.data.remainingCards))
-        setRemainingCardsLength(response.data.remainingCards.length)
+    const handleDeckClick = async () => {
+      const response = await axiosInstance.post("/api/draw-cards");
+      const drawnCards = response.data.drawnCards
+      console.log(response.data)
+      dispatch(setCurrentCards(drawnCards));
+      dispatch(setRemainingCards(response.data.remainingCards.length));
+      dispatch(setDiscardedCards(response.data.discardCards.length - 3))
     };
-    
 
+    
     return (
         <div className="container">
             <div className="deck">
                 <h3 className="deck-text">Draw</h3>
                 <div className="rectangle" onClick={handleDeckClick}>
                     <div className="inner-rectangle">
-                      <p className="cards-count">{remainingCardsLength}</p>
+                      <p className="cards-count">{remainingCards}</p>
                     </div>
                 </div>
             </div>
@@ -66,7 +47,7 @@ const Deck: React.FC<DeckProps> = ({ setSelectedCards }) => {
                 <h3 className="deck-text">Discard</h3>
                 <div className="rectangle">
                     <div className="inner-rectangle">
-                      <p className="cards-count">{17 - remainingCardsLength}</p>
+                      <p className="cards-count">{discardedCards}</p>
                     </div>
                 </div>
             </div>

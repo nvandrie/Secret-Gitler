@@ -13,19 +13,20 @@ const Vote: React.FC = () => {
   };
 
   return (
-    <div className="voteContainer">  
-      {votingActive && (
-        <div className={`vote${votingActive ? 'visibile-vote' : ''}`}>
-          <div className='voteBox'>
-            <div className="ya">
-              <button className="ya_button" onClick={handleToggleVoting}>ya</button>
+    <div>
+      {votingActive && (<div className="voteContainer">  
+          <div className={`vote${votingActive ? 'visibile-vote' : ''}`}>
+            <div className='voteBox'>
+              <div className="ya">
+                <button className="ya_button" onClick={handleToggleVoting}>ya</button>
+              </div>
+              <div className="nein">
+              <button className="nein_button" onClick={handleToggleVoting}>nein</button>
+              </div>
+              </div>
             </div>
-            <div className="nein">
-            <button className="nein_button" onClick={handleToggleVoting}>nein</button>
-            </div>
-            </div>
-          </div>)}
-    </div>  
+      </div>)}
+    </div>
   );
 };
 

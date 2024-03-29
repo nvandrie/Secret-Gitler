@@ -6,6 +6,8 @@ import fascist_policy_card from "/fascist_policy.png";
 import liberal_policy_card from "/liberal_policy.png";
 import { addElement } from "../../slices/facistBoardSlice";
 import { addLiberalElement } from "../../slices/liberalBoardSlice";
+import { setDiscardedCards } from '../../slices/deckSlice';
+import axiosInstance from '../../api/axiosInstance';
 
 interface Card {
   type: 'facist' | 'liberal';
@@ -24,16 +26,19 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
     const [isVisible, setIsVisible] = useState(true);
     const facist_elements = useSelector((state: RootState) => state.facistBoard.elements);
     const liberal_elements = useSelector((state: RootState) => state.liberalBoard.elements);
+    const discardedCards = useSelector((state: RootState) => state.deck.discardedCards);
   
-    const addLiberalCard = () => {
+    const addLiberalCard = async () => {
       if (liberal_elements.length < LIBERAL_MAX_CARDS) {
         dispatch(addLiberalElement({ path: liberal_policy_card, alt: "Liberal policy card" }));
+        await axiosInstance.post('/api/remove-card', { cardToRemove: JSON.stringify("liberal") } );
       }
     };
   
-    const addFacistCard = () => {
+    const addFacistCard = async () => {
       if (facist_elements.length < FACIST_MAX_CARDS) {
         dispatch(addElement({ path: fascist_policy_card, alt: "Fascist policy card" }));
+        await axiosInstance.post('/api/remove-card', { cardToRemove: JSON.stringify("facist") } );
       }
     };
   
@@ -44,6 +49,7 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
         addFacistCard();
     }
     setIsVisible(false);
+    dispatch(setDiscardedCards(discardedCards+1))
   };
 
   useEffect(() => {
