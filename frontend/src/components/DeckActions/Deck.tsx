@@ -3,12 +3,14 @@ import '../../styling/Gameplay.css';
 import axiosInstance from '../../api/axiosInstance';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from "../../store"
-import { setCurrentCards, setDiscardedCards, setRemainingCards } from '../../slices/deckSlice';
+import { setCurrentCards, setDiscardedCards, setRemainingCards, toggleDraw } from '../../slices/deckSlice';
 
 const Deck: React.FC = () => {
   const dispatch = useDispatch();
   const remainingCards = useSelector((state: RootState) => state.deck.remainingCards);
   const discardedCards = useSelector((state: RootState) => state.deck.discardedCards);
+  const canDraw = useSelector((state: RootState) => state.deck.canDraw);
+
 
     useEffect(() => {
         const createNewDeck = async () => {
@@ -24,11 +26,14 @@ const Deck: React.FC = () => {
     }, []);
 
     const handleDeckClick = async () => {
-      const response = await axiosInstance.post("/api/draw-cards");
-      const drawnCards = response.data.drawnCards
-      dispatch(setCurrentCards(drawnCards));
-      dispatch(setRemainingCards(response.data.remainingCards.length));
-      dispatch(setDiscardedCards(response.data.discardCards.length - 3))
+        if (canDraw) {
+            const response = await axiosInstance.post("/api/draw-cards");
+            const drawnCards = response.data.drawnCards
+            dispatch(setCurrentCards(drawnCards));
+            dispatch(setRemainingCards(response.data.remainingCards.length));
+            dispatch(setDiscardedCards(response.data.discardCards.length - 3))
+            dispatch(toggleDraw())
+        }
     };
 
     return (

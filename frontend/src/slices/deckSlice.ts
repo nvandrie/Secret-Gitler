@@ -5,12 +5,15 @@ interface DeckState {
   remainingCards: number;
   currentCards: string[];
   discardedCards: number;
+  canDraw: boolean
 }
 
 const initialState: DeckState = {
   remainingCards: 17,
   currentCards: [],
-  discardedCards: 0
+  discardedCards: 0,
+  canDraw: false
+
 };
 
 const deckSlice = createSlice({
@@ -26,9 +29,12 @@ const deckSlice = createSlice({
     setDiscardedCards(state, action: PayloadAction<number>) {
         state.discardedCards = action.payload;
       },
+      toggleDraw(state) {
+        state.canDraw = !state.canDraw;
+      }
   },
 });
 
-export const { setCurrentCards, setRemainingCards, setDiscardedCards } = deckSlice.actions;
+export const { setCurrentCards, setRemainingCards, setDiscardedCards, toggleDraw } = deckSlice.actions;
 
 export default deckSlice.reducer;

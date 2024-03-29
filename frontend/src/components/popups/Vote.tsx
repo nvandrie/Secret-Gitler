@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from "../../store"
 import { toggleVotingActivity } from '../../slices/voteSlice'
+import { toggleDraw } from '../../slices/deckSlice'
 import '../../styling/popup.css';
 
 const Vote: React.FC = () => {
@@ -10,6 +11,7 @@ const Vote: React.FC = () => {
 
   const handleToggleVoting = () => {
     dispatch(toggleVotingActivity());
+    dispatch(toggleDraw())
   };
 
   return (
