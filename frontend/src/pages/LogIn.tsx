@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import text_logo from "/text_logo.png";
+import text_logo from "/logos/text_logo.png";
 import { login } from "../slices/authSlice";
 import { useAppDispatch } from "../hooks/redux-hooks";
 import {
