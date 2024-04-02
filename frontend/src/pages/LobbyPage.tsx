@@ -3,11 +3,18 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import PlayerIcon from "../components/PlayerIcon";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from '../api/axiosInstance';
+
 
 const LobbyPage: React.FC = () => {
   const variable = useSelector((state: RootState) => state.lobby.variable);
   const [players, setPlayers] = useState<Player[]>(playerData);
   const navigate = useNavigate();
+
+  const startGame = async () => {
+    await axiosInstance.post('/api/create-game');
+    navigate("/game");
+  }
 
   return (
     <div className="GenericPage">
@@ -19,7 +26,7 @@ const LobbyPage: React.FC = () => {
           </div>
         ))}
       </div>
-        <div className="ButtonContainer" onClick={() => {navigate("/game")}}>
+        <div className="ButtonContainer" onClick={startGame}>
           <button className="Button">Start Game</button>
         </div>
     </div>

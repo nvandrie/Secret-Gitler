@@ -43,10 +43,14 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
     const handleCardClick = async (card: Card) => {
     if (card.type === 'liberal') {
         addLiberalCard();
+        await axiosInstance.post('/api/add-liberal');
     } else {
         addFacistCard();
+        await axiosInstance.post('/api/add-fascist');
+
     }
     await axiosInstance.post('/api/remove-card', { cardToRemove: JSON.stringify(card.type) } );
+    console.log("here")
     setIsVisible(false);
     dispatch(setDiscardedCards(discardedCards+1))
   };
