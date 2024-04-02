@@ -11,7 +11,6 @@ const Home = () => {
   const navigate = useNavigate();
   const [animate, setAnimate] = useState(false);
 
-
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
   const userProfileInfo = useAppSelector((state) => state.auth.userProfileData);
 
