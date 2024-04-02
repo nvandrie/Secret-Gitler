@@ -50,7 +50,9 @@ const GamePlayPage = () => {
   };
 
   const updateChancellor = (index: number) => {
-    dispatch(toggleVotingActivity());
+    if (index !== -1){
+      dispatch(toggleVotingActivity());
+    }
     setPlayers((prevPlayers) => {
       const newPlayers = [...prevPlayers];
       newPlayers.forEach((player, i) => {
@@ -63,8 +65,6 @@ const GamePlayPage = () => {
       return newPlayers;
     });
   };
-
-  const [drawnCards, setDrawnCards] = useState<Card[]>([]);
 
   return (
     <>
@@ -87,11 +87,10 @@ const GamePlayPage = () => {
         <div className="drawing-area">
           <CardDrawing
             setSelectedCards={setSelectedCards}
-            deck_cards={drawnCards}
           />
         </div>
         <div className="deck-area">
-          <Deck setSelectedCards={setDrawnCards} />
+          <Deck/>
         </div>
         <div className="selection-area">
           <CardSelecting selectedCards={selectedCards} />
