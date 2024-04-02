@@ -50,7 +50,9 @@ const GamePlayPage = () => {
   };
 
   const updateChancellor = (index: number) => {
-    dispatch(toggleVotingActivity());
+    if (index !== -1){
+      dispatch(toggleVotingActivity());
+    }
     setPlayers((prevPlayers) => {
       const newPlayers = [...prevPlayers];
       newPlayers.forEach((player, i) => {
