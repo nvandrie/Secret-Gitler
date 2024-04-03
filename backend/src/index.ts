@@ -10,6 +10,8 @@ import userRouter from "./routes/userRouter";
 import { authenticate } from "./middleware/authMiddleware";
 import { errorHandler } from "./middleware/errorMiddleware";
 import gameRouter from "./routes/gameRouter"
+import WebSocket from "ws";
+import http from 'http';
 
 interface UserBasicInfo {
   _id: string;
@@ -29,20 +31,23 @@ const app = express();
 const port = 3000;
 app.use(helmet());
 
-app.use(
-  cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-  })
-);
+const whitelist = ['http://localhost:5173'];
+const corsOptions: cors.CorsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
 app.use(authRouter);
 app.use("/users", authenticate, userRouter);
@@ -50,6 +55,31 @@ app.use(errorHandler);
 app.use(lobbyRouter);
 app.use(gameRouter);
 
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+wss.on('connection', (ws: WebSocket) => {
+  console.log('Client connected');
+
+  ws.on('message', (message: string) => {
+    console.log(`Received message: ${message}`);
+    // Handle messages from clients
+    // For example, broadcast to all clients
+    wss.clients.forEach(client => {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(message);
+      }
+    });
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
 
 connectUserDB();
 

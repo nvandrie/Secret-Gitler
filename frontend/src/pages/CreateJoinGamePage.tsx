@@ -3,28 +3,19 @@ import text_logo from "/logos/text_logo.png";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setVariable } from "../slices/lobbySlice";
+import axiosInstance from "../api/axiosInstance";
+
+
 
 const CreateJoinGamePage = () => {
   const dispatch = useDispatch();
 
   const createLobby = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/create-lobby", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to create lobby");
-      }
-
-      const data = await response.json();
-      console.log("Created lobby with ID:", data.id);
-      dispatch(setVariable(data.id));
-    } catch (error) {}
+    const response = await axiosInstance.post("/api/create-lobby");
+    console.log("Created lobby with ID:", response.data.id);
+    dispatch(setVariable(response.data.id));
   };
+
 
   return (
     <div className="GenericPage">
