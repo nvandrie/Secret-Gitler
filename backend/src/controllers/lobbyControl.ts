@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import { Lobby } from "../models/Lobby";
+import { broadcastMessage } from "../index"
+
+let lobbies: Lobby[] = [];
 
 const createLobby = asyncHandler(async (req: Request, res: Response) => {
-    let lobbies: Lobby[] = [];
 
     // Generate a unique ID for the lobby
     const id = Math.random().toString(36).substring(7);
@@ -20,5 +22,35 @@ const createLobby = asyncHandler(async (req: Request, res: Response) => {
     // Send a success response with the ID of the created lobby
     res.json({ id });
   });
+
+  const addPlayer = (req: Request, res: Response): void => {
+    const playerId = req.body.player;
+    const lobbyId = req.body.lobbyCode;
+
+    // Find the lobby with the given lobbyId
+    const lobbyIndex = lobbies.findIndex((lobby) => lobby.id === lobbyId);
+
+    // Check if the lobby exists
+    if (lobbyIndex === -1) {
+        res.status(404).json({ error: "Lobby not found" });
+        return;
+    }
+
+    // Add the player to the lobby's list of players
+    lobbies[lobbyIndex].players.push(playerId);
+
+    broadcastMessage({ type: 'new_player', player: playerId });
+
+    res.json(lobbies[lobbyIndex]);
+};
+
+const getLobby = (req: Request, res: Response) => {
+  const lobbyId = req.body.lobbyId
+
+  const lobbyIndex = lobbies.findIndex((lobby) => lobby.id === lobbyId);
+  const lobby = lobbies[lobbyIndex]
+
+  res.json(lobby);
+};
   
-  export { createLobby };
+  export { createLobby, addPlayer, getLobby };
