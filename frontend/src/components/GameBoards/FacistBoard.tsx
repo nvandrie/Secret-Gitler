@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import fascist_board from "/fascist_board.png";
+import fascist_board from "/boards/fascist_board.png";
 
 interface GameBoardProps {}
 

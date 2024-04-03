@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store.ts";
-import liberal_board from "/liberal_board.png";
+import liberal_board from "/boards/liberal_board.png";
 
 interface GameBoardProps {}
 

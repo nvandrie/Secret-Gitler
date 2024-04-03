@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import fascist_policy_card from "/fascist_policy.png";
-import liberal_policy_card from "/liberal_policy.png";
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from "../../store"
-import { setDiscardedCards } from '../../slices/deckSlice';
+import React, { useState, useEffect } from "react";
+import fascist_policy_card from "/policy_cards/fascist_policy.png";
+import liberal_policy_card from "/policy_cards/liberal_policy.png";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
+import { setDiscardedCards } from "../../slices/deckSlice";
 
 interface Card {
-  type: 'facist' | 'liberal';
+  type: "facist" | "liberal";
   path: string;
 }
 
@@ -18,11 +18,18 @@ const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards }) => {
   const [selectedCards, setSelectedCardsState] = useState<Card[]>([]);
   const [isCardsVisible, setIsCardsVisible] = useState(true);
   const dispatch = useDispatch();
-  const currentCards = useSelector((state: RootState) => state.deck.currentCards);
-  const discardedCards = useSelector((state: RootState) => state.deck.discardedCards);
+  const currentCards = useSelector(
+    (state: RootState) => state.deck.currentCards
+  );
+  const discardedCards = useSelector(
+    (state: RootState) => state.deck.discardedCards
+  );
 
   const convertDataToCards = (data: string[]): Card[] => {
-    return data.map(type => ({ type: type as 'facist' | 'liberal', path: type === 'facist' ? fascist_policy_card : liberal_policy_card }));
+    return data.map((type) => ({
+      type: type as "facist" | "liberal",
+      path: type === "facist" ? fascist_policy_card : liberal_policy_card,
+    }));
   };
 
   useEffect(() => {
@@ -47,7 +54,9 @@ const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards }) => {
       <div className="card-display">
         {convertDataToCards(currentCards).map((card, index) => (
           <div key={index} onClick={() => handleCardClick(index)}>
-            {isCardsVisible && (<img className="card" src={card.path} alt={card.type} />)}
+            {isCardsVisible && (
+              <img className="card" src={card.path} alt={card.type} />
+            )}
           </div>
         ))}
       </div>
@@ -56,5 +65,3 @@ const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards }) => {
 };
 
 export default CardDrawing;
-
-

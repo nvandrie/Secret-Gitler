@@ -1,5 +1,5 @@
 import "../styling/App.css";
-import text_logo from "/text_logo.png";
+import text_logo from "/logos/text_logo.png";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setVariable } from "../slices/lobbySlice";
