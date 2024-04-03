@@ -67,10 +67,8 @@ wss.on('connection', (ws: WebSocket) => {
 
   ws.on('message', (message: string) => {
     console.log(`Received message: ${message}`);
-    // Handle messages from clients
-    // For example, broadcast to all clients
     wss.clients.forEach(client => {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
+      if (client.readyState === WebSocket.OPEN) {
         client.send(message);
       }
     });
@@ -80,6 +78,17 @@ wss.on('connection', (ws: WebSocket) => {
     console.log('Client disconnected');
   });
 });
+
+const broadcastMessage = (message: any) => {
+  const jsonMessage = JSON.stringify(message);
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(jsonMessage);
+    }
+  });
+};
+
+export { broadcastMessage };
 
 connectUserDB();
 

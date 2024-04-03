@@ -12,6 +12,7 @@ import SignUp from "./SignUp";
 import LogIn from "./LogIn";
 import { useEffect } from 'react';
 import { useAppSelector } from "../hooks/redux-hooks";
+import JoinLobby from "../components/Join";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
         </Route>
         <Route element={<ProtectedLayout />}>
+          <Route path="/join" element={<JoinLobby />} />
           <Route path="/home" element={<Home />} />
           <Route path="/lobby" element={<LobbyPage />} />
           <Route path="/createjoingamepage" element={<CreateJoinGamePage />} />

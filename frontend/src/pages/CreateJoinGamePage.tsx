@@ -4,16 +4,20 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setVariable } from "../slices/lobbySlice";
 import axiosInstance from "../api/axiosInstance";
-
+import { useAppSelector } from "../hooks/redux-hooks";
 
 
 const CreateJoinGamePage = () => {
   const dispatch = useDispatch();
+  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
+
 
   const createLobby = async () => {
     const response = await axiosInstance.post("/api/create-lobby");
     console.log("Created lobby with ID:", response.data.id);
     dispatch(setVariable(response.data.id));
+    const lobby = await axiosInstance.post("/api/add-player", {player: basicUserInfo?.name, lobbyCode: response.data.id});
+    console.log("Lobby: ", lobby.data)
   };
 
 
@@ -26,7 +30,7 @@ const CreateJoinGamePage = () => {
             Create Game
           </button>
         </Link>
-        <Link to="/lobby">
+        <Link to="/join">
           <button className="Button">Join Game</button>
         </Link>
       </div>
