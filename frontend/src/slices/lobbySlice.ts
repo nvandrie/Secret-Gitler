@@ -16,14 +16,11 @@ const lobbySlice = createSlice({
   reducers: {
     setVariable: (state, action: PayloadAction<string>) => {
       state.variable = action.payload;
-    },
-    addPlayer: (state, action: PayloadAction<string>) => {
-      state.players.push(action.payload);
     }
   }
 });
 
-export const { setVariable, addPlayer } = lobbySlice.actions;
+export const { setVariable } = lobbySlice.actions;
 
 export default lobbySlice.reducer;
 

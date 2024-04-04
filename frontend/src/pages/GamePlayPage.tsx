@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LiberalGameBoard from "../components/GameBoards/LiberalBoard";
 import FacistGameBoard from "../components/GameBoards/FacistBoard";
 import CardDrawing from "../components/DeckActions/CardDrawing";
@@ -6,11 +6,13 @@ import CardSelecting from "../components/DeckActions/CardSelecting";
 import Deck from "../components/DeckActions/Deck"
 import Popup from '../components/popups/PlayerIdentityPopup';
 import Chat from '../components/popups/ChatPopup';
-import PlayerIcon from "../components/PlayerIcon";
+import PlayerIconGame from "../components/PlayerIconGame";
 import Vote from "../components/popups/Vote"
 import { toggleVotingActivity } from '../slices/voteSlice'
 import { useDispatch } from 'react-redux';
-
+import axiosInstance from '../api/axiosInstance';
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 interface Card {
   type: "facist" | "liberal";
@@ -20,22 +22,17 @@ interface Card {
 interface Player {
   name: string;
   role: "president" | "chancellor" | "default";
+  identity: "fascist" | "hitler" | "liberal"
 }
-
-const playerData: Player[] = [
-  { name: "Player1", role: "president" },
-  { name: "Player2", role: "default" },
-  { name: "Player3", role: "default" },
-  { name: "Player4", role: "default" },
-  { name: "Player5", role: "default" },
-  { name: "Player6", role: "default" },
-];
 
 const GamePlayPage = () => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
-  const [players, setPlayers] = useState<Player[]>(playerData);
+  const [players, setPlayers] = useState<Player[]>([]);
   const [presIndex, setPresIndex] = useState<number>(0);
   const dispatch = useDispatch();
+  const lobbyId = useSelector((state: RootState) => state.lobby.variable);
+
+
 
   const updatePresident = () => {
     setPlayers((prevPlayers) => {
@@ -66,14 +63,28 @@ const GamePlayPage = () => {
     });
   };
 
+
+  useEffect(() => {
+    const initializePlayers = async () => {
+      try {
+        const lobby = await axiosInstance.post(`/api/get-lobby`, { lobbyId: lobbyId });
+        const response = await axiosInstance.post(`/api/initalize-players`, { players: JSON.stringify(lobby.data.players) });
+        setPlayers(response.data);
+      } catch (error) {
+        console.error("Error fetching players:", error);
+      }
+    };
+    initializePlayers();
+  }, []);
+
   return (
     <>
     <div className="grid-container">
       <div className="players-display">
-        {players.map((player, index) => (
+      {players && players.map((player, index) => (
           <div key={index}>
             <div onClick={() => updateChancellor(index)}>
-              <PlayerIcon player={player} />
+              <PlayerIconGame player={player} />
             </div>
           </div>
         ))}

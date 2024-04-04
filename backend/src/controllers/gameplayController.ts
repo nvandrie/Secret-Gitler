@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Gameplay } from "../models/Gameplay";
+import { broadcastMessage } from "../index"
+
 
 let game: Gameplay | null = null;
 
@@ -19,7 +21,52 @@ const createGame = (req: Request, res: Response): void => {
         hitler: ""
     };
 
+    broadcastMessage({ type: 'start_game' });
     res.json(true);
+};
+
+function shuffle(toShuffle: string[]) {
+    for (let i = toShuffle.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [toShuffle[i], toShuffle[j]] = [toShuffle[j], toShuffle[i]];
+    }
+    return toShuffle;
+}
+
+const initializePlayers = (req: Request, res: Response): void => {
+    interface Player {
+        name: string;
+        role: "president" | "chancellor" | "default";
+        identity: "fascist" | "hitler" | "liberal"
+    }
+
+    const playerString = req.body.players;
+    const players: string[] = JSON.parse(playerString);
+
+    const shuffledPlayers = shuffle(players);
+
+    // Initialize player data
+    const playerData: Player[] = shuffledPlayers.map((player, index) => {
+        let role: "president" | "chancellor" | "default" = "default";
+        let identity: "fascist" | "hitler" | "liberal" = "liberal";
+
+        // Assign roles and identities based on index
+        if (index === 0) {
+            role = "president";
+        }
+
+        if (index === 3) {
+            identity = "fascist";
+        } else if (index === 4) {
+            identity = "hitler";
+        }
+
+        const shuffledPlayers = shuffle(players);
+
+        return { name: player, role, identity };
+    });
+
+    res.json(playerData);
 };
 
 
@@ -82,4 +129,5 @@ const setPresident = (req: Request, res: Response): void => {
 };
 
 
-export { addFascist, addLiberal, setChancellor, setPresident, createGame }
+
+export { addFascist, addLiberal, setChancellor, setPresident, createGame, initializePlayers }

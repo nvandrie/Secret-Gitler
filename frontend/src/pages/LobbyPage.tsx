@@ -29,7 +29,6 @@ const LobbyPage: React.FC = () => {
     socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
       if (message.type === 'new_player') {
-        console.log(message.player)
         setPlayers(prevPlayers => {
           if (!prevPlayers) {
             return [message.player];
@@ -37,12 +36,16 @@ const LobbyPage: React.FC = () => {
           return [...prevPlayers, message.player];
         });
       }
+      if (message.type === 'start_game') {
+        navigate('/game');
+      }
     };
   
     return () => {
       socket.close();
     };
   }, []);
+
 
   const startGame = async () => {
     await axiosInstance.post('/api/create-game');
