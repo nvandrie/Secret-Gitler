@@ -71,6 +71,7 @@ const GamePlayPage = () => {
           players: JSON.stringify(lobby.data.players),
         });
         setPlayers(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error("Error fetching players:", error);
       }
@@ -80,32 +81,34 @@ const GamePlayPage = () => {
 
   return (
     <>
-      <div className="grid-container">
-        <div className="players-display">
-          {players &&
-            players.map((player, index) => (
-              <div key={index}>
-                <div onClick={() => updateChancellor(index)}>
-                  <PlayerIconGame player={player} />
-                </div>
-              </div>
-            ))}
-          <button onClick={updatePresident}>Update President</button>
+
+    <div className="grid-container">
+      <div className="players-display">
+      {players && players.map((player, index) => (
+          <div key={index}>
+            <div onClick={() => updateChancellor(index)}>
+              <PlayerIconGame player={player} />
+            </div>
+          </div>
+        ))}
+        <button onClick={updatePresident}>Update President</button>
+      </div>
+      <div className="gameboards">
+        <LiberalGameBoard />
+        <FascistGameBoard />
+      </div>
+      <div className="draw-cards">
+        <div className="drawing-area">
+          <CardDrawing setSelectedCards={setSelectedCards}/>
+          {/* setSelectedCards={setSelectedCards} */}
         </div>
-        <div className="gameboards">
-          <LiberalGameBoard />
-          <FascistGameBoard />
+        <div className="deck-area">
+          <Deck/>
         </div>
-        <div className="draw-cards">
-          <div className="drawing-area">
-            <CardDrawing setSelectedCards={setSelectedCards} />
-          </div>
-          <div className="deck-area">
-            <Deck />
-          </div>
-          <div className="selection-area">
-            <CardSelecting selectedCards={selectedCards} />
-          </div>
+
+        <div className="selection-area">
+          <CardSelecting selectedCards={selectedCards}/>
+          {/* selectedCards={selectedCards} */}
         </div>
       </div>
       <Chat />

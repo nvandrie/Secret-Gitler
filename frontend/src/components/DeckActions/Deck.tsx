@@ -25,11 +25,29 @@ const Deck: React.FC = () => {
         createNewDeck();
     }, []);
 
+    useEffect(() => {
+        const socket = new WebSocket('ws://localhost:3000');
+      
+        socket.onmessage = async (event) => {
+          const message = JSON.parse(event.data);
+          if (message.type === 'draw_cards') {
+            const response = await axiosInstance.post("/api/get-cards");
+            dispatch(setCurrentCards(response.data.drawnCards));
+            dispatch(setRemainingCards(response.data.remainingCards.length));
+            dispatch(setDiscardedCards(response.data.discardCards.length - 3))
+            dispatch(toggleDraw())
+          }
+        };
+      
+        return () => {
+          socket.close();
+        };
+      }, []);
+
     const handleDeckClick = async () => {
         if (canDraw) {
             const response = await axiosInstance.post("/api/draw-cards");
-            const drawnCards = response.data.drawnCards
-            dispatch(setCurrentCards(drawnCards));
+            dispatch(setCurrentCards(response.data.drawnCards));
             dispatch(setRemainingCards(response.data.remainingCards.length));
             dispatch(setDiscardedCards(response.data.discardCards.length - 3))
             dispatch(toggleDraw())
