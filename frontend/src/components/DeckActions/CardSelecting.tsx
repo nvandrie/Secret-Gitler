@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import fascist_policy_card from "/policy_cards/fascist_policy.png";
 import liberal_policy_card from "/policy_cards/liberal_policy.png";
-import { addElement } from "../../slices/facistBoardSlice";
+import { addElement } from "../../slices/fascistBoardSlice";
 import { addLiberalElement } from "../../slices/liberalBoardSlice";
 import { setDiscardedCards } from "../../slices/deckSlice";
 import axiosInstance from "../../api/axiosInstance";
 
 interface Card {
-  type: "facist" | "liberal"
+  type: "fascist" | "liberal";
   path: string;
 }
 
@@ -24,8 +24,9 @@ const LIBERAL_MAX_CARDS = 5;
 const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(true);
-  const facist_elements = useSelector(
-    (state: RootState) => state.facistBoard.elements 
+
+  const fascist_elements = useSelector(
+    (state: RootState) => state.fascistBoard.elements
   );
   const liberal_elements = useSelector(
     (state: RootState) => state.liberalBoard.elements
@@ -39,8 +40,9 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
     }
   };
 
+
   const addFascistCard = () => {
-    if (facist_elements.length < FASCIST_MAX_CARDS) {
+    if (fascist_elements.length < FASCIST_MAX_CARDS) {
       dispatch(
         addElement({ path: fascist_policy_card, alt: "Fascist policy card" })
       );

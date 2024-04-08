@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../styling/popup.css"; // Styles for the component
 import liberal_identity from "/identities/liberal_identity.png";
-import facist_identity from "/identities/facist_identity.png";
+import fascist_identity from "/identities/fascist_identity.png";
 
 const Popup: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
