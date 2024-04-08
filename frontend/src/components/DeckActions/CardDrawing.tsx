@@ -4,6 +4,7 @@ import liberal_policy_card from "/policy_cards/liberal_policy.png";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store";
 import { setDiscardedCards } from "../../slices/deckSlice";
+import axiosInstance from "../../api/axiosInstance";
 
 interface Card {
   type: "facist" | "liberal";
@@ -21,9 +22,6 @@ const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards }) => {
   const currentCards = useSelector(
     (state: RootState) => state.deck.currentCards
   );
-  const discardedCards = useSelector(
-    (state: RootState) => state.deck.discardedCards
-  );
 
   const convertDataToCards = (data: string[]): Card[] => {
     return data.map((type) => ({
@@ -37,14 +35,32 @@ const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards }) => {
     setSelectedCardsState([]);
   }, [currentCards]);
 
-  const handleCardClick = (index: number) => {
+  useEffect(() => {
+    const socket = new WebSocket('ws://localhost:3000');
+  
+    socket.onmessage = async (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type === 'select_cards') {
+        setIsCardsVisible(false)
+        setSelectedCards(message.cards)
+        const response = await axiosInstance.post("/api/get-cards");
+        dispatch(setDiscardedCards(response.data.discardCards.length - 2)) 
+      }
+    };
+  
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  const handleCardClick = async (index: number) => {
     if (isCardsVisible && selectedCards.length < 2) {
       const clickedCard = convertDataToCards([currentCards[index]])[0];
       setSelectedCardsState([...selectedCards, clickedCard]);
       if (selectedCards.length === 1) {
         setSelectedCards([...selectedCards, clickedCard]);
         setIsCardsVisible(false);
-        dispatch(setDiscardedCards(discardedCards + 1));
+        await axiosInstance.post("/api/start-select", {selectedCards: JSON.stringify([...selectedCards, clickedCard])})
       }
     }
   };

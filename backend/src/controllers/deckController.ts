@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Deck } from "../models/Deck";
+import { broadcastMessage } from "../index"
 
 let deck: Deck | null = null;
 
@@ -27,7 +28,7 @@ const newDeck = (req: Request, res: Response): void => {
       drawnCards: [],
       allCards: remainingCards
     };
-    
+
     res.json(deck);  
 };
 
@@ -49,6 +50,7 @@ const drawCards = (req: Request, res: Response): void => {
         deck.discardCards = []
     }
     deck.discardCards.push(...deck.drawnCards)
+    broadcastMessage({ type: 'draw_cards' });
 
     res.json(deck);
 };
@@ -66,9 +68,25 @@ const removeCard = (req: Request, res: Response): void => {
     deck.allCards.splice(deck.allCards.indexOf(cardToRemove), 1);
     deck.discardCards.splice(deck.discardCards.indexOf(cardToRemove), 1);
 
+    broadcastMessage({ type: 'card_click', card: cardToRemove });
+
     res.json(deck);
 };
 
-export { drawCards, newDeck, removeCard };
+const getCard = (req: Request, res: Response): void => {
+    res.json(deck);
+};
+
+const startSelect = (req: Request, res: Response): void => {
+    const drawnCardsString = req.body.selectedCards;
+    const selectedCard = JSON.parse(drawnCardsString)
+
+    broadcastMessage({ type: 'select_cards', cards: selectedCard });
+    res.json(true);
+};
+
+
+
+export { drawCards, newDeck, removeCard, getCard, startSelect };
 
 

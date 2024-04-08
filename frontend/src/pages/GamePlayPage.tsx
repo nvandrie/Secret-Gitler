@@ -70,6 +70,7 @@ const GamePlayPage = () => {
         const lobby = await axiosInstance.post(`/api/get-lobby`, { lobbyId: lobbyId });
         const response = await axiosInstance.post(`/api/initalize-players`, { players: JSON.stringify(lobby.data.players) });
         setPlayers(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error("Error fetching players:", error);
       }
@@ -96,15 +97,15 @@ const GamePlayPage = () => {
       </div>
       <div className="draw-cards">
         <div className="drawing-area">
-          <CardDrawing
-            setSelectedCards={setSelectedCards}
-          />
+          <CardDrawing setSelectedCards={setSelectedCards}/>
+          {/* setSelectedCards={setSelectedCards} */}
         </div>
         <div className="deck-area">
           <Deck/>
         </div>
         <div className="selection-area">
-          <CardSelecting selectedCards={selectedCards} />
+          <CardSelecting selectedCards={selectedCards}/>
+          {/* selectedCards={selectedCards} */}
         </div>
       </div>
     </div>
