@@ -17,7 +17,7 @@ const CARD_HEIGHT = OUTER_HEIGHT;
 
 const FascistGameBoard: React.FC<GameBoardProps> = ({}) => {
   const elements = useSelector(
-    (state: RootState) => state.facistBoard.elements
+    (state: RootState) => state.fascistBoard.elements
   );
 
   return (

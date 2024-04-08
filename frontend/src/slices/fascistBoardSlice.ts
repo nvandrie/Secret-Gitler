@@ -5,16 +5,16 @@ interface ImageElement {
   alt: string;
 }
 
-interface FacistBoardState {
+interface FascistBoardState {
   elements: ImageElement[];
 }
 
-const initialState: FacistBoardState = {
+const initialState: FascistBoardState = {
   elements: [],
 };
 
-const facistBoardSlice = createSlice({
-  name: "facistBoard",
+const fascistBoardSlice = createSlice({
+  name: "fascistBoard",
   initialState,
   reducers: {
     addElement: (state, action: PayloadAction<ImageElement>) => {
@@ -23,6 +23,6 @@ const facistBoardSlice = createSlice({
   },
 });
 
-export const { addElement } = facistBoardSlice.actions;
+export const { addElement } = fascistBoardSlice.actions;
 
-export default facistBoardSlice.reducer;
+export default fascistBoardSlice.reducer;

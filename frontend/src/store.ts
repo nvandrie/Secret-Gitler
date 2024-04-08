@@ -3,10 +3,10 @@ import authReducer from "./slices/authSlice";
 import userReducer from "./slices/userSlice";
 import lobbyReducer from "./slices/lobbySlice";
 import liberalBoardReducer from "./slices/liberalBoardSlice";
-import facistBoardReducer from "./slices/facistBoardSlice";
+import fascistBoardReducer from "./slices/fascistBoardSlice";
 import notificationReducer from "./slices/notificationSlice";
-import voteReducer from "./slices/voteSlice"
-import deckReducer from "./slices/deckSlice"
+import voteReducer from "./slices/voteSlice";
+import deckReducer from "./slices/deckSlice";
 import { axiosMiddleware } from "./api/middleware";
 
 const store = configureStore({
@@ -15,10 +15,10 @@ const store = configureStore({
     user: userReducer,
     lobby: lobbyReducer,
     liberalBoard: liberalBoardReducer,
-    facistBoard: facistBoardReducer,
+    fascistBoard: fascistBoardReducer,
     notification: notificationReducer,
     vote: voteReducer,
-    deck: deckReducer
+    deck: deckReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(axiosMiddleware),

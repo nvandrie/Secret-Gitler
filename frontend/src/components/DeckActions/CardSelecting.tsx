@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import fascist_policy_card from "/policy_cards/fascist_policy.png";
 import liberal_policy_card from "/policy_cards/liberal_policy.png";
-import { addElement } from "../../slices/facistBoardSlice";
+import { addElement } from "../../slices/fascistBoardSlice";
 import { addLiberalElement } from "../../slices/liberalBoardSlice";
 import { setDiscardedCards } from "../../slices/deckSlice";
 import axiosInstance from "../../api/axiosInstance";
 
 interface Card {
-  type: "facist" | "liberal";
+  type: "fascist" | "liberal";
   path: string;
 }
 
@@ -18,14 +18,14 @@ interface CardSelectingProps {
   selectedCards: Card[];
 }
 
-const FACIST_MAX_CARDS = 6;
+const FASCIST_MAX_CARDS = 6;
 const LIBERAL_MAX_CARDS = 5;
 
 const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(true);
-  const facist_elements = useSelector(
-    (state: RootState) => state.facistBoard.elements
+  const faScist_elements = useSelector(
+    (state: RootState) => state.fascistBoard.elements
   );
   const liberal_elements = useSelector(
     (state: RootState) => state.liberalBoard.elements
@@ -45,8 +45,8 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
     }
   };
 
-  const addFacistCard = () => {
-    if (facist_elements.length < FACIST_MAX_CARDS) {
+  const addFasistCard = () => {
+    if (fascist_elements.length < FASCIST_MAX_CARDS) {
       dispatch(
         addElement({ path: fascist_policy_card, alt: "Fascist policy card" })
       );
@@ -58,7 +58,7 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
       addLiberalCard();
       await axiosInstance.post("/api/add-liberal");
     } else {
-      addFacistCard();
+      addFascistCard();
       await axiosInstance.post("/api/add-fascist");
     }
     await axiosInstance.post("/api/remove-card", {

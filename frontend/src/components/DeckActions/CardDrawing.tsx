@@ -6,7 +6,7 @@ import { RootState } from "../../store";
 import { setDiscardedCards } from "../../slices/deckSlice";
 
 interface Card {
-  type: "facist" | "liberal";
+  type: "fascist" | "liberal";
   path: string;
 }
 
@@ -27,8 +27,8 @@ const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards }) => {
 
   const convertDataToCards = (data: string[]): Card[] => {
     return data.map((type) => ({
-      type: type as "facist" | "liberal",
-      path: type === "facist" ? fascist_policy_card : liberal_policy_card,
+      type: type as "fascist" | "liberal",
+      path: type === "fascist" ? fascist_policy_card : liberal_policy_card,
     }));
   };
 
