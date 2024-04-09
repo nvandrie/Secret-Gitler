@@ -14,6 +14,7 @@ import {
   createGame,
   initializePlayers,
 } from "../controllers/gameplayController";
+import { newTracker, checkPlayCard } from "../controllers/trackerController";
 
 const router = express.Router();
 
