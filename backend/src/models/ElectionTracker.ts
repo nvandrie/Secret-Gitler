@@ -1,4 +1,4 @@
-export class ElectionTracker {
+export default class ElectionTracker {
   failedElections: number;
 
   constructor() {
