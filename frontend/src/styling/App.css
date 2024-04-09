@@ -13,6 +13,12 @@
   background-color: var(--dark-grey);
 }
 
+.patua-one-regular {
+  font-family: "Patua One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .GenericPage {
   display: flex;
   align-items: center;
@@ -106,29 +112,38 @@
 }
 
 .president {
-    background-color: yellow;
-  }
+  background-color: yellow;
+}
 
 .chancellor {
-    background-color: red;
+  background-color: red;
 }
 
 .game-code {
-  font-size: 150px;
-  color: #f6e1c2;
+  font-size: 100px;
+  color: var(--white);
+  font-family: "Patua One", serif;
+}
+.join-lobby-text {
+  font-size: 50px;
+  color: var(--white);
+  font-family: "Patua One", serif;
+  padding-bottom: 10px;
 }
 
 .welcome {
   font-size: 100px;
-  color: #f6e1c2;
+  color: var(--white);
   position: fixed; /* Fixed position */
   top: 150px; /* Align to the top of the viewport */
   padding: 20px; /* Add padding for spacing */
   display: flex;
   justify-content: center;
+  font-family: "Patua One", serif;
 }
 
-.start-button, .logout-button {
+.start-button,
+.logout-button {
   border-radius: 20px; /* Adjust border-radius as desired */
   color: white;
   text-align: center;
@@ -160,7 +175,7 @@
   margin-top: 20px;
 }
 
-.war-plane{
+.war-plane {
   height: 200px;
   width: 300px;
   margin-top: 50px;
@@ -168,14 +183,16 @@
 }
 
 .animate {
-  transform: translateX(100vw); /* Move the plane to the right edge of the screen */
+  transform: translateX(
+    100vw
+  ); /* Move the plane to the right edge of the screen */
 }
-.start-text{
+.start-text {
   color: #f6e1c2;
   font-size: 40px;
   text-decoration: none;
   margin-top: 0;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   position: relative;
   background-color: var(--light-red);
   color: var(--white);
@@ -191,7 +208,7 @@
   align-items: center;
 }
 
-.start-content{
+.start-content {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -199,5 +216,3 @@
   flex-direction: column;
   align-items: center;
 }
-
-
