@@ -71,7 +71,7 @@ const GamePlayPage = () => {
           players: JSON.stringify(lobby.data.players),
         });
         setPlayers(response.data);
-        console.log(response.data)
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching players:", error);
       }
@@ -80,17 +80,16 @@ const GamePlayPage = () => {
   }, []);
 
   return (
-    <>
-
     <div className="grid-container">
       <div className="players-display">
-      {players && players.map((player, index) => (
-          <div key={index}>
-            <div onClick={() => updateChancellor(index)}>
-              <PlayerIconGame player={player} />
+        {players &&
+          players.map((player, index) => (
+            <div key={index}>
+              <div onClick={() => updateChancellor(index)}>
+                <PlayerIconGame player={player} />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
         <button onClick={updatePresident}>Update President</button>
       </div>
       <div className="gameboards">
@@ -99,22 +98,22 @@ const GamePlayPage = () => {
       </div>
       <div className="draw-cards">
         <div className="drawing-area">
-          <CardDrawing setSelectedCards={setSelectedCards}/>
+          <CardDrawing setSelectedCards={setSelectedCards} />
           {/* setSelectedCards={setSelectedCards} */}
         </div>
         <div className="deck-area">
-          <Deck/>
+          <Deck />
         </div>
 
         <div className="selection-area">
-          <CardSelecting selectedCards={selectedCards}/>
+          <CardSelecting selectedCards={selectedCards} />
           {/* selectedCards={selectedCards} */}
         </div>
       </div>
       <Chat />
       <Popup />
       <Vote />
-    </>
+    </div>
   );
 };
 
