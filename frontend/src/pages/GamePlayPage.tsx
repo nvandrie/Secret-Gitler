@@ -112,13 +112,14 @@ const GamePlayPage = () => {
   return (
     <div className="grid-container">
       <div className="players-display">
-      {players && players.map((player, index) => (
-          <div key={index}>
-            <div onClick={() => updateChancellor(index)}>
-              <PlayerIconGame player={player} />
+        {players &&
+          players.map((player, index) => (
+            <div key={index}>
+              <div onClick={() => updateChancellor(index)}>
+                <PlayerIconGame player={player} />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
         <button onClick={updatePresident}>Update President</button>
       </div>
       <div className="gameboards">
@@ -130,7 +131,7 @@ const GamePlayPage = () => {
           <CardDrawing setSelectedCards={setSelectedCards}/>
         </div>
         <div className="deck-area">
-          <Deck/>
+          <Deck />
         </div>
 
         <div className="selection-area">
