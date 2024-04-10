@@ -85,7 +85,12 @@ const startSelect = (req: Request, res: Response): void => {
     res.json(true);
 };
 
+const clearDeck = (req: Request, res: Response): void => {
+  deck = null
+  res.json(true);
+};
 
 
-export { drawCards, newDeck, removeCard, getCard, startSelect };
+
+export { drawCards, newDeck, clearDeck, removeCard, getCard, startSelect };
 

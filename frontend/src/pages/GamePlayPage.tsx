@@ -13,9 +13,10 @@ import { useDispatch } from "react-redux";
 import axiosInstance from "../api/axiosInstance";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import axios from "axios";
 
 interface Card {
-  type: "fascist" | "liberal";
+  type: "fascist" | "liberal" | "default";
   path: string;
 }
 
@@ -38,6 +39,7 @@ const GamePlayPage = () => {
       newPlayers[presIndex].role = "default";
       const newPresIndex = presIndex === players.length - 1 ? 0 : presIndex + 1;
       newPlayers[newPresIndex].role = "president";
+      axiosInstance.post("/api/set-president", {player: newPlayers[newPresIndex].name})
       setPresIndex(newPresIndex);
       return newPlayers;
     });
@@ -53,6 +55,7 @@ const GamePlayPage = () => {
       newPlayers.forEach((player, i) => {
         if (i === index && player.role !== "president") {
           player.role = "chancellor";
+          axiosInstance.post("/api/set-chancellor", {player: player.name})
         } else if (player.role === "chancellor") {
           player.role = "default";
         }
@@ -61,27 +64,52 @@ const GamePlayPage = () => {
     });
   };
 
+
+  useEffect(() => {
+    const socket = new WebSocket('ws://localhost:3000');
+  
+    socket.onmessage = async (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type === 'update_roles') {
+        const response = await axiosInstance.post(`/api/get-players`);
+        const players = response.data;
+        setPlayers(players)
+        }
+    };
+  
+    return () => {
+      socket.close();
+    };
+
+  }, []); 
+
   useEffect(() => {
     const initializePlayers = async () => {
       try {
         const lobby = await axiosInstance.post(`/api/get-lobby`, {
           lobbyId: lobbyId,
         });
-        const response = await axiosInstance.post(`/api/initalize-players`, {
+        await axiosInstance.post(`/api/initalize-players`, {
           players: JSON.stringify(lobby.data.players),
         });
-        setPlayers(response.data);
-        console.log(response.data)
+        const players = await axiosInstance.post(`/api/get-players`);
+        setPlayers(players.data);
       } catch (error) {
         console.error("Error fetching players:", error);
       }
     };
+  
     initializePlayers();
-  }, []);
+  
+    const cleanup = async () => {
+      await axiosInstance.post("/api/end-game")
+    };
+      return () => {
+      cleanup();
+    };
+  }, []); 
 
   return (
-    <>
-
     <div className="grid-container">
       <div className="players-display">
       {players && players.map((player, index) => (
@@ -100,7 +128,6 @@ const GamePlayPage = () => {
       <div className="draw-cards">
         <div className="drawing-area">
           <CardDrawing setSelectedCards={setSelectedCards}/>
-          {/* setSelectedCards={setSelectedCards} */}
         </div>
         <div className="deck-area">
           <Deck/>
@@ -108,13 +135,12 @@ const GamePlayPage = () => {
 
         <div className="selection-area">
           <CardSelecting selectedCards={selectedCards}/>
-          {/* selectedCards={selectedCards} */}
         </div>
       </div>
       <Chat />
       <Popup />
       <Vote />
-    </>
+    </div>
   );
 };
 

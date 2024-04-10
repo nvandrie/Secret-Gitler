@@ -4,12 +4,17 @@ import axiosInstance from '../../api/axiosInstance';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from "../../store"
 import { setCurrentCards, setDiscardedCards, setRemainingCards, toggleDraw } from '../../slices/deckSlice';
+import { searchRoleByName } from "../IdentityCheck"
+import { useAppSelector } from '../../hooks/redux-hooks';
 
 const Deck: React.FC = () => {
   const dispatch = useDispatch();
   const remainingCards = useSelector((state: RootState) => state.deck.remainingCards);
   const discardedCards = useSelector((state: RootState) => state.deck.discardedCards);
   const canDraw = useSelector((state: RootState) => state.deck.canDraw);
+  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
+
+  
 
 
     useEffect(() => {
@@ -31,11 +36,16 @@ const Deck: React.FC = () => {
         socket.onmessage = async (event) => {
           const message = JSON.parse(event.data);
           if (message.type === 'draw_cards') {
-            const response = await axiosInstance.post("/api/get-cards");
-            dispatch(setCurrentCards(response.data.drawnCards));
-            dispatch(setRemainingCards(response.data.remainingCards.length));
-            dispatch(setDiscardedCards(response.data.discardCards.length - 3))
-            dispatch(toggleDraw())
+            if (basicUserInfo?.name){
+            const identity = await searchRoleByName(basicUserInfo?.name) 
+            if(identity !== "president"){
+              const response = await axiosInstance.post("/api/get-cards");
+              dispatch(setCurrentCards(["default", "default", "default"]));
+              dispatch(setRemainingCards(response.data.remainingCards.length));
+              dispatch(setDiscardedCards(response.data.discardCards.length - 3))
+              dispatch(toggleDraw())
+            }
+          }
           }
         };
       
@@ -45,6 +55,9 @@ const Deck: React.FC = () => {
       }, []);
 
     const handleDeckClick = async () => {
+      if (basicUserInfo?.name){
+        const identity = await searchRoleByName(basicUserInfo?.name) 
+      if(identity === "president"){
         if (canDraw) {
             const response = await axiosInstance.post("/api/draw-cards");
             dispatch(setCurrentCards(response.data.drawnCards));
@@ -52,6 +65,8 @@ const Deck: React.FC = () => {
             dispatch(setDiscardedCards(response.data.discardCards.length - 3))
             dispatch(toggleDraw())
         }
+      }
+    }
     };
 
     return (

@@ -16,8 +16,7 @@ const createGame = (req: Request, res: Response): void => {
         currentPresident: "",
         fascistCards: 0,
         liberalCards: 0,
-        liberalPlayers: [],
-        fascistPlayers: [],
+        players: [],
         hitler: ""
     };
 
@@ -61,10 +60,14 @@ const initializePlayers = (req: Request, res: Response): void => {
             identity = "hitler";
         }
 
-        const shuffledPlayers = shuffle(players);
-
         return { name: player, role, identity };
     });
+
+    if (game === null){
+        return;
+    }
+
+    game.players = playerData
 
     res.json(playerData);
 };
@@ -95,39 +98,61 @@ const addLiberal = (req: Request, res: Response): void => {
 };
 
 const setChancellor = (req: Request, res: Response): void => {
-    const playerString = req.body.player;
-    const player = JSON.parse(playerString);
+    const player = req.body.player;
+    console.log(player)
 
     if (game == null) {
         res.status(500).json({ error: "Game is not initialized" });
         return;
     }
 
-    let result: boolean
-    if (game.currentChancellor !== player){
-        game.currentChancellor = player
-        result = true
-    } else {
-        result = false
+    for (let i = 0; i < game.players.length; i++) {
+        if (game.players[i].name === player) {
+            game.players[i].role = "chancellor";
+        } else if (game.players[i].role === "chancellor"){
+            game.players[i].role = "default"
+        }
     }
 
-    res.json(result);
+    broadcastMessage({ type: 'update_roles' });
+
+    res.json(true);
 };
 
 const setPresident = (req: Request, res: Response): void => {
-    const playerString = req.body.player;
-    const player = JSON.parse(playerString);
+    const player = req.body.player;
 
     if (game == null) {
         res.status(500).json({ error: "Game is not initialized" });
         return;
     }
 
-    game.currentPresident = player
+    for (let i = 0; i < game.players.length; i++) {
+        if (game.players[i].name === player) {
+            game.players[i].role = "president";
+        } else {
+            game.players[i].role = "default"
+        }
+    }
 
+    broadcastMessage({ type: 'update_roles' });
+
+
+    res.json(true);
+};
+
+const getPlayers = (req: Request, res: Response): void => {
+    if (game == null) {
+        return;
+    }
+    res.json(game.players);
+};
+
+const endGame = (req: Request, res: Response): void => {
+    game = null
     res.json(true);
 };
 
 
 
-export { addFascist, addLiberal, setChancellor, setPresident, createGame, initializePlayers }
+export { addFascist, addLiberal, setChancellor, setPresident, createGame, initializePlayers, getPlayers, endGame }

@@ -10,7 +10,7 @@ import { setDiscardedCards } from "../../slices/deckSlice";
 import axiosInstance from "../../api/axiosInstance";
 
 interface Card {
-  type: "fascist" | "liberal";
+  type: "fascist" | "liberal" | "default";
   path: string;
 }
 

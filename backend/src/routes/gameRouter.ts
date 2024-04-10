@@ -1,6 +1,6 @@
 import express from "express";
-import { drawCards, newDeck, removeCard, getCard, startSelect } from "../controllers/deckController";
-import {addFascist, addLiberal, setPresident, setChancellor, createGame, initializePlayers} from "../controllers/gameplayController"
+import { drawCards, newDeck, clearDeck, removeCard, getCard, startSelect } from "../controllers/deckController";
+import {addFascist, addLiberal, setPresident, setChancellor, createGame, initializePlayers, getPlayers, endGame} from "../controllers/gameplayController"
 
 const router = express.Router();
 
@@ -18,8 +18,10 @@ router.post("/api/set-chancellor", setChancellor);
 
 //game state routes
 router.post("/api/create-game", createGame);
+router.post("/api/end-game", [clearDeck, endGame]);
 router.post("/api/add-fascist", addFascist);
 router.post("/api/add-liberal", addLiberal);
+router.post("/api/get-players", getPlayers)
 export default router
 
 

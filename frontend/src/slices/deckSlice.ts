@@ -8,11 +8,6 @@ interface DeckState {
   canDraw: boolean
 }
 
-interface Card {
-  type: "facist" | "liberal"
-  path: string;
-}
-
 const initialState: DeckState = {
   remainingCards: 17,
   currentCards: [],
