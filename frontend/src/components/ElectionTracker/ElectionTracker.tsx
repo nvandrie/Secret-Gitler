@@ -15,6 +15,7 @@ const ElectionTracker: React.FC = () => {
     const createNewTracker = async () => {
       try {
         await axiosInstance.post("/api/new-tracker");
+        console.log("new tracker was made successfully");
         dispatch(setFailedElections(0));
       } catch (error) {
         console.error("Error creating new tracker:", error);
@@ -23,12 +24,36 @@ const ElectionTracker: React.FC = () => {
     createNewTracker();
   }, []);
 
+  useEffect(() => {
+    const socket = new WebSocket("ws://localhost:3000");
+
+    socket.onmessage = async (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type === "check_play_card") {
+        const response = await axiosInstance.post("/api/check-play-card");
+        dispatch(setFailedElections(response.data.failedElections));
+      }
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  const handleButtonClick = async () => {
+    console.log("Fail an election button pressed1");
+    const response = await axiosInstance.post("/api/check-play-card");
+    dispatch(setFailedElections(response.data.failedElections));
+    console.log("Fail an election button pressed");
+  };
+
   return (
     <div className="container">
       <div className="tracker">
         <h3 className="tracker-text">Failed Elections</h3>
-        <div className="rectangle">
-          <div className="inner-rectangle">
+        <div className="tracker-rectangle">
+          <div className="tracker-inner-rectangle">
+            <button onClick={handleButtonClick}>Fail an Election</button>
             <p className="tracker-count">{failedElections}</p>
           </div>
         </div>

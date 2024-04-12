@@ -14,10 +14,10 @@
 
 .grid-container {
   display: grid;
-    grid-template-columns: 200px auto auto 50px;
-    grid-template-rows: 57% 43%; 
-    height: 100vh; 
-    width: 100%; 
+  grid-template-columns: 200px auto auto 50px;
+  grid-template-rows: 57% 43%;
+  height: 100vh;
+  width: 100%;
 }
 
 .players-display {
@@ -47,7 +47,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .draw-cards {
@@ -57,7 +56,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-
 }
 
 .card-display {
@@ -67,7 +65,7 @@
   align-items: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
-  padding: 10px
+  padding: 10px;
 }
 
 .drawing-area {
@@ -78,7 +76,11 @@
 }
 
 .deck-area {
-  width: 25%
+  width: 25%;
+}
+
+.tracker {
+  margin-left: 10px;
 }
 
 .selection-area {
@@ -90,8 +92,8 @@
   align-items: center;
 }
 
-.selection-cards{
-  margin:10px;
+.selection-cards {
+  margin: 10px;
 }
 
 .display-role {
@@ -121,6 +123,25 @@
   background-color: var(--beige);
 }
 
+.tracker-rectangle {
+  width: 40px;
+  height: 180px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--beige);
+}
+
+.tracker-inner-rectangle {
+  width: 30px;
+  height: 160px;
+  background-color: var(--dark-beige);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .inner-rectangle {
   width: 110px;
   height: 160px;
@@ -137,6 +158,15 @@
   color: var(--white);
 }
 
-.cards-count{
+.cards-count {
   font-size: 70px;
+}
+
+.tracker-count {
+  font-size: 70px;
+}
+
+.gameboards-and-tracker {
+  display: flex;
+  justify-content: flex-start;
 }

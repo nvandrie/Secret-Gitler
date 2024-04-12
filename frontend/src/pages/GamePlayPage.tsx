@@ -93,12 +93,14 @@ const GamePlayPage = () => {
           ))}
         <button onClick={updatePresident}>Update President</button>
       </div>
-      <div className="gameboards">
-        <LiberalGameBoard />
-        <FascistGameBoard />
-      </div>
-      <div className="tracker">
-        <ElectionTracker />
+      <div className="gameboards-and-tracker">
+        <div className="gameboards">
+          <LiberalGameBoard />
+          <FascistGameBoard />
+        </div>
+        <div className="tracker">
+          <ElectionTracker />
+        </div>
       </div>
       <div className="draw-cards">
         <div className="drawing-area">

@@ -36,9 +36,14 @@ const checkTracker = (req: Request, res: Response): boolean => {
   }
 };
 
+const getTracker = (req: Request, res: Response): void => {
+  res.json(tracker);
+};
+
 const checkPlayCard = (req: Request, res: Response): boolean => {
   const tracker = req.body;
   incrementTracker(req, res);
+  broadcastMessage({ type: "check_play_card" });
   return checkTracker(req, res);
 };
 export { newTracker, checkPlayCard };
