@@ -14,13 +14,14 @@ import {
   createGame,
   initializePlayers,
 } from "../controllers/gameplayController";
-import { newTracker, checkPlayCard } from "../controllers/trackerController";
+import { newTracker, checkPlayCard, getTracker} from "../controllers/trackerController";
 
 const router = express.Router();
 
 // tracker routes
 router.post("/api/new-tracker", newTracker);
 router.post("/api/check-play-card", checkPlayCard);
+router.post("/api/get-tracker", getTracker);
 
 // deck routes
 router.post("/api/new-deck", newDeck);

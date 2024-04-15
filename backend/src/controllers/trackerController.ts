@@ -14,25 +14,34 @@ const newTracker = (req: Request, res: Response): void => {
   res.json(tracker);
 };
 
-const resetTracker = (req: Request, res: Response): void => {
-  const tracker = req.body;
+const resetTracker = () => {
+  if (tracker == null) {
+    return;
+  }
+
   tracker.failedElections = 0;
   broadcastMessage({ type: "reset_tracker" });
 };
 
-const incrementTracker = (req: Request, res: Response): void => {
-  const tracker = req.body;
+const incrementTracker = () => {
+  if (tracker == null) {
+    return false;
+  }
+
   tracker.failedElections += 1;
   broadcastMessage({ type: "increment_tracker" });
 };
 
-const checkTracker = (req: Request, res: Response): boolean => {
-  const tracker = req.body;
-  if (tracker.failedElections === 3) {
-    resetTracker(req, res);
-    return true;
-  } else {
+const checkTracker = (): boolean => {
+  if (tracker == null) {
     return false;
+  }
+
+  if (tracker.failedElections === 3) {
+    resetTracker();
+    return(true)
+  } else {
+    return(false)
   }
 };
 
@@ -40,10 +49,12 @@ const getTracker = (req: Request, res: Response): void => {
   res.json(tracker);
 };
 
-const checkPlayCard = (req: Request, res: Response): boolean => {
-  const tracker = req.body;
-  incrementTracker(req, res);
+const checkPlayCard = (req: Request, res: Response): void => {
+  incrementTracker();
+  checkTracker()
   broadcastMessage({ type: "check_play_card" });
-  return checkTracker(req, res);
+  res.json(tracker);
 };
-export { newTracker, checkPlayCard };
+
+
+export { newTracker, checkPlayCard, getTracker };
