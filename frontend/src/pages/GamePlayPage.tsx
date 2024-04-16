@@ -48,7 +48,8 @@ const GamePlayPage = () => {
 
   const updateChancellor = (index: number) => {
     if (index !== -1) {
-      dispatch(toggleVotingActivity());
+      dispatch(toggleVotingActivity()); //might want to delete 
+      // make api call to start voting
     }
     setPlayers((prevPlayers) => {
       const newPlayers = [...prevPlayers];
@@ -75,6 +76,8 @@ const GamePlayPage = () => {
         const players = response.data;
         setPlayers(players)
         }
+      // create if (message.type == started_voting)
+      // dispatch(toggleVotingActivity()); (makes popup show)
     };
   
     return () => {
