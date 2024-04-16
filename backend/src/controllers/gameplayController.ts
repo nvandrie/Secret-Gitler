@@ -78,10 +78,12 @@ const addFascist = (req: Request, res: Response): void => {
     return;
   }
 
-  console.log("added fascist");
   game.fascistCards = game.fascistCards + 1;
 
   const result = gameCheck(game);
+  if (result){
+    broadcastMessage({ type: 'end_game' });
+  }
   res.json(result);
 };
 
@@ -95,6 +97,9 @@ const addLiberal = (req: Request, res: Response): void => {
   game.liberalCards = game.liberalCards + 1;
 
   const result = gameCheck(game);
+  if (result){
+    broadcastMessage({ type: 'end_game' });
+  }
   res.json(result);
 };
 
@@ -138,7 +143,6 @@ const setPresident = (req: Request, res: Response): void => {
     }
 
     broadcastMessage({ type: 'update_roles' });
-
 
     res.json(true);
 };

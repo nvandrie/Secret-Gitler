@@ -6,6 +6,7 @@ import {
   getCard,
   startSelect,
   getTopCard,
+  clearDeck
 } from "../controllers/deckController";
 import {
   addFascist,
@@ -14,6 +15,8 @@ import {
   setChancellor,
   createGame,
   initializePlayers,
+  getPlayers,
+  endGame
 } from "../controllers/gameplayController";
 import {
   newTracker,

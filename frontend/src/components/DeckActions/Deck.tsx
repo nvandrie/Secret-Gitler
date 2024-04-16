@@ -75,17 +75,6 @@ const Deck: React.FC = () => {
       }
     }
     };
-  }, []);
-
-  const handleDeckClick = async () => {
-    if (canDraw) {
-      const response = await axiosInstance.post("/api/draw-cards");
-      dispatch(setCurrentCards(response.data.drawnCards));
-      dispatch(setRemainingCards(response.data.remainingCards.length));
-      dispatch(setDiscardedCards(response.data.discardCards.length - 3));
-      dispatch(toggleDraw());
-    }
-  };
 
   return (
     <div className="container">

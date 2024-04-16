@@ -14,7 +14,6 @@ import { useDispatch } from "react-redux";
 import axiosInstance from "../api/axiosInstance";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import axios from "axios";
 
 interface Card {
   type: "fascist" | "liberal" | "default";
@@ -31,6 +30,7 @@ const GamePlayPage = () => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
   const [presIndex, setPresIndex] = useState<number>(0);
+  const [gameState, setGame] = useState<boolean>(true);
   const dispatch = useDispatch();
   const lobbyId = useSelector((state: RootState) => state.lobby.variable);
 
@@ -75,7 +75,10 @@ const GamePlayPage = () => {
         const response = await axiosInstance.post(`/api/get-players`);
         const players = response.data;
         setPlayers(players)
-        }
+      }
+      if (message.type === 'end_game') {
+        setGame(true)
+      }
     };
   
     return () => {
