@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Deck } from "../models/Deck";
-import { broadcastMessage } from "../index"
+import { broadcastMessage } from "../index";
 
 let deck: Deck | null = null;
 
@@ -16,7 +16,6 @@ const newDeck = (req: Request, res: Response): void => {
   const numFascist = 11;
   const numLiberal = 6;
 
-
   const fascistCards = Array(numFascist).fill("fascist");
   const liberalCards = Array(numLiberal).fill("liberal");
   const initialDeck = [...fascistCards, ...liberalCards];
@@ -28,7 +27,10 @@ const newDeck = (req: Request, res: Response): void => {
     remainingCards,
     drawnCards: [],
     allCards: remainingCards,
+    topCard: [],
   };
+
+  deck.topCard = deck.remainingCards.slice(0, 1);
 
   res.json(deck);
 };
@@ -39,19 +41,21 @@ const drawCards = (req: Request, res: Response): void => {
     return;
   }
 
-    if (deck.remainingCards.length >= 3){
-        deck.drawnCards = deck.remainingCards.slice(0,3)
-        deck.remainingCards = deck.remainingCards.slice(3)
-    } else {
-        const left = deck.remainingCards.length
-        const newDeck = shuffleDeck(deck.discardCards)
-        const cardsToAdd = newDeck.splice(0, 3 - left).concat(deck.remainingCards.splice(0, left))
-        deck.drawnCards = cardsToAdd
-        deck.remainingCards = newDeck
-        deck.discardCards = []
-    }
-    deck.discardCards.push(...deck.drawnCards)
-    broadcastMessage({ type: 'draw_cards' });
+  if (deck.remainingCards.length >= 3) {
+    deck.drawnCards = deck.remainingCards.slice(0, 3);
+    deck.remainingCards = deck.remainingCards.slice(3);
+  } else {
+    const left = deck.remainingCards.length;
+    const newDeck = shuffleDeck(deck.discardCards);
+    const cardsToAdd = newDeck
+      .splice(0, 3 - left)
+      .concat(deck.remainingCards.splice(0, left));
+    deck.drawnCards = cardsToAdd;
+    deck.remainingCards = newDeck;
+    deck.discardCards = [];
+  }
+  deck.discardCards.push(...deck.drawnCards);
+  broadcastMessage({ type: "draw_cards" });
 
   res.json(deck);
 };
@@ -68,24 +72,21 @@ const removeCard = (req: Request, res: Response): void => {
   deck.allCards.splice(deck.allCards.indexOf(cardToRemove), 1);
   deck.discardCards.splice(deck.discardCards.indexOf(cardToRemove), 1);
 
-    broadcastMessage({ type: 'card_click', card: cardToRemove });
+  broadcastMessage({ type: "card_click", card: cardToRemove });
 
-    res.json(deck);
+  res.json(deck);
 };
 
 const getCard = (req: Request, res: Response): void => {
-    res.json(deck);
+  res.json(deck);
 };
 
 const startSelect = (req: Request, res: Response): void => {
-    const drawnCardsString = req.body.selectedCards;
-    const selectedCard = JSON.parse(drawnCardsString)
+  const drawnCardsString = req.body.selectedCards;
+  const selectedCard = JSON.parse(drawnCardsString);
 
-    broadcastMessage({ type: 'select_cards', cards: selectedCard });
-    res.json(true);
+  broadcastMessage({ type: "select_cards", cards: selectedCard });
+  res.json(true);
 };
 
-
-
 export { drawCards, newDeck, removeCard, getCard, startSelect };
-

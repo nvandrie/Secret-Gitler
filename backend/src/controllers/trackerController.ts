@@ -39,9 +39,9 @@ const checkTracker = (): boolean => {
 
   if (tracker.failedElections === 3) {
     resetTracker();
-    return(true)
+    return true;
   } else {
-    return(false)
+    return false;
   }
 };
 
@@ -51,10 +51,9 @@ const getTracker = (req: Request, res: Response): void => {
 
 const checkPlayCard = (req: Request, res: Response): void => {
   incrementTracker();
-  checkTracker()
+  checkTracker();
   broadcastMessage({ type: "check_play_card" });
   res.json(tracker);
 };
-
 
 export { newTracker, checkPlayCard, getTracker };

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../../styling/Gameplay.css";
 import axiosInstance from "../../api/axiosInstance";
+import Deck from "../DeckActions/Deck";
 
 const ElectionTracker: React.FC = () => {
   const [failedElections, setFailedElections] = useState(0);
-
 
   useEffect(() => {
     const createNewTracker = async () => {
@@ -23,10 +23,10 @@ const ElectionTracker: React.FC = () => {
 
     socket.onmessage = async (event) => {
       const message = JSON.parse(event.data);
-      console.log(message.type)
+      console.log(message.type);
       if (message.type === "check_play_card") {
         const response = await axiosInstance.post("/api/get-tracker");
-        setFailedElections(response.data.failedElections)
+        setFailedElections(response.data.failedElections);
       }
     };
 
@@ -36,7 +36,29 @@ const ElectionTracker: React.FC = () => {
   }, []);
 
   const handleButtonClick = async () => {
-    await axiosInstance.post("/api/check-play-card");
+    const tracker = await axiosInstance.post("/api/check-play-card");
+    const numFailed = tracker.data.failedElections;
+    let play = false;
+    if (numFailed === 0) {
+      play = true;
+    }
+
+    if (play) {
+      const deck = await axiosInstance.post("/api/get-cards");
+      const card = deck.data.topCard;
+      console.log("Got here");
+      console.log(card);
+      if (JSON.stringify(card[0]) === JSON.stringify("liberal")) {
+        console.log("hit here");
+        await axiosInstance.post("/api/add-liberal");
+      } else {
+        console.log("hit here 2");
+        await axiosInstance.post("/api/add-fascist");
+      }
+      await axiosInstance.post("/api/remove-card", {
+        cardToRemove: JSON.stringify(card),
+      });
+    }
   };
 
   return (
