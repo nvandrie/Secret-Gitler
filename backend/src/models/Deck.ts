@@ -4,19 +4,16 @@ export class Deck {
   remainingCards: string[];
   drawnCards: string[];
   allCards: string[];
-  topCard: string[];
 
   constructor(
     discardCards: string[],
     remainingCards: string[],
     drawnCards: string[],
-    allCards: string[],
-    topCard: string[]
+    allCards: string[]
   ) {
     this.discardCards = discardCards;
     this.remainingCards = remainingCards;
     this.drawnCards = drawnCards;
     this.allCards = allCards;
-    this.topCard = topCard;
   }
 }

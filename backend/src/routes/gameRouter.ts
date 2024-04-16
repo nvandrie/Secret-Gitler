@@ -5,6 +5,7 @@ import {
   removeCard,
   getCard,
   startSelect,
+  getTopCard,
 } from "../controllers/deckController";
 import {
   addFascist,
@@ -14,7 +15,11 @@ import {
   createGame,
   initializePlayers,
 } from "../controllers/gameplayController";
-import { newTracker, checkPlayCard, getTracker} from "../controllers/trackerController";
+import {
+  newTracker,
+  checkPlayCard,
+  getTracker,
+} from "../controllers/trackerController";
 
 const router = express.Router();
 
@@ -29,6 +34,7 @@ router.post("/api/draw-cards", drawCards);
 router.post("/api/remove-card", removeCard);
 router.post("/api/get-cards", getCard);
 router.post("/api/start-select", startSelect);
+router.post("/api/get-top-card", getTopCard);
 
 //presidency and chancellor update routes
 router.post(`/api/initalize-players`, initializePlayers);

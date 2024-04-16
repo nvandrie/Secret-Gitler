@@ -27,10 +27,7 @@ const newDeck = (req: Request, res: Response): void => {
     remainingCards,
     drawnCards: [],
     allCards: remainingCards,
-    topCard: [],
   };
-
-  deck.topCard = deck.remainingCards.slice(0, 1);
 
   res.json(deck);
 };
@@ -81,6 +78,22 @@ const getCard = (req: Request, res: Response): void => {
   res.json(deck);
 };
 
+const getTopCard = (req: Request, res: Response): void => {
+  if (!deck) {
+    res.status(404).json({ message: "Deck not found" });
+    return;
+  }
+
+  let topCard = deck.remainingCards.slice(0, 1);
+  deck.remainingCards = deck.remainingCards.slice(1);
+
+  broadcastMessage({ type: "tracker_play_card", card: topCard });
+  res.json({
+    deck: deck,
+    topCard: topCard,
+  });
+};
+
 const startSelect = (req: Request, res: Response): void => {
   const drawnCardsString = req.body.selectedCards;
   const selectedCard = JSON.parse(drawnCardsString);
@@ -89,4 +102,4 @@ const startSelect = (req: Request, res: Response): void => {
   res.json(true);
 };
 
-export { drawCards, newDeck, removeCard, getCard, startSelect };
+export { drawCards, newDeck, removeCard, getCard, startSelect, getTopCard };

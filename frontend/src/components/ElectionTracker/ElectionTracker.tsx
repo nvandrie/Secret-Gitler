@@ -44,8 +44,8 @@ const ElectionTracker: React.FC = () => {
     }
 
     if (play) {
-      const deck = await axiosInstance.post("/api/get-cards");
-      const card = deck.data.topCard;
+      const response = await axiosInstance.post("/api/get-top-card");
+      const card = response.data.topCard;
       console.log("Got here");
       console.log(card);
       if (JSON.stringify(card[0]) === JSON.stringify("liberal")) {
@@ -55,9 +55,7 @@ const ElectionTracker: React.FC = () => {
         console.log("hit here 2");
         await axiosInstance.post("/api/add-fascist");
       }
-      await axiosInstance.post("/api/remove-card", {
-        cardToRemove: JSON.stringify(card),
-      });
+      play = false;
     }
   };
 
