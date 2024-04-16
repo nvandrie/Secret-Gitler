@@ -36,7 +36,6 @@ const Home = () => {
     }, 2300);
   };
 
-  //<h4>Email: {userProfileInfo?.email}</h4>
   return (
     <div className="GenericPage">
       <img src={text_logo} alt="Image" className="image" />

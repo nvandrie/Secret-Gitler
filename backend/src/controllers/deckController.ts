@@ -87,11 +87,17 @@ const getTopCard = (req: Request, res: Response): void => {
   let topCard = deck.remainingCards.slice(0, 1);
   deck.remainingCards = deck.remainingCards.slice(1);
 
+
   broadcastMessage({ type: "tracker_play_card", card: topCard });
   res.json({
     deck: deck,
     topCard: topCard,
   });
+};
+
+const clearDeck = (req: Request, res: Response): void => {
+  deck = null
+  res.json(true);
 };
 
 const startSelect = (req: Request, res: Response): void => {
@@ -102,4 +108,5 @@ const startSelect = (req: Request, res: Response): void => {
   res.json(true);
 };
 
-export { drawCards, newDeck, removeCard, getCard, startSelect, getTopCard };
+
+export { drawCards, newDeck, clearDeck, removeCard, getCard, startSelect, getTopCard };

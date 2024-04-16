@@ -21,6 +21,7 @@ import {
   getTracker,
 } from "../controllers/trackerController";
 
+
 const router = express.Router();
 
 // tracker routes
@@ -43,6 +44,9 @@ router.post("/api/set-chancellor", setChancellor);
 
 //game state routes
 router.post("/api/create-game", createGame);
+router.post("/api/end-game", [clearDeck, endGame]);
 router.post("/api/add-fascist", addFascist);
 router.post("/api/add-liberal", addLiberal);
-export default router;
+router.post("/api/get-players", getPlayers)
+export default router
+
