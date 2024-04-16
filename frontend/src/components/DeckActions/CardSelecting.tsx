@@ -88,12 +88,10 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
       }
       if (message.type === "tracker_play_card") {
         setIsVisible(false);
-        const response = await axiosInstance.post("/api/get-top-card");
-        dispatch(
-          setRemainingCards(response.data.deck.remainingCards.length - 0)
-        );
-        console.log(response.data.deck);
-        if (message.card === "liberal") {
+        const response = await axiosInstance.post("/api/get-cards");
+        dispatch(setRemainingCards(response.data.remainingCards.length - 0));
+        console.log(message.card[0]);
+        if (message.card[0] === "liberal") {
           addLiberalCard();
         } else {
           addFascistCard();

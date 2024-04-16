@@ -46,13 +46,9 @@ const ElectionTracker: React.FC = () => {
     if (play) {
       const response = await axiosInstance.post("/api/get-top-card");
       const card = response.data.topCard;
-      console.log("Got here");
-      console.log(card);
       if (JSON.stringify(card[0]) === JSON.stringify("liberal")) {
-        console.log("hit here");
         await axiosInstance.post("/api/add-liberal");
       } else {
-        console.log("hit here 2");
         await axiosInstance.post("/api/add-fascist");
       }
       play = false;
