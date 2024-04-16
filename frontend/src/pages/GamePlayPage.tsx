@@ -8,6 +8,7 @@ import Popup from "../components/popups/PlayerIdentityPopup";
 import Chat from "../components/popups/ChatPopup";
 import PlayerIconGame from "../components/PlayerIconGame";
 import Vote from "../components/popups/Vote";
+import ElectionTracker from "../components/ElectionTracker/ElectionTracker";
 import { toggleVotingActivity } from "../slices/voteSlice";
 import { useDispatch } from "react-redux";
 import axiosInstance from "../api/axiosInstance";
@@ -122,9 +123,14 @@ const GamePlayPage = () => {
           ))}
         <button onClick={updatePresident}>Update President</button>
       </div>
-      <div className="gameboards">
-        <LiberalGameBoard />
-        <FascistGameBoard />
+      <div className="gameboards-and-tracker">
+        <div className="gameboards">
+          <LiberalGameBoard />
+          <FascistGameBoard />
+        </div>
+        <div className="tracker">
+          <ElectionTracker />
+        </div>
       </div>
       <div className="draw-cards">
         <div className="drawing-area">

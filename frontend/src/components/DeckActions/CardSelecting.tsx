@@ -6,7 +6,7 @@ import fascist_policy_card from "/policy_cards/fascist_policy.png";
 import liberal_policy_card from "/policy_cards/liberal_policy.png";
 import { addElement } from "../../slices/fascistBoardSlice";
 import { addLiberalElement } from "../../slices/liberalBoardSlice";
-import { setDiscardedCards } from "../../slices/deckSlice";
+import { setDiscardedCards, setRemainingCards } from "../../slices/deckSlice";
 import axiosInstance from "../../api/axiosInstance";
 
 interface Card {
@@ -35,11 +35,13 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   const addLiberalCard = () => {
     if (liberal_elements.length < LIBERAL_MAX_CARDS) {
       dispatch(
-        addLiberalElement({ path: liberal_policy_card, alt: "Liberal policy card"})
+        addLiberalElement({
+          path: liberal_policy_card,
+          alt: "Liberal policy card",
+        })
       );
     }
   };
-
 
   const addFascistCard = () => {
     if (fascist_elements.length < FASCIST_MAX_CARDS) {
@@ -62,31 +64,41 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   };
 
   useEffect(() => {
-    console.log("Selected: " + selectedCards)
+    console.log("Selected: " + selectedCards);
     setIsVisible(true);
   }, [selectedCards]);
 
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3000');
-  
+    const socket = new WebSocket("ws://localhost:3000");
+
     socket.onmessage = async (event) => {
       const message = JSON.parse(event.data);
-      if (message.type === 'select_cards') {
-        setIsVisible(true)
+      if (message.type === "select_cards") {
+        setIsVisible(true);
       }
-      if (message.type === 'card_click') {
-        setIsVisible(false)
+      if (message.type === "card_click") {
+        setIsVisible(false);
         const response = await axiosInstance.post("/api/get-cards");
-        dispatch(setDiscardedCards(response.data.discardCards.length - 0))
-        if(message.card === "liberal"){
+        dispatch(setDiscardedCards(response.data.discardCards.length - 0));
+        if (message.card === "liberal") {
           addLiberalCard();
         } else {
           addFascistCard();
         }
       }
-      
+      if (message.type === "tracker_play_card") {
+        setIsVisible(false);
+        const response = await axiosInstance.post("/api/get-cards");
+        dispatch(setRemainingCards(response.data.remainingCards.length - 0));
+        console.log(message.card[0]);
+        if (message.card[0] === "liberal") {
+          addLiberalCard();
+        } else {
+          addFascistCard();
+        }
+      }
     };
-  
+
     return () => {
       socket.close();
     };
@@ -95,8 +107,14 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   return (
     <div className="card-display">
       {selectedCards.map((card, index) => (
-        <div className="selection-cards" key={index} onClick={() => handleCardClick(card)}>
-          {isVisible && (<img className="card" src={card.path} alt={card.type} />)}
+        <div
+          className="selection-cards"
+          key={index}
+          onClick={() => handleCardClick(card)}
+        >
+          {isVisible && (
+            <img className="card" src={card.path} alt={card.type} />
+          )}
         </div>
       ))}
     </div>

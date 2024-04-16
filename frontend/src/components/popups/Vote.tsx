@@ -19,7 +19,7 @@ const Vote: React.FC = () => {
   };
 
   return (
-    <div className="voteContainer">
+    <div className={`voteContainer ${votingActive ? "votingActive" : ""}`}>
       {votingActive && (
         <div className={`vote${votingActive ? "visibile-vote" : ""}`}>
           <div className="voteContainer">
