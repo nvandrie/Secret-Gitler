@@ -209,3 +209,18 @@
   border: none;
   cursor: pointer;
 }
+
+.gamePopUp{
+  position: absolute;
+  height: 80%;
+  width: 75%;
+  top: 10%;
+  left: 12.5%;
+  background-color: var(--beige);
+  border-radius: 20px;
+  border: 4px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

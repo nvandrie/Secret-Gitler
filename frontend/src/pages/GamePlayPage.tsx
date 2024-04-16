@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import axiosInstance from "../api/axiosInstance";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import EndGame from "../components/EndGame";
 
 interface Card {
   type: "fascist" | "liberal" | "default";
@@ -30,7 +31,8 @@ const GamePlayPage = () => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
   const [presIndex, setPresIndex] = useState<number>(0);
-  const [gameState, setGame] = useState<boolean>(true);
+  const [gameState, setGame] = useState<boolean>(false);
+  const [result, setResult] = useState<string>("");
   const dispatch = useDispatch();
   const lobbyId = useSelector((state: RootState) => state.lobby.variable);
 
@@ -78,6 +80,7 @@ const GamePlayPage = () => {
       }
       if (message.type === 'end_game') {
         setGame(true)
+        setResult(message.result)
       }
     };
   
@@ -150,6 +153,7 @@ const GamePlayPage = () => {
       <Chat />
       <Popup />
       <Vote />
+      <div>{gameState && <EndGame result={result}/>}</div>
     </div>
   );
 };

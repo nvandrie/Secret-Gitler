@@ -4,8 +4,14 @@ import { broadcastMessage } from "../index";
 
 let game: Gameplay | null = null;
 
-const gameCheck = (game: Gameplay): boolean => {
-  return game.fascistCards === 6 || game.liberalCards === 5;
+const gameCheck = (game: Gameplay): string => {
+  if (game.fascistCards === 6){
+    return "fascist board"
+  }
+   if (game.liberalCards === 5){
+    return "liberal board"
+  }
+  return ""
 };
 
 const createGame = (req: Request, res: Response): void => {
@@ -81,8 +87,8 @@ const addFascist = (req: Request, res: Response): void => {
   game.fascistCards = game.fascistCards + 1;
 
   const result = gameCheck(game);
-  if (result){
-    broadcastMessage({ type: 'end_game' });
+  if (result !== ""){
+    broadcastMessage({ type: 'end_game', result: result });
   }
   res.json(result);
 };
@@ -97,8 +103,8 @@ const addLiberal = (req: Request, res: Response): void => {
   game.liberalCards = game.liberalCards + 1;
 
   const result = gameCheck(game);
-  if (result){
-    broadcastMessage({ type: 'end_game' });
+  if (result !== ""){
+    broadcastMessage({ type: 'end_game', result: result });
   }
   res.json(result);
 };
