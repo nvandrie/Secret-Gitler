@@ -15,6 +15,8 @@ import axiosInstance from "../api/axiosInstance";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import EndGame from "../components/EndGame";
+import { useAppSelector } from "../hooks/redux-hooks";
+import { searchRoleByName } from "../components/IdentityCheck";
 
 interface Card {
   type: "fascist" | "liberal" | "default";
@@ -35,8 +37,13 @@ const GamePlayPage = () => {
   const [result, setResult] = useState<string>("");
   const dispatch = useDispatch();
   const lobbyId = useSelector((state: RootState) => state.lobby.variable);
+  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
-  const updatePresident = () => {
+
+  const updatePresident = async () => {
+    if (basicUserInfo?.name){
+      const identity = await searchRoleByName(basicUserInfo?.name) 
+    if(identity === "president"){
     setPlayers((prevPlayers) => {
       const newPlayers = [...prevPlayers];
       newPlayers[presIndex].role = "default";
@@ -47,9 +54,13 @@ const GamePlayPage = () => {
       return newPlayers;
     });
     updateChancellor(-1);
+  }}
   };
 
-  const updateChancellor = (index: number) => {
+  const updateChancellor = async (index: number) => {
+    if (basicUserInfo?.name){
+      const identity = await searchRoleByName(basicUserInfo?.name) 
+    if(identity === "president"){
     if (index !== -1) {
       dispatch(toggleVotingActivity());
     }
@@ -65,6 +76,7 @@ const GamePlayPage = () => {
       });
       return newPlayers;
     });
+  }}
   };
 
 

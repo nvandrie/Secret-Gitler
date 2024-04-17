@@ -90,7 +90,6 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
         setIsVisible(false);
         const response = await axiosInstance.post("/api/get-cards");
         dispatch(setRemainingCards(response.data.remainingCards.length - 0));
-        console.log(message.card[0]);
         if (message.card[0] === "liberal") {
           addLiberalCard();
         } else {

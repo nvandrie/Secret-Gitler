@@ -11,11 +11,13 @@ const gameCheck = (game: Gameplay): string => {
    if (game.liberalCards === 5){
     return "liberal board"
   }
+   if((game.fascistCards >= 3) && (game.currentChancellor === game.hitler)){
+    return "hitler"
+   }
   return ""
 };
 
 const createGame = (req: Request, res: Response): void => {
-    //this needs to be updated to set player roles at start of game
     game = {
         currentChancellor: "",
         currentPresident: "",
@@ -72,6 +74,8 @@ const initializePlayers = (req: Request, res: Response): void => {
     if (game === null){
         return;
     }
+
+    game.hitler = (game.players.find(player => player.identity === "hitler") as Player).name
 
     game.players = playerData
 
@@ -165,7 +169,20 @@ const endGame = (req: Request, res: Response): void => {
     res.json(true);
 };
 
+const checkGame = (req: Request, res: Response): void => {
+  if (game == null) {
+    res.status(500).json({ error: "Game is not initialized" });
+    return;
+  }
+
+  const result = gameCheck(game);
+  if (result !== ""){
+    broadcastMessage({ type: 'end_game', result: result });
+  }
+  res.json(result);
+};
 
 
-export { addFascist, addLiberal, setChancellor, setPresident, createGame, initializePlayers, getPlayers, endGame }
+
+export { checkGame, addFascist, addLiberal, setChancellor, setPresident, createGame, initializePlayers, getPlayers, endGame }
 

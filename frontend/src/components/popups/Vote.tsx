@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store";
 import { toggleVotingActivity } from "../../slices/voteSlice";
-import { toggleDraw } from "../../slices/deckSlice";
+import { setDraw } from "../../slices/deckSlice";
 import "../../styling/popup.css";
 import ja from "/voting_cards/ja.jpg";
 import nein from "/voting_cards/nein.jpg";
@@ -15,7 +15,7 @@ const Vote: React.FC = () => {
 
   const handleToggleVoting = () => {
     dispatch(toggleVotingActivity());
-    dispatch(toggleDraw());
+    dispatch(setDraw(true));
   };
 
   return (
