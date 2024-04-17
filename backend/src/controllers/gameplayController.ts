@@ -11,7 +11,7 @@ const gameCheck = (game: Gameplay): string => {
    if (game.liberalCards === 5){
     return "liberal board"
   }
-   if((game.fascistCards >= 4) && (game.currentChancellor === game.hitler)){
+   if((game.fascistCards >= 3) && (game.currentChancellor === game.hitler)){
     return "hitler"
    }
   return ""
