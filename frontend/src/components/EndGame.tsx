@@ -19,6 +19,9 @@ const EndGame: React.FC<EndGameProps> = ({ result }) => {
       } else if (result === 'fascist board') {
         setWinner('Fascists');
         setWinState('Fascist board was filled');
+      } else if (result === "hitler"){
+        setWinner('Fascists');
+        setWinState('Hitler has been elected Chancellor');
       }
     }, [result]);
   

@@ -29,12 +29,12 @@ const deckSlice = createSlice({
     setDiscardedCards(state, action: PayloadAction<number>) {
         state.discardedCards = action.payload;
       },
-      toggleDraw(state) {
-        state.canDraw = !state.canDraw;
+      setDraw(state, action: PayloadAction<boolean>) {
+        state.canDraw = action.payload;
       }
   },
 });
 
-export const { setCurrentCards, setRemainingCards, setDiscardedCards, toggleDraw } = deckSlice.actions;
+export const { setCurrentCards, setRemainingCards, setDiscardedCards, setDraw } = deckSlice.actions;
 
 export default deckSlice.reducer;

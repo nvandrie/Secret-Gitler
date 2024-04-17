@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../styling/Gameplay.css";
 import axiosInstance from "../../api/axiosInstance";
-import Deck from "../DeckActions/Deck";
 
 const ElectionTracker: React.FC = () => {
   const [failedElections, setFailedElections] = useState(0);
@@ -10,7 +9,6 @@ const ElectionTracker: React.FC = () => {
     const createNewTracker = async () => {
       try {
         await axiosInstance.post("/api/new-tracker");
-        console.log("new tracker was made successfully");
       } catch (error) {
         console.error("Error creating new tracker:", error);
       }
@@ -23,7 +21,6 @@ const ElectionTracker: React.FC = () => {
 
     socket.onmessage = async (event) => {
       const message = JSON.parse(event.data);
-      console.log(message.type);
       if (message.type === "check_play_card") {
         const response = await axiosInstance.post("/api/get-tracker");
         setFailedElections(response.data.failedElections);

@@ -7,7 +7,7 @@ import {
   setCurrentCards,
   setDiscardedCards,
   setRemainingCards,
-  toggleDraw,
+  setDraw,
 } from "../../slices/deckSlice";
 import { searchRoleByName } from "../IdentityCheck"
 import { useAppSelector } from '../../hooks/redux-hooks';
@@ -50,7 +50,7 @@ const Deck: React.FC = () => {
               dispatch(setCurrentCards(["default", "default", "default"]));
               dispatch(setRemainingCards(response.data.remainingCards.length));
               dispatch(setDiscardedCards(response.data.discardCards.length - 3))
-              dispatch(toggleDraw())
+              dispatch(setDraw(false))
             }
           }
           }
@@ -62,6 +62,8 @@ const Deck: React.FC = () => {
       }, []);
 
     const handleDeckClick = async () => {
+      // this will be moved later
+      await axiosInstance.post("/api/check-game");
       if (basicUserInfo?.name){
         const identity = await searchRoleByName(basicUserInfo?.name) 
       if(identity === "president"){
@@ -70,7 +72,7 @@ const Deck: React.FC = () => {
             dispatch(setCurrentCards(response.data.drawnCards));
             dispatch(setRemainingCards(response.data.remainingCards.length));
             dispatch(setDiscardedCards(response.data.discardCards.length - 3))
-            dispatch(toggleDraw())
+            dispatch(setDraw(false))
         }
       }
     }
