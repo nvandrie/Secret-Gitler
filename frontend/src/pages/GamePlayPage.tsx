@@ -39,68 +39,75 @@ const GamePlayPage = () => {
   const lobbyId = useSelector((state: RootState) => state.lobby.variable);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
-
   const updatePresident = async () => {
-    if (basicUserInfo?.name){
-      const identity = await searchRoleByName(basicUserInfo?.name) 
-    if(identity === "president"){
-    setPlayers((prevPlayers) => {
-      const newPlayers = [...prevPlayers];
-      newPlayers[presIndex].role = "default";
-      const newPresIndex = presIndex === players.length - 1 ? 0 : presIndex + 1;
-      newPlayers[newPresIndex].role = "president";
-      axiosInstance.post("/api/set-president", {player: newPlayers[newPresIndex].name})
-      setPresIndex(newPresIndex);
-      return newPlayers;
-    });
-    updateChancellor(-1);
-  }}
+    if (basicUserInfo?.name) {
+      const identity = await searchRoleByName(basicUserInfo?.name);
+      if (identity === "president") {
+        setPlayers((prevPlayers) => {
+          const newPlayers = [...prevPlayers];
+          newPlayers[presIndex].role = "default";
+          const newPresIndex =
+            presIndex === players.length - 1 ? 0 : presIndex + 1;
+          newPlayers[newPresIndex].role = "president";
+          axiosInstance.post("/api/set-president", {
+            player: newPlayers[newPresIndex].name,
+          });
+          setPresIndex(newPresIndex);
+          return newPlayers;
+        });
+        updateChancellor(-1);
+      }
+    }
   };
 
   const updateChancellor = async (index: number) => {
-    if (basicUserInfo?.name){
-      const identity = await searchRoleByName(basicUserInfo?.name) 
-    if(identity === "president"){
-    if (index !== -1) {
-      dispatch(toggleVotingActivity());
-    }
-    setPlayers((prevPlayers) => {
-      const newPlayers = [...prevPlayers];
-      newPlayers.forEach((player, i) => {
-        if (i === index && player.role !== "president") {
-          player.role = "chancellor";
-          axiosInstance.post("/api/set-chancellor", {player: player.name})
-        } else if (player.role === "chancellor") {
-          player.role = "default";
+    if (basicUserInfo?.name) {
+      const identity = await searchRoleByName(basicUserInfo?.name);
+      if (identity === "president") {
+        if (index !== -1) {
+          // make api call to start voting
+          axiosInstance.post("/api/start-vote", { player: players[index] });
         }
-      });
-      return newPlayers;
-    });
-  }}
+        setPlayers((prevPlayers) => {
+          const newPlayers = [...prevPlayers];
+          newPlayers.forEach((player, i) => {
+            if (i === index && player.role !== "president") {
+              player.role = "chancellor";
+              // axiosInstance.post("/api/set-chancellor-candidate", { player: player.name });
+            } else if (player.role === "chancellor") {
+              player.role = "default";
+            }
+          });
+          return newPlayers;
+        });
+      }
+    }
   };
 
-
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3000');
-  
+    const socket = new WebSocket("ws://localhost:3000");
+
     socket.onmessage = async (event) => {
       const message = JSON.parse(event.data);
-      if (message.type === 'update_roles') {
+      if (message.type === "update_roles") {
         const response = await axiosInstance.post(`/api/get-players`);
         const players = response.data;
-        setPlayers(players)
+        setPlayers(players);
       }
-      if (message.type === 'end_game') {
-        setGame(true)
-        setResult(message.result)
+      if (message.type === "start_vote") {
+        dispatch(toggleVotingActivity());
+        setPlayers(players);
+      }
+      if (message.type === "end_game") {
+        setGame(true);
+        setResult(message.result);
       }
     };
-  
+
     return () => {
       socket.close();
     };
-
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const initializePlayers = async () => {
@@ -117,16 +124,16 @@ const GamePlayPage = () => {
         console.error("Error fetching players:", error);
       }
     };
-  
+
     initializePlayers();
-  
+
     const cleanup = async () => {
-      await axiosInstance.post("/api/end-game")
+      await axiosInstance.post("/api/end-game");
     };
-      return () => {
+    return () => {
       cleanup();
     };
-  }, []); 
+  }, []);
 
   return (
     <div className="grid-container">
@@ -152,20 +159,20 @@ const GamePlayPage = () => {
       </div>
       <div className="draw-cards">
         <div className="drawing-area">
-          <CardDrawing setSelectedCards={setSelectedCards}/>
+          <CardDrawing setSelectedCards={setSelectedCards} />
         </div>
         <div className="deck-area">
           <Deck />
         </div>
 
         <div className="selection-area">
-          <CardSelecting selectedCards={selectedCards}/>
+          <CardSelecting selectedCards={selectedCards} />
         </div>
       </div>
       <Chat />
       <Popup />
       <Vote />
-      <div>{gameState && <EndGame result={result}/>}</div>
+      <div>{gameState && <EndGame result={result} />}</div>
     </div>
   );
 };

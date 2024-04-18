@@ -6,6 +6,7 @@ import { setDraw } from "../../slices/deckSlice";
 import "../../styling/popup.css";
 import ja from "/voting_cards/ja.jpg";
 import nein from "/voting_cards/nein.jpg";
+import axiosInstance from "../../api/axiosInstance";
 
 const Vote: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,8 @@ const Vote: React.FC = () => {
     (state: RootState) => state.vote.votingActive
   );
 
-  const handleToggleVoting = () => {
+  const handleToggleVoting = (vote: "ja" | "nein") => {
+    axiosInstance.post("/api/tally-vote", { vote: vote });
     dispatch(toggleVotingActivity());
     dispatch(setDraw(true));
   };
@@ -35,14 +37,14 @@ const Vote: React.FC = () => {
                     <div className="ya">
                       <button
                         className="ya_button"
-                        onClick={handleToggleVoting}
+                        onClick={() => handleToggleVoting("ja")}
                         style={{ backgroundImage: `url(${ja})` }}
                       ></button>
                     </div>
                     <div className="nein">
                       <button
                         className="nein_button"
-                        onClick={handleToggleVoting}
+                        onClick={() => handleToggleVoting("nein")}
                         style={{ backgroundImage: `url(${nein})` }}
                       ></button>
                     </div>

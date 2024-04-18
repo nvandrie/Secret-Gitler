@@ -6,7 +6,7 @@ import {
   getCard,
   startSelect,
   getTopCard,
-  clearDeck
+  clearDeck,
 } from "../controllers/deckController";
 import {
   addFascist,
@@ -17,14 +17,15 @@ import {
   initializePlayers,
   getPlayers,
   endGame,
-  checkGame
+  startVote,
+  tallyVote,
+  checkGame,
 } from "../controllers/gameplayController";
 import {
   newTracker,
   checkPlayCard,
   getTracker,
 } from "../controllers/trackerController";
-
 
 const router = express.Router();
 
@@ -44,14 +45,16 @@ router.post("/api/get-top-card", getTopCard);
 //presidency and chancellor update routes
 router.post(`/api/initalize-players`, initializePlayers);
 router.post("/api/set-president", setPresident);
-router.post("/api/set-chancellor", setChancellor);
+
+//voting routes
+router.post("/api/start-vote", startVote);
+router.post("/api/tally-vote", tallyVote);
 
 //game state routes
 router.post("/api/create-game", createGame);
 router.post("/api/end-game", [clearDeck, endGame]);
 router.post("/api/add-fascist", addFascist);
 router.post("/api/add-liberal", addLiberal);
-router.post("/api/get-players", getPlayers)
-router.post("/api/check-game", checkGame)
-export default router
-
+router.post("/api/get-players", getPlayers);
+router.post("/api/check-game", checkGame);
+export default router;
