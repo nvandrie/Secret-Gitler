@@ -6,7 +6,7 @@ import {
   getCard,
   startSelect,
   getTopCard,
-  clearDeck
+  clearDeck,
 } from "../controllers/deckController";
 import {
   addFascist,
@@ -19,7 +19,7 @@ import {
   endGame,
   startVote,
   tallyVote,
-  checkGame
+  checkGame,
 } from "../controllers/gameplayController";
 import {
   newTracker,
@@ -55,6 +55,6 @@ router.post("/api/create-game", createGame);
 router.post("/api/end-game", [clearDeck, endGame]);
 router.post("/api/add-fascist", addFascist);
 router.post("/api/add-liberal", addLiberal);
-router.post("/api/get-players", getPlayers)
-router.post("/api/check-game", checkGame)
-export default router
+router.post("/api/get-players", getPlayers);
+router.post("/api/check-game", checkGame);
+export default router;

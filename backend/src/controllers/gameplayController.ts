@@ -22,18 +22,19 @@ const createGame = (req: Request, res: Response): void => {
 
   broadcastMessage({ type: "start_game" });
   res.json(true);
+};
 
 const gameCheck = (game: Gameplay): string => {
-  if (game.fascistCards === 6){
-    return "fascist board"
+  if (game.fascistCards === 6) {
+    return "fascist board";
   }
-   if (game.liberalCards === 5){
-    return "liberal board"
+  if (game.liberalCards === 5) {
+    return "liberal board";
   }
-   if((game.fascistCards >= 3) && (game.currentChancellor === game.hitler)){
-    return "hitler"
-   }
-  return ""
+  if (game.fascistCards >= 3 && game.currentChancellor === game.hitler) {
+    return "hitler";
+  }
+  return "";
 };
 
 function shuffle(toShuffle: string[]) {
@@ -72,8 +73,10 @@ const initializePlayers = (req: Request, res: Response): void => {
   }
 
   game.players = playerData;
-    game.hitler = (game.players.find(player => player.identity === "hitler") as Player).name
-    res.json(playerData);
+  game.hitler = (
+    game.players.find((player) => player.identity === "hitler") as Player
+  ).name;
+  res.json(playerData);
 };
 
 const addFascist = (req: Request, res: Response): void => {
@@ -85,8 +88,8 @@ const addFascist = (req: Request, res: Response): void => {
   game.fascistCards = game.fascistCards + 1;
 
   const result = gameCheck(game);
-  if (result !== ""){
-    broadcastMessage({ type: 'end_game', result: result });
+  if (result !== "") {
+    broadcastMessage({ type: "end_game", result: result });
   }
   res.json(result);
 };
@@ -99,8 +102,8 @@ const addLiberal = (req: Request, res: Response): void => {
   game.liberalCards = game.liberalCards + 1;
 
   const result = gameCheck(game);
-  if (result !== ""){
-    broadcastMessage({ type: 'end_game', result: result });
+  if (result !== "") {
+    broadcastMessage({ type: "end_game", result: result });
   }
   res.json(result);
 };
@@ -156,20 +159,18 @@ const endGame = (req: Request, res: Response): void => {
 };
 
 const checkGame = (req: Request, res: Response): void => {
-
   if (game == null) {
     res.status(500).json({ error: "Game is not initialized" });
     return;
   }
   const result = gameCheck(game);
-  if (result !== ""){
-    broadcastMessage({ type: 'end_game', result: result });
+  if (result !== "") {
+    broadcastMessage({ type: "end_game", result: result });
   }
   res.json(result);
 };
- const startVote = (req: Request, res: Response): void => {
-   
-   if (game == null) {
+const startVote = (req: Request, res: Response): void => {
+  if (game == null) {
     res.status(500).json({ error: "Game is not initialized" });
     return;
   }
@@ -222,7 +223,7 @@ const endVote = (voting: Voting): void => {
 };
 
 export {
-  checkGame
+  checkGame,
   addFascist,
   addLiberal,
   setChancellor,
@@ -235,4 +236,3 @@ export {
   tallyVote,
   endVote,
 };
-
