@@ -1,6 +1,9 @@
+import { Player } from "./Player";
+
 export interface Voting {
   votingActive: boolean;
-  ya_votes: number;
+  candidate: Player;
+  ja_votes: number;
   nein_votes: number;
   result: "pass" | "fail" | "ongoing";
 }

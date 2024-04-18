@@ -39,7 +39,9 @@ const GamePlayPage = () => {
       newPlayers[presIndex].role = "default";
       const newPresIndex = presIndex === players.length - 1 ? 0 : presIndex + 1;
       newPlayers[newPresIndex].role = "president";
-      axiosInstance.post("/api/set-president", {player: newPlayers[newPresIndex].name})
+      axiosInstance.post("/api/set-president", {
+        player: newPlayers[newPresIndex].name,
+      });
       setPresIndex(newPresIndex);
       return newPlayers;
     });
@@ -48,15 +50,15 @@ const GamePlayPage = () => {
 
   const updateChancellor = (index: number) => {
     if (index !== -1) {
-      dispatch(toggleVotingActivity()); //might want to delete 
       // make api call to start voting
+      axiosInstance.post("/api/start-vote", { player: players[index] });
     }
     setPlayers((prevPlayers) => {
       const newPlayers = [...prevPlayers];
       newPlayers.forEach((player, i) => {
         if (i === index && player.role !== "president") {
           player.role = "chancellor";
-          axiosInstance.post("/api/set-chancellor", {player: player.name})
+          // axiosInstance.post("/api/set-chancellor-candidate", { player: player.name });
         } else if (player.role === "chancellor") {
           player.role = "default";
         }
@@ -65,26 +67,26 @@ const GamePlayPage = () => {
     });
   };
 
-
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3000');
-  
+    const socket = new WebSocket("ws://localhost:3000");
+
     socket.onmessage = async (event) => {
       const message = JSON.parse(event.data);
-      if (message.type === 'update_roles') {
+      if (message.type === "update_roles") {
         const response = await axiosInstance.post(`/api/get-players`);
         const players = response.data;
-        setPlayers(players)
-        }
+        setPlayers(players);
+      }
       // create if (message.type == started_voting)
-      // dispatch(toggleVotingActivity()); (makes popup show)
+      if (message.type === "start_vote") {
+        dispatch(toggleVotingActivity());
+      }
     };
-  
+
     return () => {
       socket.close();
     };
-
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const initializePlayers = async () => {
@@ -101,16 +103,16 @@ const GamePlayPage = () => {
         console.error("Error fetching players:", error);
       }
     };
-  
+
     initializePlayers();
-  
+
     const cleanup = async () => {
-      await axiosInstance.post("/api/end-game")
+      await axiosInstance.post("/api/end-game");
     };
-      return () => {
+    return () => {
       cleanup();
     };
-  }, []); 
+  }, []);
 
   return (
     <div className="grid-container">
@@ -131,14 +133,14 @@ const GamePlayPage = () => {
       </div>
       <div className="draw-cards">
         <div className="drawing-area">
-          <CardDrawing setSelectedCards={setSelectedCards}/>
+          <CardDrawing setSelectedCards={setSelectedCards} />
         </div>
         <div className="deck-area">
           <Deck />
         </div>
 
         <div className="selection-area">
-          <CardSelecting selectedCards={selectedCards}/>
+          <CardSelecting selectedCards={selectedCards} />
         </div>
       </div>
       <Chat />

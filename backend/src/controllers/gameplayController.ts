@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Gameplay, Phase } from "../models/Gameplay";
 import { Voting } from "../models/Voting";
 import { broadcastMessage } from "../index";
+import { Player } from "../models/Player";
 
 let game: Gameplay | null = null;
 
@@ -36,12 +37,6 @@ function shuffle(toShuffle: string[]) {
 }
 
 const initializePlayers = (req: Request, res: Response): void => {
-  interface Player {
-    name: string;
-    role: "president" | "chancellor" | "default";
-    identity: "fascist" | "hitler" | "liberal";
-  }
-
   const playerString = req.body.players;
   const players: string[] = JSON.parse(playerString);
 
@@ -99,17 +94,15 @@ const addLiberal = (req: Request, res: Response): void => {
   res.json(result);
 };
 
-const setChancellor = (req: Request, res: Response): void => {
-  const player = req.body.player;
+const setChancellor = (player: Player): void => {
   console.log(player);
 
   if (game == null) {
-    res.status(500).json({ error: "Game is not initialized" });
     return;
   }
 
   for (let i = 0; i < game.players.length; i++) {
-    if (game.players[i].name === player) {
+    if (game.players[i].name === player.name) {
       game.players[i].role = "chancellor";
     } else if (game.players[i].role === "chancellor") {
       game.players[i].role = "default";
@@ -117,8 +110,6 @@ const setChancellor = (req: Request, res: Response): void => {
   }
 
   broadcastMessage({ type: "update_roles" });
-
-  res.json(true);
 };
 
 const setPresident = (req: Request, res: Response): void => {
@@ -161,8 +152,51 @@ const startVote = (req: Request, res: Response): void => {
     return;
   }
   game.phase = Phase.VOTING;
+
+  voting = {
+    votingActive: true,
+    candidate: req.body.player,
+    ja_votes: 0,
+    nein_votes: 0,
+    result: "ongoing",
+  };
+
   broadcastMessage({ type: "start_vote" });
   res.json(game.phase);
+};
+
+const tallyVote = (req: Request, res: Response): void => {
+  if (game == null) {
+    res.status(500).json({ error: "Game is not initialized" });
+    return;
+  }
+  if (voting == null) {
+    res.status(500).json({ error: "Voting is not instantialized" });
+    return;
+  }
+  const vote = req.body.vote;
+  if (vote == "ja") {
+    voting.ja_votes++;
+  }
+  if (vote == "nein") {
+    voting.nein_votes++;
+  }
+
+  broadcastMessage({ type: "tally_vote" });
+
+  if (voting.ja_votes + voting.nein_votes == game.players.length) {
+    endVote(voting);
+  }
+};
+// const endVote = (req: Request, res: Response): void => {};
+const endVote = (voting: Voting): void => {
+  if (voting.ja_votes > voting.nein_votes) {
+    voting.result = "pass";
+    setChancellor(voting.candidate);
+  } else {
+    voting.result = "fail";
+  }
+  broadcastMessage({ type: "end_vote", result: voting.result });
 };
 
 export {
@@ -175,4 +209,6 @@ export {
   getPlayers,
   endGame,
   startVote,
+  tallyVote,
+  endVote,
 };
