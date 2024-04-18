@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store";
 import { toggleVotingActivity } from "../../slices/voteSlice";
-import { toggleDraw } from "../../slices/deckSlice";
+import { setDraw } from "../../slices/deckSlice";
 import "../../styling/popup.css";
 import ja from "/voting_cards/ja.jpg";
 import nein from "/voting_cards/nein.jpg";
@@ -17,11 +17,11 @@ const Vote: React.FC = () => {
   const handleToggleVoting = (vote: "ja" | "nein") => {
     axiosInstance.post("/api/tally-vote", { vote: vote });
     dispatch(toggleVotingActivity());
-    dispatch(toggleDraw());
+    dispatch(setDraw(true));
   };
 
   return (
-    <div className="voteContainer">
+    <div className={`voteContainer ${votingActive ? "votingActive" : ""}`}>
       {votingActive && (
         <div className={`vote${votingActive ? "visibile-vote" : ""}`}>
           <div className="voteContainer">

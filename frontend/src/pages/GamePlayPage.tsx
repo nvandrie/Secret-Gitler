@@ -8,12 +8,15 @@ import Popup from "../components/popups/PlayerIdentityPopup";
 import Chat from "../components/popups/ChatPopup";
 import PlayerIconGame from "../components/PlayerIconGame";
 import Vote from "../components/popups/Vote";
+import ElectionTracker from "../components/ElectionTracker/ElectionTracker";
 import { toggleVotingActivity } from "../slices/voteSlice";
 import { useDispatch } from "react-redux";
 import axiosInstance from "../api/axiosInstance";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import axios from "axios";
+import EndGame from "../components/EndGame";
+import { useAppSelector } from "../hooks/redux-hooks";
+import { searchRoleByName } from "../components/IdentityCheck";
 
 interface Card {
   type: "fascist" | "liberal" | "default";
@@ -30,10 +33,17 @@ const GamePlayPage = () => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
   const [presIndex, setPresIndex] = useState<number>(0);
+  const [gameState, setGame] = useState<boolean>(false);
+  const [result, setResult] = useState<string>("");
   const dispatch = useDispatch();
   const lobbyId = useSelector((state: RootState) => state.lobby.variable);
+  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
-  const updatePresident = () => {
+
+  const updatePresident = async () => {
+    if (basicUserInfo?.name){
+      const identity = await searchRoleByName(basicUserInfo?.name) 
+    if(identity === "president"){
     setPlayers((prevPlayers) => {
       const newPlayers = [...prevPlayers];
       newPlayers[presIndex].role = "default";
@@ -46,9 +56,13 @@ const GamePlayPage = () => {
       return newPlayers;
     });
     updateChancellor(-1);
+  }}
   };
 
-  const updateChancellor = (index: number) => {
+  const updateChancellor = async (index: number) => {
+    if (basicUserInfo?.name){
+      const identity = await searchRoleByName(basicUserInfo?.name) 
+    if(identity === "president"){
     if (index !== -1) {
       // make api call to start voting
       axiosInstance.post("/api/start-vote", { player: players[index] });
@@ -65,6 +79,7 @@ const GamePlayPage = () => {
       });
       return newPlayers;
     });
+  }}
   };
 
   useEffect(() => {
@@ -77,9 +92,13 @@ const GamePlayPage = () => {
         const players = response.data;
         setPlayers(players);
       }
-      // create if (message.type == started_voting)
       if (message.type === "start_vote") {
         dispatch(toggleVotingActivity());
+        setPlayers(players)
+      }
+      if (message.type === 'end_game') {
+        setGame(true)
+        setResult(message.result)
       }
     };
 
@@ -127,9 +146,14 @@ const GamePlayPage = () => {
           ))}
         <button onClick={updatePresident}>Update President</button>
       </div>
-      <div className="gameboards">
-        <LiberalGameBoard />
-        <FascistGameBoard />
+      <div className="gameboards-and-tracker">
+        <div className="gameboards">
+          <LiberalGameBoard />
+          <FascistGameBoard />
+        </div>
+        <div className="tracker">
+          <ElectionTracker />
+        </div>
       </div>
       <div className="draw-cards">
         <div className="drawing-area">
@@ -146,6 +170,7 @@ const GamePlayPage = () => {
       <Chat />
       <Popup />
       <Vote />
+      <div>{gameState && <EndGame result={result}/>}</div>
     </div>
   );
 };
