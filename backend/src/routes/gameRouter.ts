@@ -16,7 +16,8 @@ import {
   createGame,
   initializePlayers,
   getPlayers,
-  endGame
+  endGame,
+  checkGame
 } from "../controllers/gameplayController";
 import {
   newTracker,
@@ -51,5 +52,6 @@ router.post("/api/end-game", [clearDeck, endGame]);
 router.post("/api/add-fascist", addFascist);
 router.post("/api/add-liberal", addLiberal);
 router.post("/api/get-players", getPlayers)
+router.post("/api/check-game", checkGame)
 export default router
 

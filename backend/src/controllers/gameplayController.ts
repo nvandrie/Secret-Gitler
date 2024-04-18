@@ -49,6 +49,8 @@ const initializePlayers = (req: Request, res: Response): void => {
   const playerString = req.body.players;
   const players: string[] = JSON.parse(playerString);
 
+  console.log(players)
+  
   const shuffledPlayers = shuffle(players);
 
   // Initialize player data
@@ -75,9 +77,10 @@ const initializePlayers = (req: Request, res: Response): void => {
         return;
     }
 
+    game.players = playerData
+
     game.hitler = (game.players.find(player => player.identity === "hitler") as Player).name
 
-    game.players = playerData
 
     res.json(playerData);
 };
