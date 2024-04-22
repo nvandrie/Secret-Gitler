@@ -1,9 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store.ts";
+import { RootState } from "../../store";
 import liberal_board from "/boards/liberal_board.png";
 
 interface GameBoardProps {}
+
+interface Element {
+  path: string;
+  alt: string;
+}
 
 const MAX_CARDS = 5;
 
@@ -22,6 +27,7 @@ const LiberalGameBoard: React.FC<GameBoardProps> = ({}) => {
 
   return (
     <div
+      data-testid="liberal-game-board"
       style={{
         display: "flex",
         flexDirection: "row",
@@ -49,7 +55,7 @@ const LiberalGameBoard: React.FC<GameBoardProps> = ({}) => {
             marginLeft: (OUTER_WIDTH / (MAX_CARDS + 2)) * 1.1,
           }}
         >
-          {elements.map((element, index) => (
+          {elements.map((element: Element, index: number) => (
             <div
               key={index}
               style={{

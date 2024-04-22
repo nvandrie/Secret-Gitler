@@ -9,7 +9,8 @@ const config: Config.InitialOptions = {
   maxWorkers: 1,
   testEnvironment: "jsdom",
   moduleNameMapper: {
-    "\\.(css|less)$": "../Tests/__mocking__/styleMock.js",
+    "\\.(jpg|jpeg|png|gif|webp|svg)$":
+      "<rootDir>/src/testing/_mocking_/fileMock.ts",
   },
 };
 
