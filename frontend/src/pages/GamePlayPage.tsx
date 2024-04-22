@@ -44,6 +44,7 @@ const GamePlayPage = () => {
       const identity = await searchRoleByName(basicUserInfo?.name);
       if (identity === "president") {
         setPlayers((prevPlayers) => {
+          console.log(prevPlayers)
           const newPlayers = [...prevPlayers];
           newPlayers[presIndex].role = "default";
           const newPresIndex =
@@ -73,7 +74,6 @@ const GamePlayPage = () => {
           newPlayers.forEach((player, i) => {
             if (i === index && player.role !== "president") {
               player.role = "chancellor";
-              // axiosInstance.post("/api/set-chancellor-candidate", { player: player.name });
             } else if (player.role === "chancellor") {
               player.role = "default";
             }
@@ -96,7 +96,6 @@ const GamePlayPage = () => {
       }
       if (message.type === "start_vote") {
         dispatch(toggleVotingActivity());
-        setPlayers(players);
       }
       if (message.type === "end_game") {
         setGame(true);

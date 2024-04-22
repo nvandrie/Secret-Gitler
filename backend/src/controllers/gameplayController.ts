@@ -37,7 +37,7 @@ const gameCheck = (game: Gameplay): string => {
   return "";
 };
 
-function shuffle(toShuffle: string[]) {
+function shuffle(toShuffle: any[]) {
   for (let i = toShuffle.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [toShuffle[i], toShuffle[j]] = [toShuffle[j], toShuffle[i]];
@@ -56,13 +56,9 @@ const initializePlayers = (req: Request, res: Response): void => {
     let role: "president" | "chancellor" | "default" = "default";
     let identity: "fascist" | "hitler" | "liberal" = "liberal";
 
-    // Assign roles and identities based on index
-    if (index === 0) {
-      role = "president";
-    }
-    if (index === 3) {
+    if (index === 1) {
       identity = "fascist";
-    } else if (index === 4) {
+    } else if (index === 2) {
       identity = "hitler";
     }
     return { name: player, role, identity };
@@ -71,12 +67,15 @@ const initializePlayers = (req: Request, res: Response): void => {
   if (game === null) {
     return;
   }
+  const afterShuffle = shuffle(playerData);
 
-  game.players = playerData;
+  game.players = afterShuffle;
+  game.players[0].role = "president"
+
   game.hitler = (
     game.players.find((player) => player.identity === "hitler") as Player
   ).name;
-  res.json(playerData);
+  res.json(game.players);
 };
 
 const addFascist = (req: Request, res: Response): void => {
@@ -210,6 +209,7 @@ const tallyVote = (req: Request, res: Response): void => {
   if (voting.ja_votes + voting.nein_votes == game.players.length) {
     endVote(voting);
   }
+  res.json("")
 };
 // const endVote = (req: Request, res: Response): void => {};
 const endVote = (voting: Voting): void => {
