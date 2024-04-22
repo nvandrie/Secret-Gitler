@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../../styling/Gameplay.css";
 import axiosInstance from "../../api/axiosInstance";
+import FailedElectionCircles from "./FailedElectionCircles";
+import { useAppSelector } from "../../hooks/redux-hooks";
+import { searchRoleByName } from "../IdentityCheck";
 
 const ElectionTracker: React.FC = () => {
   const [failedElections, setFailedElections] = useState(0);
+  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
+
 
   useEffect(() => {
     const createNewTracker = async () => {
@@ -25,6 +30,16 @@ const ElectionTracker: React.FC = () => {
         const response = await axiosInstance.post("/api/get-tracker");
         setFailedElections(response.data.failedElections);
       }
+      if (message.type === "end_vote"){
+        if (message.result === "fail"){
+          if (basicUserInfo?.name) {
+            const identity = await searchRoleByName(basicUserInfo?.name);
+            if (identity === "president") {
+              failAction()
+            }
+          }
+        }
+      }
     };
 
     return () => {
@@ -32,9 +47,10 @@ const ElectionTracker: React.FC = () => {
     };
   }, []);
 
-  const handleButtonClick = async () => {
+  const failAction = async () => {
     const tracker = await axiosInstance.post("/api/check-play-card");
     const numFailed = tracker.data.failedElections;
+    console.log(numFailed)
     let play = false;
     if (numFailed === 0) {
       play = true;
@@ -56,12 +72,7 @@ const ElectionTracker: React.FC = () => {
     <div className="container">
       <div className="tracker">
         <h3 className="tracker-text">Failed Elections</h3>
-        <div className="tracker-rectangle">
-          <div className="tracker-inner-rectangle">
-            <button onClick={handleButtonClick}>Fail an Election</button>
-            <p className="tracker-count">{failedElections}</p>
-          </div>
-        </div>
+            <FailedElectionCircles count={failedElections} />
       </div>
     </div>
   );
