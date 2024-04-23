@@ -1,44 +1,3 @@
-// import React, { useState } from "react";
-// import "../../styling/popup.css"; // Styles for the component
-// import { useAppSelector } from "../../hooks/redux-hooks";
-// import { searchIdentityByName } from "../PartyCheck";
-// import liberal_identity from "/identities/liberal_identity.png";
-// import fascist_identity from "/identities/fascist_identity.png";
-
-// const Popup: React.FC = () => {
-//   const [isVisible, setIsVisible] = useState(false);
-//   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
-
-//   const toggleVisibility = () => {
-//     setIsVisible(!isVisible);
-//   };
-
-//   const identity = await searchIdentityByName(basicUserInfo?.name);
-
-//   return (
-//     <div className={`bottom-slide-up ${isVisible ? "visible" : ""}`}>
-//       <div className="bottom-slide-items">
-//         <div className="trigger" onClick={toggleVisibility}>
-//           <div className={`content ${isVisible ? "visible" : ""}`}>
-//             <p>{isVisible ? "Hide Your Identity" : "View Your Identity"}</p>
-//           </div>
-//           <h1 className="title-text">Your Identity</h1>
-//           <div className="identities">
-//             <div className="identiy-outline">
-//               <img src={liberal_identity} alt="Image" className="identity" />
-//             </div>
-//             <div className="identiy-outline">
-//               <img src={liberal_identity} alt="Image" className="identity" />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Popup;
-
 import React, { useState, useEffect } from "react";
 import "../../styling/popup.css"; // Styles for the component
 import { useAppSelector } from "../../hooks/redux-hooks";
@@ -46,6 +5,8 @@ import { searchIdentityByName } from "../PartyCheck";
 import liberal_identity from "/identities/liberal_identity.png";
 import fascist_identity from "/identities/fascist_identity.png";
 import hitler_identity from "/identities/hitler_identity.png";
+import fascist_party from "/party_membership_cards/fascist_party_mem.png";
+import liberal_party from "/party_membership_cards/liberal_party_mem.png";
 
 const Popup: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -100,9 +61,7 @@ const Popup: React.FC = () => {
             <div className="identity-outline">
               <img
                 src={
-                  playerIdentity === "liberal"
-                    ? liberal_identity
-                    : fascist_identity
+                  playerIdentity === "liberal" ? liberal_party : fascist_party
                 }
                 alt="Image"
                 className="identity"
