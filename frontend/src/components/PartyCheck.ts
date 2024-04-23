@@ -1,6 +1,8 @@
 import axiosInstance from "../api/axiosInstance";
 
-export async function searchRoleByName(name: string): Promise<string | null> {
+export async function searchIdentityByName(
+  name: string
+): Promise<string | null> {
   try {
     const response = await axiosInstance.post(`/api/get-players`);
     const players = response.data;
@@ -9,7 +11,7 @@ export async function searchRoleByName(name: string): Promise<string | null> {
 
     for (let i = 0; i < players.length; i++) {
       if (players[i].name === name) {
-        return players[i].role;
+        return players[i].identity;
       }
     }
 

@@ -79,7 +79,7 @@
   z-index: 100;
 }
 
-.identiy-outline {
+.identity-outline {
   height: 210px;
   width: 160px;
 }
@@ -210,7 +210,7 @@
   cursor: pointer;
 }
 
-.gamePopUp{
+.gamePopUp {
   position: absolute;
   height: 80%;
   width: 75%;
