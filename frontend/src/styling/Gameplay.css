@@ -14,10 +14,16 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: 200px auto auto 50px;
+  grid-template-columns: 200px auto 50px;
   grid-template-rows: 57% 43%;
   height: 100vh;
   width: 100%;
+}
+
+.tracker-text{
+  font-weight: bold;
+  text-decoration: underline;
+  color: var(--white);
 }
 
 .players-display {
@@ -168,5 +174,24 @@
 
 .gameboards-and-tracker {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 5px;
+  border: 2px solid black;
+}
+
+.filled {
+  background-color: var(--beige);
 }
