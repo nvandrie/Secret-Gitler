@@ -96,6 +96,20 @@
   border-width: medium;
 }
 
+.green {
+  background-color: #59a96a;
+}
+.red {
+  background-color: var(--dark-red);
+}
+.white {
+  background-color: white;
+}
+
+.display {
+  background-color: white !important;
+}
+
 .player-name {
   position: relative;
   text-align: center;

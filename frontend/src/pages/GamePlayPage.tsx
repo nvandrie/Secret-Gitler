@@ -69,17 +69,6 @@ const GamePlayPage = () => {
           // make api call to start voting
           axiosInstance.post("/api/start-vote", { player: players[index] });
         }
-        setPlayers((prevPlayers) => {
-          const newPlayers = [...prevPlayers];
-          newPlayers.forEach((player, i) => {
-            if (i === index && player.role !== "president") {
-              player.role = "chancellor";
-            } else if (player.role === "chancellor") {
-              player.role = "default";
-            }
-          });
-          return newPlayers;
-        });
       }
     }
   };

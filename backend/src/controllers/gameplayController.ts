@@ -198,7 +198,7 @@ const tallyVote = (req: Request, res: Response): void => {
     res.status(500).json({ error: "Voting is not instantialized" });
     return;
   }
-  let color: any
+  let color = "white"
   const vote = req.body.vote;
   if (vote == "ja") {
     voting.ja_votes++;
@@ -216,7 +216,7 @@ const tallyVote = (req: Request, res: Response): void => {
   }
   res.json("")
 };
-// const endVote = (req: Request, res: Response): void => {};
+
 const endVote = (voting: Voting): void => {
   if (voting.ja_votes > voting.nein_votes) {
     voting.result = "pass";
