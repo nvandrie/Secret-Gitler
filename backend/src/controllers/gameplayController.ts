@@ -198,15 +198,18 @@ const tallyVote = (req: Request, res: Response): void => {
     res.status(500).json({ error: "Voting is not instantialized" });
     return;
   }
+  let color: any
   const vote = req.body.vote;
   if (vote == "ja") {
     voting.ja_votes++;
+    color = "green"
   }
   if (vote == "nein") {
     voting.nein_votes++;
+    color = "red"
   }
 
-  broadcastMessage({ type: "tally_vote" });
+  broadcastMessage({ type: "tally_vote", player: req.body.player, color: color });
 
   if (voting.ja_votes + voting.nein_votes == game.players.length) {
     endVote(voting);
