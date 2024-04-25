@@ -8,6 +8,8 @@ import { addElement } from "../../slices/fascistBoardSlice";
 import { addLiberalElement } from "../../slices/liberalBoardSlice";
 import { setDiscardedCards, setRemainingCards } from "../../slices/deckSlice";
 import axiosInstance from "../../api/axiosInstance";
+import { searchRoleByName } from "../IdentityCheck";
+import { useAppSelector } from "../../hooks/redux-hooks";
 
 interface Card {
   type: "fascist" | "liberal" | "default";
@@ -24,6 +26,8 @@ const LIBERAL_MAX_CARDS = 5;
 const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(true);
+  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
+
 
   const fascist_elements = useSelector(
     (state: RootState) => state.fascistBoard.elements
@@ -52,6 +56,9 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   };
 
   const handleCardClick = async (card: Card) => {
+    if (basicUserInfo?.name){
+      const identity = await searchRoleByName(basicUserInfo?.name) 
+    if(identity === "president"){
     if (card.type === "liberal") {
       await axiosInstance.post("/api/add-liberal");
     } else {
@@ -61,6 +68,7 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
       cardToRemove: JSON.stringify(card.type),
     });
     setIsVisible(false);
+  }}
   };
 
   useEffect(() => {
@@ -79,18 +87,8 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
       if (message.type === "card_click") {
         setIsVisible(false);
         const response = await axiosInstance.post("/api/get-cards");
-        dispatch(setDiscardedCards(response.data.discardCards.length - 0));
+        dispatch(setDiscardedCards(response.data.discardCards.length));
         if (message.card === "liberal") {
-          addLiberalCard();
-        } else {
-          addFascistCard();
-        }
-      }
-      if (message.type === "tracker_play_card") {
-        setIsVisible(false);
-        const response = await axiosInstance.post("/api/get-cards");
-        dispatch(setRemainingCards(response.data.remainingCards.length - 0));
-        if (message.card[0] === "liberal") {
           addLiberalCard();
         } else {
           addFascistCard();
