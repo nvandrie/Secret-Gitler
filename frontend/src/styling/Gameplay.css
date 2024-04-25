@@ -20,7 +20,7 @@
   width: 100%;
 }
 
-.tracker-text{
+.tracker-text {
   font-weight: bold;
   text-decoration: underline;
   color: var(--white);
@@ -33,6 +33,7 @@
   border: 1px solid black;
   flex-direction: column;
   align-items: center;
+  margin-top: 15%;
 }
 
 .players-display-horizontal {
@@ -47,12 +48,13 @@
 .gameboards {
   grid-column: 2 / 4;
   grid-row: 1 / 2;
-  margin-top: 10px;
+  margin-top: 40px;
   align-self: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  size: 90%
 }
 
 .draw-cards {
@@ -70,7 +72,7 @@
   justify-content: center;
   align-items: center;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  grid-template-columns: repeat(3, 1fr);
   padding: 10px;
 }
 
@@ -164,6 +166,10 @@
   color: var(--white);
 }
 
+.deck {
+  margin-top: 15px;
+}
+
 .cards-count {
   font-size: 70px;
 }
@@ -194,4 +200,29 @@
 
 .filled {
   background-color: var(--beige);
+}
+
+.rolling-banner {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: var(--medium-red);
+  color: #fff;
+  padding: 10px 0;
+}
+
+.rolling-text {
+  display: inline-block;
+  position: relative;
+  left: 100%;
+  animation: roll 10s linear infinite;
+}
+
+@keyframes roll {
+  from {
+    left: 100%;
+  }
+  to {
+    left: -100%;
+  }
 }

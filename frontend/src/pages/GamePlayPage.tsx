@@ -18,6 +18,7 @@ import { RootState } from "../store";
 import EndGame from "../components/EndGame";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { searchRoleByName } from "../components/IdentityCheck";
+import TooltipBar from "../components/tooltipBar";
 
 interface Card {
   type: "fascist" | "liberal" | "default";
@@ -120,6 +121,9 @@ const GamePlayPage = () => {
 
   return (
     <div className="grid-container">
+      <div className="tooltip" style={{ position: 'absolute', top: 0, width: '100%' }}>
+      <TooltipBar message="This is a tooltip bar!" />
+    </div>
       <div className="players-display">
         {players &&
           players.map((player, index) => (
@@ -131,6 +135,7 @@ const GamePlayPage = () => {
           ))}
         <button onClick={updatePresident}>Update President</button>
       </div>
+
       <div className="gameboards-and-tracker">
         <div className="gameboards">
           <LiberalGameBoard />
@@ -140,6 +145,7 @@ const GamePlayPage = () => {
           <ElectionTracker />
         </div>
       </div>
+
       <div className="draw-cards">
         <div className="drawing-area">
           <CardDrawing setSelectedCards={setSelectedCards} />
@@ -152,6 +158,7 @@ const GamePlayPage = () => {
           <CardSelecting selectedCards={selectedCards} />
         </div>
       </div>
+
       <Chat />
       <Popup />
       <Vote />
