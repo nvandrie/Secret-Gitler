@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import PlayerIcon from "../components/PlayerIcon";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from '../api/axiosInstance';
+import axiosInstance from "../api/axiosInstance";
 
 const LobbyPage: React.FC = () => {
   const lobbyId = useSelector((state: RootState) => state.lobby.variable);
@@ -13,9 +13,10 @@ const LobbyPage: React.FC = () => {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await axiosInstance.post(`/api/get-lobby`, { lobbyId: lobbyId });
+        const response = await axiosInstance.post(`/api/get-lobby`, {
+          lobbyId: lobbyId,
+        });
         setPlayers(response.data.players);
-
       } catch (error) {
         console.error("Error fetching players:", error);
       }
@@ -24,33 +25,32 @@ const LobbyPage: React.FC = () => {
   }, [lobbyId]);
 
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3000');
-  
+    const socket = new WebSocket("ws://localhost:3000");
+
     socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
-      if (message.type === 'new_player') {
-        setPlayers(prevPlayers => {
+      if (message.type === "new_player") {
+        setPlayers((prevPlayers) => {
           if (!prevPlayers) {
             return [message.player];
           }
           return [...prevPlayers, message.player];
         });
       }
-      if (message.type === 'start_game') {
-        navigate('/game');
+      if (message.type === "start_game") {
+        navigate("/game");
       }
     };
-  
+
     return () => {
       socket.close();
     };
   }, []);
 
-
   const startGame = async () => {
-    await axiosInstance.post('/api/create-game');
+    await axiosInstance.post("/api/create-game");
     navigate("/game");
-  }
+  };
 
   return (
     <div className="GenericPage">
@@ -66,9 +66,9 @@ const LobbyPage: React.FC = () => {
       ) : (
         <div>Loading players...</div>
       )}
-        <div className="ButtonContainer" onClick={startGame}>
-          <button className="Button">Start Game</button>
-        </div>
+      <div className="ButtonContainer" onClick={startGame}>
+        <button className="Button">Start Game</button>
+      </div>
     </div>
   );
 };

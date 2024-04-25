@@ -6,6 +6,7 @@ import CardSelecting from "../components/DeckActions/CardSelecting";
 import Deck from "../components/DeckActions/Deck";
 import Popup from "../components/popups/PlayerIdentityPopup";
 import Chat from "../components/popups/ChatPopup";
+import StartGameStorytelling from "../components/popups/StartGameStorytelling";
 import PlayerIconGame from "../components/PlayerIconGame";
 import Vote from "../components/popups/Vote";
 import ElectionTracker from "../components/ElectionTracker/ElectionTracker";
@@ -44,7 +45,7 @@ const GamePlayPage = () => {
       const identity = await searchRoleByName(basicUserInfo?.name);
       if (identity === "president") {
         setPlayers((prevPlayers) => {
-          console.log(prevPlayers)
+          console.log(prevPlayers);
           const newPlayers = [...prevPlayers];
           newPlayers[presIndex].role = "default";
           const newPresIndex =
@@ -171,6 +172,7 @@ const GamePlayPage = () => {
       <Chat />
       <Popup />
       <Vote />
+      <StartGameStorytelling />
       <div>{gameState && <EndGame result={result} />}</div>
     </div>
   );
