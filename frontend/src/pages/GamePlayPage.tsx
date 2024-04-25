@@ -6,6 +6,7 @@ import CardSelecting from "../components/DeckActions/CardSelecting";
 import Deck from "../components/DeckActions/Deck";
 import Popup from "../components/popups/PlayerIdentityPopup";
 import Chat from "../components/popups/ChatPopup";
+import StartGameStorytelling from "../components/popups/StartGameStorytelling";
 import PlayerIconGame from "../components/PlayerIconGame";
 import Vote from "../components/popups/Vote";
 import ElectionTracker from "../components/ElectionTracker/ElectionTracker";
@@ -17,6 +18,7 @@ import { RootState } from "../store";
 import EndGame from "../components/popups/EndGame";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { searchRoleByName } from "../components/IdentityCheck";
+import TooltipBar from "../components/tooltipBar";
 
 interface Card {
   type: "fascist" | "liberal" | "default";
@@ -69,17 +71,6 @@ const GamePlayPage = () => {
           // make api call to start voting
           axiosInstance.post("/api/start-vote", { player: players[index] });
         }
-        setPlayers((prevPlayers) => {
-          const newPlayers = [...prevPlayers];
-          newPlayers.forEach((player, i) => {
-            if (i === index && player.role !== "president") {
-              player.role = "chancellor";
-            } else if (player.role === "chancellor") {
-              player.role = "default";
-            }
-          });
-          return newPlayers;
-        });
       }
     }
   };
@@ -111,12 +102,6 @@ const GamePlayPage = () => {
   useEffect(() => {
     const initializePlayers = async () => {
       try {
-        // const lobby = await axiosInstance.post(`/api/get-lobby`, {
-        //   lobbyId: lobbyId,
-        // });
-        // await axiosInstance.post(`/api/initalize-players`, {
-        //   players: JSON.stringify(lobby.data.players),
-        // });
         const players = await axiosInstance.post(`/api/get-players`);
         setPlayers(players.data);
       } catch (error) {
@@ -136,6 +121,9 @@ const GamePlayPage = () => {
 
   return (
     <div className="grid-container">
+      <div className="tooltip" style={{ position: 'absolute', top: 0, width: '100%' }}>
+      <TooltipBar message="This is a tooltip bar!" />
+    </div>
       <div className="players-display">
         {players &&
           players.map((player, index) => (
@@ -147,6 +135,7 @@ const GamePlayPage = () => {
           ))}
         <button onClick={updatePresident}>Update President</button>
       </div>
+
       <div className="gameboards-and-tracker">
         <div className="gameboards">
           <LiberalGameBoard />
@@ -156,6 +145,7 @@ const GamePlayPage = () => {
           <ElectionTracker />
         </div>
       </div>
+
       <div className="draw-cards">
         <div className="drawing-area">
           <CardDrawing setSelectedCards={setSelectedCards} />
@@ -168,9 +158,11 @@ const GamePlayPage = () => {
           <CardSelecting selectedCards={selectedCards} />
         </div>
       </div>
+
       <Chat />
       <Popup />
       <Vote />
+      <StartGameStorytelling />
       <div>{gameState && <EndGame result={result} />}</div>
     </div>
   );

@@ -80,10 +80,11 @@
 }
 
 .player-icon {
-  padding: 10px;
+  padding: 5px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  size: 90%
 }
 
 .circle {
@@ -95,6 +96,20 @@
   border-color: var(--black);
   border-style: solid;
   border-width: medium;
+}
+
+.green {
+  background-color: #59a96a;
+}
+.red {
+  background-color: var(--dark-red);
+}
+.white {
+  background-color: white;
+}
+
+.display {
+  background-color: white !important;
 }
 
 .player-name {
