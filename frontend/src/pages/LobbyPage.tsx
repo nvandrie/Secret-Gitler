@@ -49,8 +49,11 @@ const LobbyPage: React.FC = () => {
 
   const startGame = async () => {
     await axiosInstance.post("/api/create-game");
+    await axiosInstance.post(`/api/initalize-players`, {players: JSON.stringify(players)});
+
     navigate("/game");
   };
+
 
   return (
     <div className="GenericPage">

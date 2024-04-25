@@ -10,6 +10,7 @@
   --beige: #f6e1c2;
   --dark-beige: rgba(225, 198, 153, 0.8);
   --black: black;
+  --green: #59a96a
   background-color: var(--dark-grey);
 }
 

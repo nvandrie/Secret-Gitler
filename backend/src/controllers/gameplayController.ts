@@ -20,7 +20,6 @@ const createGame = (req: Request, res: Response): void => {
     phase: Phase.DEFAULT,
   };
 
-  broadcastMessage({ type: "start_game" });
   res.json(true);
 };
 
@@ -75,6 +74,9 @@ const initializePlayers = (req: Request, res: Response): void => {
   game.hitler = (
     game.players.find((player) => player.identity === "hitler") as Player
   ).name;
+
+  broadcastMessage({ type: "start_game" });
+  
   res.json(game.players);
 };
 

@@ -112,12 +112,12 @@ const GamePlayPage = () => {
   useEffect(() => {
     const initializePlayers = async () => {
       try {
-        const lobby = await axiosInstance.post(`/api/get-lobby`, {
-          lobbyId: lobbyId,
-        });
-        await axiosInstance.post(`/api/initalize-players`, {
-          players: JSON.stringify(lobby.data.players),
-        });
+        // const lobby = await axiosInstance.post(`/api/get-lobby`, {
+        //   lobbyId: lobbyId,
+        // });
+        // await axiosInstance.post(`/api/initalize-players`, {
+        //   players: JSON.stringify(lobby.data.players),
+        // });
         const players = await axiosInstance.post(`/api/get-players`);
         setPlayers(players.data);
       } catch (error) {
