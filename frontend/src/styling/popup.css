@@ -262,6 +262,7 @@
   font-family: "Patua One", serif;
   color: var(--light-red);
   font-size: 80px;
+}
 /* This is the StartGameStorytelling PopUp css */
 .full-screen-container {
   position: fixed;
