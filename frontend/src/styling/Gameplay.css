@@ -15,7 +15,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: 200px auto 50px;
-  grid-template-rows: 4% 53% 43%;
+  grid-template-rows: 57% 43%;
   height: 100vh;
   width: 100%;
 }
@@ -33,6 +33,7 @@
   border: 1px solid black;
   flex-direction: column;
   align-items: center;
+  margin-top: 15%;
 }
 
 .players-display-horizontal {
@@ -47,12 +48,13 @@
 .gameboards {
   grid-column: 2 / 4;
   grid-row: 1 / 2;
-  margin-top: 10px;
+  margin-top: 40px;
   align-self: flex-start;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  size: 90%
 }
 
 .draw-cards {
@@ -70,7 +72,7 @@
   justify-content: center;
   align-items: center;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  grid-template-columns: repeat(3, 1fr);
   padding: 10px;
 }
 
@@ -162,6 +164,10 @@
   justify-content: center; /* Center the content horizontally */
   align-items: center; /* Center the content vertically */
   color: var(--white);
+}
+
+.deck {
+  margin-top: 15px;
 }
 
 .cards-count {
