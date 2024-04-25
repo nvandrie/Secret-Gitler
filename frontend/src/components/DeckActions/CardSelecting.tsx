@@ -58,7 +58,7 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   const handleCardClick = async (card: Card) => {
     if (basicUserInfo?.name){
       const identity = await searchRoleByName(basicUserInfo?.name) 
-    if(identity === "president"){
+    if(identity === "chancellor"){
     if (card.type === "liberal") {
       await axiosInstance.post("/api/add-liberal");
     } else {
@@ -72,7 +72,6 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   };
 
   useEffect(() => {
-    console.log("Selected: " + selectedCards);
     setIsVisible(true);
   }, [selectedCards]);
 
