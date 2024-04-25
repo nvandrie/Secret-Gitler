@@ -70,17 +70,6 @@ const GamePlayPage = () => {
           // make api call to start voting
           axiosInstance.post("/api/start-vote", { player: players[index] });
         }
-        setPlayers((prevPlayers) => {
-          const newPlayers = [...prevPlayers];
-          newPlayers.forEach((player, i) => {
-            if (i === index && player.role !== "president") {
-              player.role = "chancellor";
-            } else if (player.role === "chancellor") {
-              player.role = "default";
-            }
-          });
-          return newPlayers;
-        });
       }
     }
   };
@@ -112,12 +101,6 @@ const GamePlayPage = () => {
   useEffect(() => {
     const initializePlayers = async () => {
       try {
-        // const lobby = await axiosInstance.post(`/api/get-lobby`, {
-        //   lobbyId: lobbyId,
-        // });
-        // await axiosInstance.post(`/api/initalize-players`, {
-        //   players: JSON.stringify(lobby.data.players),
-        // });
         const players = await axiosInstance.post(`/api/get-players`);
         setPlayers(players.data);
       } catch (error) {
