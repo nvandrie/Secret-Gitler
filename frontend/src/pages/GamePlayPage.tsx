@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import axiosInstance from "../api/axiosInstance";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import EndGame from "../components/EndGame";
+import EndGame from "../components/popups/EndGame";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { searchRoleByName } from "../components/IdentityCheck";
 
@@ -44,7 +44,7 @@ const GamePlayPage = () => {
       const identity = await searchRoleByName(basicUserInfo?.name);
       if (identity === "president") {
         setPlayers((prevPlayers) => {
-          console.log(prevPlayers)
+          console.log(prevPlayers);
           const newPlayers = [...prevPlayers];
           newPlayers[presIndex].role = "default";
           const newPresIndex =
