@@ -22,7 +22,6 @@ const PlayerIcon: React.FC<PlayerIconGameProps> = ({ player }) => {
       if (message.type === 'tally_vote') {
         if (player.name === message.player) {
           setDisplay("display")
-          console.log(message.color)
           setColor(message.color)
         }
       }
