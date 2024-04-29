@@ -68,6 +68,7 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
       cardToRemove: JSON.stringify(card.type),
     });
     setIsVisible(false);
+    axiosInstance.post("/api/set-president");
   }}
   };
 

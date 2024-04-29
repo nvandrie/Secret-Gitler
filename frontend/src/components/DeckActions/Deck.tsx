@@ -25,16 +25,8 @@ const Deck: React.FC = () => {
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
   useEffect(() => {
-    const createNewDeck = async () => {
-      try {
-        await axiosInstance.post("/api/new-deck");
-        dispatch(setRemainingCards(17));
-        dispatch(setDiscardedCards(0));
-      } catch (error) {
-        console.error("Error creating new deck:", error);
-      }
-    };
-    createNewDeck();
+    dispatch(setRemainingCards(17));
+    dispatch(setDiscardedCards(0));
   }, []);
 
     useEffect(() => {

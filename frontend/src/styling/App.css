@@ -195,13 +195,13 @@
   height: 200px;
   width: 300px;
   margin-top: 50px;
-  transition: transform 3s ease; /* Adjust the duration of the transition */
+  transition: transform 3s ease;
 }
 
 .animate {
   transform: translateX(
     100vw
-  ); /* Move the plane to the right edge of the screen */
+  );
 }
 .start-text {
   color: #f6e1c2;
@@ -231,4 +231,10 @@
   cursor: pointer;
   flex-direction: column;
   align-items: center;
+}
+
+.tooltip {
+  position: 'absolute';
+  top: 0;
+  width: '100%';
 }

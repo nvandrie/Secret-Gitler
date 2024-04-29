@@ -12,7 +12,7 @@ import SignUp from "./SignUp";
 import LogIn from "./LogIn";
 import { useEffect } from "react";
 import { useAppSelector } from "../hooks/redux-hooks";
-import JoinLobby from "../components/Join";
+import JoinLobby from "./Join";
 
 function App() {
   const userProfileInfo = useAppSelector((state) => state.auth.userProfileData);

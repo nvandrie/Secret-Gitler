@@ -13,8 +13,6 @@ import ElectionTracker from "../components/ElectionTracker/ElectionTracker";
 import { toggleVotingActivity } from "../slices/voteSlice";
 import { useDispatch } from "react-redux";
 import axiosInstance from "../api/axiosInstance";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
 import EndGame from "../components/popups/EndGame";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { searchRoleByName } from "../components/IdentityCheck";
@@ -34,34 +32,10 @@ interface Player {
 const GamePlayPage = () => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
-  const [presIndex, setPresIndex] = useState<number>(0);
   const [gameState, setGame] = useState<boolean>(false);
   const [result, setResult] = useState<string>("");
   const dispatch = useDispatch();
-  const lobbyId = useSelector((state: RootState) => state.lobby.variable);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
-
-  const updatePresident = async () => {
-    if (basicUserInfo?.name) {
-      const identity = await searchRoleByName(basicUserInfo?.name);
-      if (identity === "president") {
-        setPlayers((prevPlayers) => {
-          console.log(prevPlayers);
-          const newPlayers = [...prevPlayers];
-          newPlayers[presIndex].role = "default";
-          const newPresIndex =
-            presIndex === players.length - 1 ? 0 : presIndex + 1;
-          newPlayers[newPresIndex].role = "president";
-          axiosInstance.post("/api/set-president", {
-            player: newPlayers[newPresIndex].name,
-          });
-          setPresIndex(newPresIndex);
-          return newPlayers;
-        });
-        updateChancellor(-1);
-      }
-    }
-  };
 
   const updateChancellor = async (index: number) => {
     if (basicUserInfo?.name) {
@@ -121,7 +95,7 @@ const GamePlayPage = () => {
 
   return (
     <div className="grid-container">
-      <div className="tooltip" style={{ position: 'absolute', top: 0, width: '100%' }}>
+      <div className="tooltip" >
       <TooltipBar message="This is a tooltip bar!" />
     </div>
       <div className="players-display">
@@ -133,7 +107,6 @@ const GamePlayPage = () => {
               </div>
             </div>
           ))}
-        <button onClick={updatePresident}>Update President</button>
       </div>
 
       <div className="gameboards-and-tracker">

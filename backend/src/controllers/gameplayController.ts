@@ -110,7 +110,6 @@ const addLiberal = (req: Request, res: Response): void => {
 };
 
 const setChancellor = (player: Player): void => {
-  console.log(player);
 
   if (game == null) {
     return;
@@ -127,16 +126,48 @@ const setChancellor = (player: Player): void => {
   broadcastMessage({ type: "update_roles" });
 };
 
-const setPresident = (req: Request, res: Response): void => {
-  const player = req.body.player;
+// const setPresident = (req: Request, res: Response): void => {
+//   const player = req.body.player;
 
+//   if (game == null) {
+//     res.status(500).json({ error: "Game is not initialized" });
+//     return;
+//   }
+
+//   for (let i = 0; i < game.players.length; i++) {
+//     if (game.players[i].name === player) {
+//       game.players[i].role = "president";
+//     } else {
+//       game.players[i].role = "default";
+//     }
+//   }
+
+//   broadcastMessage({ type: "update_roles" });
+//   res.json(true);
+// };
+
+const setPresident = (req: Request, res: Response): void => {
   if (game == null) {
     res.status(500).json({ error: "Game is not initialized" });
     return;
   }
 
+  let presidentIndex = -1;
+
+  // Find the index of the current president, if any
   for (let i = 0; i < game.players.length; i++) {
-    if (game.players[i].name === player) {
+    if (game.players[i].role === "president") {
+      presidentIndex = i;
+      break;
+    }
+  }
+
+  // Determine the index of the next player to become president
+  const nextPresidentIndex = (presidentIndex + 1) % game.players.length;
+
+  // Reset roles for all players
+  for (let i = 0; i < game.players.length; i++) {
+    if (i === nextPresidentIndex) {
       game.players[i].role = "president";
     } else {
       game.players[i].role = "default";
