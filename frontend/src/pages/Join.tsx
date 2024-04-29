@@ -5,7 +5,7 @@ import axiosInstance from "../api/axiosInstance";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setVariable } from "../slices/lobbySlice";
+import { setLobby } from "../slices/lobbySlice";
 import { TextField } from "@mui/material";
 
 const JoinLobby: React.FC = () => {
@@ -29,7 +29,7 @@ const JoinLobby: React.FC = () => {
       });
       console.log("Lobby: ", lobby.data);
       setSuccessMessage("Successfully joined the lobby!");
-      dispatch(setVariable(lobby.data.id));
+      dispatch(setLobby(lobby.data.id));
       navigate("/lobby");
     } catch (error) {
       setError("Failed to join lobby. Please try again.");

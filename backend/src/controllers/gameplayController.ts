@@ -126,26 +126,6 @@ const setChancellor = (player: Player): void => {
   broadcastMessage({ type: "update_roles" });
 };
 
-// const setPresident = (req: Request, res: Response): void => {
-//   const player = req.body.player;
-
-//   if (game == null) {
-//     res.status(500).json({ error: "Game is not initialized" });
-//     return;
-//   }
-
-//   for (let i = 0; i < game.players.length; i++) {
-//     if (game.players[i].name === player) {
-//       game.players[i].role = "president";
-//     } else {
-//       game.players[i].role = "default";
-//     }
-//   }
-
-//   broadcastMessage({ type: "update_roles" });
-//   res.json(true);
-// };
-
 const setPresident = (req: Request, res: Response): void => {
   if (game == null) {
     res.status(500).json({ error: "Game is not initialized" });
