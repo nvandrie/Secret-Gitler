@@ -17,7 +17,6 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignup = async () => {
-    // This is only a basic validation of inputs. Improve this as needed.
     if (name && email && password) {
       dispatch(
         register({

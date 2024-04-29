@@ -63,7 +63,6 @@ server.listen(port, () => {
 });
 
 wss.on('connection', (ws: WebSocket) => {
-  console.log('Client connected');
 
   ws.on('message', (message: string) => {
     console.log(`Received message: ${message}`);
@@ -74,9 +73,6 @@ wss.on('connection', (ws: WebSocket) => {
     });
   });
 
-  ws.on('close', () => {
-    console.log('Client disconnected');
-  });
 });
 
 const broadcastMessage = (message: any) => {

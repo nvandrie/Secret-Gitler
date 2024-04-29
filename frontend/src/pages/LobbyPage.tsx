@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import PlayerIcon from "../components/PlayerIcon";
+import PlayerIcon from "../components/playerIcons/PlayerIcon";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
 
@@ -41,7 +41,6 @@ const LobbyPage: React.FC = () => {
         navigate("/game");
       }
     };
-
     return () => {
       socket.close();
     };
@@ -49,10 +48,7 @@ const LobbyPage: React.FC = () => {
 
   const startGame = async () => {
     await axiosInstance.post("/api/create-game");
-
     await axiosInstance.post(`/api/initalize-players`, {players: JSON.stringify(players)});
-
-    navigate("/game");
   };
 
 

@@ -2,9 +2,9 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { useAppSelector } from "../hooks/redux-hooks";
-import { hideNotification } from "../slices/notificationSlice";
-import { useAppDispatch } from "../hooks/redux-hooks";
+import { useAppSelector } from "../../hooks/redux-hooks";
+import { hideNotification } from "../../slices/notificationSlice";
+import { useAppDispatch } from "../../hooks/redux-hooks";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,

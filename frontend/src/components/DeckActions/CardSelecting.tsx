@@ -8,7 +8,7 @@ import { addElement } from "../../slices/fascistBoardSlice";
 import { addLiberalElement } from "../../slices/liberalBoardSlice";
 import { setDiscardedCards, setRemainingCards } from "../../slices/deckSlice";
 import axiosInstance from "../../api/axiosInstance";
-import { searchRoleByName } from "../IdentityCheck";
+import { searchRoleByName } from "../functions/IdentityCheck";
 import { useAppSelector } from "../../hooks/redux-hooks";
 
 interface Card {
@@ -68,6 +68,9 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
       cardToRemove: JSON.stringify(card.type),
     });
     setIsVisible(false);
+    axiosInstance.post("/api/set-president");
+    axiosInstance.post("/api/check-game");
+
   }}
   };
 
