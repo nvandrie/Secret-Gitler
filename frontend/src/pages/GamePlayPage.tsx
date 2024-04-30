@@ -40,8 +40,6 @@ const GamePlayPage = () => {
   const [president, setPresident] = useState<string>("");
   const [candidate, setCandidate] = useState<string>("");
 
-  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
-
   const updateChancellor = async (index: number) => {
     if (basicUserInfo?.name) {
       const identity = await searchRoleByName(basicUserInfo?.name);
