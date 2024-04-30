@@ -12,12 +12,12 @@ const createGame = (req: Request, res: Response): void => {
   //this needs to be updated to set player roles at start of game
   game = {
     currentChancellor: "",
-    currentPresident: "",
     fascistCards: 0,
     liberalCards: 0,
     players: [],
     hitler: "",
     phase: Phase.DEFAULT,
+    uneligible: [],
   };
 
   res.json(true);
@@ -71,6 +71,8 @@ const initializePlayers = (req: Request, res: Response): void => {
   game.players = afterShuffle;
   game.players[0].role = "president"
 
+  game.uneligible = [game.players[0].name, "", ""]
+
   game.hitler = (
     game.players.find((player) => player.identity === "hitler") as Player
   ).name;
@@ -114,6 +116,10 @@ const setChancellor = (player: Player): void => {
   if (game == null) {
     return;
   }
+  game.currentChancellor = player.name
+
+  //this sets previous president to be eligible for next round
+  game.uneligible[2] = ""
 
   for (let i = 0; i < game.players.length; i++) {
     if (game.players[i].name === player.name) {
@@ -123,7 +129,7 @@ const setChancellor = (player: Player): void => {
     }
   }
 
-  broadcastMessage({ type: "update_roles" });
+  broadcastMessage({ type: "update_roles", uneligible: game.uneligible });
 };
 
 const setPresident = (req: Request, res: Response): void => {
@@ -138,6 +144,8 @@ const setPresident = (req: Request, res: Response): void => {
   for (let i = 0; i < game.players.length; i++) {
     if (game.players[i].role === "president") {
       presidentIndex = i;
+      //past president is uneligible
+      game.uneligible[2] = game.players[i].name
       break;
     }
   }
@@ -149,12 +157,14 @@ const setPresident = (req: Request, res: Response): void => {
   for (let i = 0; i < game.players.length; i++) {
     if (i === nextPresidentIndex) {
       game.players[i].role = "president";
+      //current president is uneligible
+      game.uneligible[0] = game.players[i].name
     } else {
       game.players[i].role = "default";
     }
   }
 
-  broadcastMessage({ type: "update_roles" });
+  broadcastMessage({ type: "update_roles", uneligible: game.uneligible });
   res.json(true);
 };
 
@@ -163,6 +173,13 @@ const getPlayers = (req: Request, res: Response): void => {
     return;
   }
   res.json(game.players);
+};
+
+const getUneligible = (req: Request, res: Response): void => {
+  if (game == null) {
+    return;
+  }
+  res.json(game.uneligible);
 };
 
 const endGame = (req: Request, res: Response): void => {
@@ -195,6 +212,9 @@ const startVote = (req: Request, res: Response): void => {
     nein_votes: 0,
     result: "ongoing",
   };
+
+  //previous canidate is uneligible
+  game.uneligible[1] = req.body.player.name
 
   broadcastMessage({ type: "start_vote" });
   res.json(game.phase);
@@ -251,4 +271,5 @@ export {
   startVote,
   tallyVote,
   endVote,
+  getUneligible
 };

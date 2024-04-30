@@ -12,6 +12,7 @@ interface PlayerIconGameProps {
 
 const PlayerIcon: React.FC<PlayerIconGameProps> = ({ player }) => {
   const [color, setColor] = useState("");
+  const [eligible, setEligibleColor] = useState("");
   const [display, setDisplay] = useState("display");
 
   useEffect(() => {
@@ -34,6 +35,14 @@ const PlayerIcon: React.FC<PlayerIconGameProps> = ({ player }) => {
       if (message.type === "draw_cards") {
         setColor("white")
       }
+      if(message.type === "update_roles"){
+        const isPlayerUneligible = message.uneligible.some((uneligibleName: string) => uneligibleName === player.name);
+        if (isPlayerUneligible){
+          setEligibleColor("gray")
+        } else {
+          setEligibleColor("")
+        }
+      }
     };
     
     return () => {
@@ -43,9 +52,9 @@ const PlayerIcon: React.FC<PlayerIconGameProps> = ({ player }) => {
 
   return (
     <div className="player-icon">
-      <div className={`circle ${color} ${display}`}></div>
+      <div className={`circle ${color} ${display} ${eligible}`}></div>
       <div className={player.role}>
-        <div className="player-name">{player.name}</div>
+        <div className={`player-name`}>{player.name}</div>
       </div>
     </div>
   );
