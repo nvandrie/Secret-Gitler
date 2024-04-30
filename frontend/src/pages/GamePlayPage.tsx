@@ -45,7 +45,9 @@ const GamePlayPage = () => {
   const updateChancellor = async (index: number) => {
     if (basicUserInfo?.name) {
       const identity = await searchRoleByName(basicUserInfo?.name);
-      if (identity === "president") {
+      const response = await axiosInstance.post("/api/get-uneligible")
+      response.data.includes(players[index].name)
+      if (identity === "president" && basicUserInfo?.name !== players[index].name) {
         if (index !== -1) {
           // make api call to start voting
           axiosInstance.post("/api/start-vote", { player: players[index] });

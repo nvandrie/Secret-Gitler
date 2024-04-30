@@ -12,7 +12,7 @@ import {
   addFascist,
   addLiberal,
   setPresident,
-  setChancellor,
+  getUneligible,
   createGame,
   initializePlayers,
   getPlayers,
@@ -45,6 +45,7 @@ router.post("/api/get-top-card", getTopCard);
 //presidency and chancellor update routes
 router.post(`/api/initalize-players`, initializePlayers);
 router.post("/api/set-president", setPresident);
+router.post("/api/get-uneligible", getUneligible)
 
 //voting routes
 router.post("/api/start-vote", startVote);

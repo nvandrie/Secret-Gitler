@@ -107,6 +107,9 @@
 .white {
   background-color: white;
 }
+.gray {
+  border-radius: 10px;
+}
 
 .display {
   background-color: white !important;
