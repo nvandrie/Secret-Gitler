@@ -88,7 +88,7 @@ const getTopCard = (req: Request, res: Response): void => {
   deck.remainingCards = deck.remainingCards.slice(1);
 
 
-  broadcastMessage({ type: "tracker_play_card", card: topCard });
+  broadcastMessage({ type: "card_click", card: topCard[0] });
   res.json({
     deck: deck,
     topCard: topCard,

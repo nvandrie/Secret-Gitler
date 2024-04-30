@@ -9,7 +9,7 @@ import {
   setRemainingCards,
   setDraw,
 } from "../../slices/deckSlice";
-import { searchRoleByName } from "../IdentityCheck"
+import { searchRoleByName } from "../functions/IdentityCheck"
 import { useAppSelector } from '../../hooks/redux-hooks';
 
 
@@ -61,22 +61,25 @@ const Deck: React.FC = () => {
         };
       }, []);
 
-    const handleDeckClick = async () => {
-      // this will be moved later
-      await axiosInstance.post("/api/check-game");
-      if (basicUserInfo?.name){
-        const identity = await searchRoleByName(basicUserInfo?.name) 
-      if(identity === "president"){
-        if (canDraw) {
-            const response = await axiosInstance.post("/api/draw-cards");
-            dispatch(setCurrentCards(response.data.drawnCards));
-            dispatch(setRemainingCards(response.data.remainingCards.length));
-            dispatch(setDiscardedCards(response.data.discardCards.length - 3))
-            dispatch(setDraw(false))
+      const handleDeckClick = async () => {
+        if (basicUserInfo?.name) {
+          const identity = await searchRoleByName(basicUserInfo?.name);
+          if (identity === "president") {
+            if (canDraw) {
+              try {
+                const response = await axiosInstance.post("/api/draw-cards");
+                dispatch(setCurrentCards(response.data.drawnCards));
+                dispatch(setRemainingCards(response.data.remainingCards.length));
+                dispatch(setDiscardedCards(response.data.discardCards.length - 3));
+                dispatch(setDraw(false));
+              } catch (error) {
+                console.error('Deck not found');
+              }
+            }
+          }
         }
-      }
-    }
-    };
+      };
+      
 
   return (
     <div className="container">

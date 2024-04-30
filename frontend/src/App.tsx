@@ -1,25 +1,24 @@
-import "../styling/App.css";
+import "./styling/App.css";
 import { Routes, Route } from "react-router-dom";
-import DefaultLayout from "../layouts/DefaultLayout";
-import ProtectedLayout from "../layouts/ProtectedLayout";
-import NotificationBar from "../components/NotificationBar";
-import LandingPage from "./LandingPage";
-import CreateJoinGamePage from "./CreateJoinGamePage";
-import LobbyPage from "./LobbyPage";
-import GameplayPage from "./GamePlayPage";
-import Home from "./Home";
-import SignUp from "./SignUp";
-import LogIn from "./LogIn";
-import { useEffect } from 'react';
-import { useAppSelector } from "../hooks/redux-hooks";
-import JoinLobby from "../components/Join";
-
+import DefaultLayout from "./layouts/DefaultLayout";
+import ProtectedLayout from "./layouts/ProtectedLayout";
+import NotificationBar from "./components/popups/NotificationBar";
+import LandingPage from "./pages/LandingPage";
+import CreateJoinGamePage from "./pages/CreateJoinGamePage";
+import LobbyPage from "./pages/LobbyPage";
+import GameplayPage from "./pages/GamePlayPage";
+import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
+import LogIn from "./pages/LogIn";
+import { useEffect } from "react";
+import { useAppSelector } from "./hooks/redux-hooks";
+import JoinLobby from "./pages/Join";
 
 function App() {
   const userProfileInfo = useAppSelector((state) => state.auth.userProfileData);
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:3000');
+    const ws = new WebSocket("ws://localhost:3000");
 
     ws.onopen = () => {
       if (userProfileInfo?.name) {

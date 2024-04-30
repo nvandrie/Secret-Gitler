@@ -12,28 +12,28 @@ export enum Phase {
 
 export class Gameplay {
   currentChancellor: string;
-  currentPresident: string;
   fascistCards: number;
   liberalCards: number;
   players: Player[];
   hitler: string;
   phase: Phase;
+  uneligible: string[];
 
   constructor(
     currentChancellor: string,
-    currentPresident: string,
     fascistCards: number,
     liberalCards: number,
     players: Player[],
     hitler: string,
-    phase: Phase
+    phase: Phase,
+    uneligible: string[],
   ) {
     this.currentChancellor = currentChancellor;
-    this.currentPresident = currentPresident;
     this.fascistCards = fascistCards;
     this.liberalCards = liberalCards;
     this.players = players;
     this.hitler = hitler;
     this.phase = phase;
+    this.uneligible = uneligible
   }
 }

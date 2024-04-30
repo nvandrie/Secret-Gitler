@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../styling/popup.css"; // Styles for the component
 import { useAppSelector } from "../../hooks/redux-hooks";
-import { searchIdentityByName } from "../PartyCheck";
+import { searchIdentityByName } from "../functions/PartyCheck";
 import liberal_identity from "/identities/liberal_identity.png";
 import fascist_identity from "/identities/fascist_identity.png";
 import hitler_identity from "/identities/hitler_identity.png";
