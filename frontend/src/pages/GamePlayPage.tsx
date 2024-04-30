@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LiberalGameBoard from "../components/GameBoards/LiberalBoard";
 import FascistGameBoard from "../components/GameBoards/FascistBoard";
 import CardDrawing from "../components/DeckActions/CardDrawing";
@@ -12,8 +12,8 @@ import ElectionTracker from "../components/ElectionTracker/ElectionTracker";
 import { toggleVotingActivity } from "../slices/voteSlice";
 import { useDispatch } from "react-redux";
 import axiosInstance from "../api/axiosInstance";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../store";
 import EndGame from "../components/EndGame";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { searchRoleByName } from "../components/IdentityCheck";
@@ -36,15 +36,18 @@ const GamePlayPage = () => {
   const [gameState, setGame] = useState<boolean>(false);
   const [result, setResult] = useState<string>("");
   const dispatch = useDispatch();
-  const lobbyId = useSelector((state: RootState) => state.lobby.variable);
+  // const lobbyId = useSelector((state: RootState) => state.lobby.variable);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
+
+  const [president, setPresident] = useState<string>("");
+  const [candidate, setCandidate] = useState<string>("");
 
   const updatePresident = async () => {
     if (basicUserInfo?.name) {
       const identity = await searchRoleByName(basicUserInfo?.name);
       if (identity === "president") {
         setPlayers((prevPlayers) => {
-          console.log(prevPlayers)
+          console.log(prevPlayers);
           const newPlayers = [...prevPlayers];
           newPlayers[presIndex].role = "default";
           const newPresIndex =
@@ -96,6 +99,10 @@ const GamePlayPage = () => {
       }
       if (message.type === "start_vote") {
         dispatch(toggleVotingActivity());
+        setPresident(message.president);
+        console.log(president);
+        setCandidate(message.candidate);
+        console.log(candidate);
       }
       if (message.type === "end_game") {
         setGame(true);
@@ -170,7 +177,7 @@ const GamePlayPage = () => {
       </div>
       <Chat />
       <Popup />
-      <Vote />
+      <Vote president={president} candidate={candidate} />
       <div>{gameState && <EndGame result={result} />}</div>
     </div>
   );

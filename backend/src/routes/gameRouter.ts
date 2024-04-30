@@ -56,5 +56,7 @@ router.post("/api/end-game", [clearDeck, endGame]);
 router.post("/api/add-fascist", addFascist);
 router.post("/api/add-liberal", addLiberal);
 router.post("/api/get-players", getPlayers);
+// router.post("/api/get-president", getPresident);
+// router.post("/api/get-chancellor-candidate", getChancellorCandidate);
 router.post("/api/check-game", checkGame);
 export default router;
