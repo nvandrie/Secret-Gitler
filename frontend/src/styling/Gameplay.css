@@ -161,8 +161,8 @@
 
 .deck-text {
   display: flex;
-  justify-content: center; /* Center the content horizontally */
-  align-items: center; /* Center the content vertically */
+  justify-content: center; 
+  align-items: center; 
   color: var(--white);
 }
 
