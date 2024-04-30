@@ -35,7 +35,6 @@ const GamePlayPage = () => {
   const [gameState, setGame] = useState<boolean>(false);
   const [result, setResult] = useState<string>("");
   const dispatch = useDispatch();
-  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
   const [president, setPresident] = useState<string>("");
   const [candidate, setCandidate] = useState<string>("");
@@ -45,9 +44,12 @@ const GamePlayPage = () => {
   const updateChancellor = async (index: number) => {
     if (basicUserInfo?.name) {
       const identity = await searchRoleByName(basicUserInfo?.name);
-      const response = await axiosInstance.post("/api/get-uneligible")
-      response.data.includes(players[index].name)
-      if (identity === "president" && basicUserInfo?.name !== players[index].name) {
+      const response = await axiosInstance.post("/api/get-uneligible");
+      response.data.includes(players[index].name);
+      if (
+        identity === "president" &&
+        basicUserInfo?.name !== players[index].name
+      ) {
         if (index !== -1) {
           // make api call to start voting
           axiosInstance.post("/api/start-vote", { player: players[index] });
@@ -106,9 +108,12 @@ const GamePlayPage = () => {
 
   return (
     <div className="grid-container">
-      <div className="tooltip" style={{ position: 'absolute', top: 0, width: '100%' }}>
-      <TooltipBar/>
-    </div>
+      <div
+        className="tooltip"
+        style={{ position: "absolute", top: 0, width: "100%" }}
+      >
+        <TooltipBar />
+      </div>
       <div className="players-display">
         {players &&
           players.map((player, index) => (
