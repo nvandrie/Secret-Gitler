@@ -3,7 +3,7 @@ import "../../styling/Gameplay.css";
 import axiosInstance from "../../api/axiosInstance";
 import FailedElectionCircles from "./FailedElectionCircles";
 import { useAppSelector } from "../../hooks/redux-hooks";
-import { searchRoleByName } from "../IdentityCheck";
+import { searchRoleByName } from "../functions/IdentityCheck";
 
 const ElectionTracker: React.FC = () => {
   const [failedElections, setFailedElections] = useState(0);

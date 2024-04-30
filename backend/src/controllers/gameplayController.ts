@@ -111,7 +111,6 @@ const addLiberal = (req: Request, res: Response): void => {
 };
 
 const setChancellor = (player: Player): void => {
-  console.log(player);
 
   if (game == null) {
     return;
@@ -129,15 +128,27 @@ const setChancellor = (player: Player): void => {
 };
 
 const setPresident = (req: Request, res: Response): void => {
-  const player = req.body.player;
-
   if (game == null) {
     res.status(500).json({ error: "Game is not initialized" });
     return;
   }
 
+  let presidentIndex = -1;
+
+  // Find the index of the current president, if any
   for (let i = 0; i < game.players.length; i++) {
-    if (game.players[i].name === player) {
+    if (game.players[i].role === "president") {
+      presidentIndex = i;
+      break;
+    }
+  }
+
+  // Determine the index of the next player to become president
+  const nextPresidentIndex = (presidentIndex + 1) % game.players.length;
+
+  // Reset roles for all players
+  for (let i = 0; i < game.players.length; i++) {
+    if (i === nextPresidentIndex) {
       game.players[i].role = "president";
       game.currentPresident = game.players[i].name;
     } else {
@@ -208,22 +219,25 @@ const tallyVote = (req: Request, res: Response): void => {
     res.status(500).json({ error: "Voting is not instantialized" });
     return;
   }
+  let color = "white"
   const vote = req.body.vote;
   if (vote == "ja") {
     voting.ja_votes++;
+    color = "green"
   }
   if (vote == "nein") {
     voting.nein_votes++;
+    color = "red"
   }
 
-  broadcastMessage({ type: "tally_vote" });
+  broadcastMessage({ type: "tally_vote", player: req.body.player, color: color });
 
   if (voting.ja_votes + voting.nein_votes == game.players.length) {
     endVote(voting);
   }
   res.json("");
 };
-// const endVote = (req: Request, res: Response): void => {};
+
 const endVote = (voting: Voting): void => {
   if (voting.ja_votes > voting.nein_votes) {
     voting.result = "pass";

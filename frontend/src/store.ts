@@ -5,7 +5,6 @@ import lobbyReducer from "./slices/lobbySlice";
 import liberalBoardReducer from "./slices/liberalBoardSlice";
 import fascistBoardReducer from "./slices/fascistBoardSlice";
 import notificationReducer from "./slices/notificationSlice";
-import trackerReducer from "./slices/trackerSlice";
 import voteReducer from "./slices/voteSlice";
 import deckReducer from "./slices/deckSlice";
 import { axiosMiddleware } from "./api/middleware";
@@ -20,7 +19,6 @@ const store = configureStore({
     notification: notificationReducer,
     vote: voteReducer,
     deck: deckReducer,
-    tracker: trackerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(axiosMiddleware),

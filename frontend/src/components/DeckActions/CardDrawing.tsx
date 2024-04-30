@@ -7,7 +7,7 @@ import { RootState } from "../../store";
 import { setDiscardedCards } from "../../slices/deckSlice";
 import axiosInstance from "../../api/axiosInstance";
 import { useAppSelector } from "../../hooks/redux-hooks";
-import { searchRoleByName } from "../IdentityCheck";
+import { searchRoleByName } from "../functions/IdentityCheck";
 
 interface Card {
   type: "fascist" | "liberal" | "default";

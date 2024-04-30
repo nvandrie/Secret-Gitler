@@ -7,6 +7,7 @@ import "../../styling/popup.css";
 import ja from "/voting_cards/ja.jpg";
 import nein from "/voting_cards/nein.jpg";
 import axiosInstance from "../../api/axiosInstance";
+import { useAppSelector } from "../../hooks/redux-hooks";
 
 interface VoteProps {
   president: string;
@@ -18,9 +19,11 @@ const Vote: React.FC<VoteProps> = ({ president, candidate }) => {
   const votingActive = useSelector(
     (state: RootState) => state.vote.votingActive
   );
+  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
+
 
   const handleToggleVoting = (vote: "ja" | "nein") => {
-    axiosInstance.post("/api/tally-vote", { vote: vote });
+    axiosInstance.post("/api/tally-vote", { vote: vote, player: basicUserInfo?.name });
     dispatch(toggleVotingActivity());
     dispatch(setDraw(true));
   };
