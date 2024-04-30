@@ -4,6 +4,7 @@
   --light-red: #e36953;
   --white: white;
   --dark-grey: #464442;
+  --light-grey: #716d6d;
   --light-blue: #61c8d9;
   --medium-blue: #4ba7ba;
   --dark-blue: #0b4e6e;
@@ -30,17 +31,17 @@
   display: flex;
   grid-column: 1 / 2;
   grid-row: 1 / span 2;
-  border: 1px solid black;
+  border-right: 5px solid black;
   flex-direction: column;
   align-items: center;
   margin-top: 15%;
+  background-color: var(--light-grey);
 }
 
 .players-display-horizontal {
   display: flex;
   grid-column: 1 / 2;
   grid-row: 1 / span 2;
-  border: 1px solid black;
   flex-direction: row;
   align-items: center;
 }
@@ -209,6 +210,7 @@
   background-color: var(--medium-red);
   color: #fff;
   padding: 10px 0;
+  border-bottom: 2px solid black;
 }
 
 .rolling-text {
