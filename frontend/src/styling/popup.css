@@ -262,6 +262,7 @@
   font-family: "Patua One", serif;
   color: var(--light-red);
   font-size: 80px;
+  text-align: center;
 }
 /* This is the StartGameStorytelling PopUp css */
 .story_telling_container {

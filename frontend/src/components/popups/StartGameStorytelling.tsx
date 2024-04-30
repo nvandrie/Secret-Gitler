@@ -17,9 +17,9 @@ const StartGameStorytelling: React.FC = () => {
     <div className={`story_telling_container ${isVisible ? "visible" : ""}`}>
       {isVisible && (
         <div className="centered-rectangle">
-          <p>Among you there are...</p>
+          <p className="center-two-line">Among you there are...</p>
           <p className="RedText">4 Liberals, 1 Fascist, and 1 Hitler</p>
-          <p>
+          <p className="center-two-line">
             Either team may win by filling their board with their respective
             policies.
           </p>
