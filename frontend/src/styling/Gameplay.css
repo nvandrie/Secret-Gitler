@@ -55,7 +55,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  size: 90%
+  size: 90%;
 }
 
 .draw-cards {
@@ -162,8 +162,8 @@
 
 .deck-text {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
   color: var(--white);
 }
 
@@ -230,4 +230,10 @@
   to {
     left: -100%;
   }
+}
+
+.fascist:hover,
+.liberal:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }
