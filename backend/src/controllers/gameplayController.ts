@@ -70,9 +70,8 @@ const initializePlayers = (req: Request, res: Response): void => {
 
   game.players = afterShuffle;
   game.players[0].role = "president";
-  game.currentPresident = game.players[0].name;
 
-  game.uneligible = [game.players[0].name, "", ""]
+  game.uneligible = [game.players[0].name, "", ""];
 
   game.hitler = (
     game.players.find((player) => player.identity === "hitler") as Player
@@ -113,14 +112,13 @@ const addLiberal = (req: Request, res: Response): void => {
 };
 
 const setChancellor = (player: Player): void => {
-
   if (game == null) {
     return;
   }
-  game.currentChancellor = player.name
+  game.currentChancellor = player.name;
 
   //this sets previous president to be eligible for next round
-  game.uneligible[2] = ""
+  game.uneligible[2] = "";
 
   for (let i = 0; i < game.players.length; i++) {
     if (game.players[i].name === player.name) {
@@ -146,7 +144,7 @@ const setPresident = (req: Request, res: Response): void => {
     if (game.players[i].role === "president") {
       presidentIndex = i;
       //past president is uneligible
-      game.uneligible[2] = game.players[i].name
+      game.uneligible[2] = game.players[i].name;
       break;
     }
   }
@@ -160,8 +158,7 @@ const setPresident = (req: Request, res: Response): void => {
       game.players[i].role = "president";
 
       //current president is uneligible
-      game.uneligible[0] = game.players[i].name
-      
+      game.uneligible[0] = game.players[i].name;
     } else {
       game.players[i].role = "default";
     }
@@ -209,17 +206,25 @@ const startVote = (req: Request, res: Response): void => {
   }
   game.phase = Phase.VOTING;
 
+  let presidentIndex = -1;
+  for (let i = 0; i < game.players.length; i++) {
+    if (game.players[i].role === "president") {
+      presidentIndex = i;
+      break;
+    }
+  }
+
   voting = {
     votingActive: true,
-    president: game.currentPresident,
+    president: game.players[presidentIndex].name,
     candidate: req.body.player,
     ja_votes: 0,
     nein_votes: 0,
     result: "ongoing",
   };
 
-    //previous canidate is uneligible
-  game.uneligible[1] = req.body.player.name
+  //previous canidate is uneligible
+  game.uneligible[1] = req.body.player.name;
 
   broadcastMessage({
     type: "start_vote",
@@ -238,18 +243,22 @@ const tallyVote = (req: Request, res: Response): void => {
     res.status(500).json({ error: "Voting is not instantialized" });
     return;
   }
-  let color = "white"
+  let color = "white";
   const vote = req.body.vote;
   if (vote == "ja") {
     voting.ja_votes++;
-    color = "green"
+    color = "green";
   }
   if (vote == "nein") {
     voting.nein_votes++;
-    color = "red"
+    color = "red";
   }
 
-  broadcastMessage({ type: "tally_vote", player: req.body.player, color: color });
+  broadcastMessage({
+    type: "tally_vote",
+    player: req.body.player,
+    color: color,
+  });
 
   if (voting.ja_votes + voting.nein_votes == game.players.length) {
     endVote(voting);
@@ -280,5 +289,5 @@ export {
   startVote,
   tallyVote,
   endVote,
-  getUneligible
+  getUneligible,
 };
