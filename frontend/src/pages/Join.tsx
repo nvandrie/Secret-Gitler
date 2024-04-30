@@ -51,6 +51,7 @@ const JoinLobby: React.FC = () => {
             value={lobbyCode}
             onChange={(e) => setLobbyCode(e.target.value)}
             className="TextField"
+            sx={{ "& fieldset": { border: "none" } }}
           />
           <button
             onClick={handleJoinLobby}
