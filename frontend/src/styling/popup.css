@@ -262,30 +262,47 @@
   font-family: "Patua One", serif;
   color: var(--light-red);
   font-size: 80px;
+  text-align: center;
 }
 /* This is the StartGameStorytelling PopUp css */
-.full-screen-container {
+.story_telling_container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 9999;
 }
 
-.full-screen-container.visible {
+.story_telling_container.visible {
   display: flex;
 }
 
 .centered-rectangle {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  width: 90%;
-  max-width: 600px;
+  position: absolute;
+  height: 80%;
+  width: 75%;
+  top: 10%;
+  left: 12.5%;
+  background-color: var(--dark-grey);
+  border-radius: 20px;
+  border: 4px solid var(--beige);
+  font-family: "Patua One", serif;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+.center-two-line {
+  padding: 10px;
+  padding-left: 150px;
+  padding-right: 150px;
   text-align: center;
 }

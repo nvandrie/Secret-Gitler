@@ -14,20 +14,22 @@ const StartGameStorytelling: React.FC = () => {
   };
 
   return (
-    <div className={`full-screen-container ${isVisible ? "visible" : ""}`}>
+    <div className={`story_telling_container ${isVisible ? "visible" : ""}`}>
       {isVisible && (
         <div className="centered-rectangle">
-          <p>Among you there are...</p>
-          <p>4 liberals, 1 fascist, and 1 Hitler</p>
-          <p>
+          <p className="center-two-line">Among you there are...</p>
+          <p className="RedText">4 Liberals, 1 Fascist, and 1 Hitler</p>
+          <p className="center-two-line">
             Either team may win by filling their board with their respective
-            policies...
+            policies.
           </p>
-          <p>
-            and the fascists and Hitler may win by electing Hitler chancellor
-            after 3 fascist policies have been played.
+          <p className="center-two-line">
+            REMEMBER! After 3 fascist policies have been played, the fascists
+            and Hitler may win by electing Hitler chancellor...
           </p>
-          <button onClick={toggleVisibility}>Okay</button>
+          <button className="Button" onClick={toggleVisibility}>
+            Okay
+          </button>
         </div>
       )}
     </div>
