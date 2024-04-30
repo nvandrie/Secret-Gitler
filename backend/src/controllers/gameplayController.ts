@@ -69,7 +69,8 @@ const initializePlayers = (req: Request, res: Response): void => {
   const afterShuffle = shuffle(playerData);
 
   game.players = afterShuffle;
-  game.players[0].role = "president"
+  game.players[0].role = "president";
+  game.currentPresident = game.players[0].name;
 
   game.uneligible = [game.players[0].name, "", ""]
 
@@ -78,7 +79,7 @@ const initializePlayers = (req: Request, res: Response): void => {
   ).name;
 
   broadcastMessage({ type: "start_game" });
-  
+
   res.json(game.players);
 };
 
@@ -157,8 +158,10 @@ const setPresident = (req: Request, res: Response): void => {
   for (let i = 0; i < game.players.length; i++) {
     if (i === nextPresidentIndex) {
       game.players[i].role = "president";
+
       //current president is uneligible
       game.uneligible[0] = game.players[i].name
+      
     } else {
       game.players[i].role = "default";
     }
@@ -198,6 +201,7 @@ const checkGame = (req: Request, res: Response): void => {
   }
   res.json(result);
 };
+
 const startVote = (req: Request, res: Response): void => {
   if (game == null) {
     res.status(500).json({ error: "Game is not initialized" });
@@ -207,16 +211,21 @@ const startVote = (req: Request, res: Response): void => {
 
   voting = {
     votingActive: true,
+    president: game.currentPresident,
     candidate: req.body.player,
     ja_votes: 0,
     nein_votes: 0,
     result: "ongoing",
   };
 
-  //previous canidate is uneligible
+    //previous canidate is uneligible
   game.uneligible[1] = req.body.player.name
 
-  broadcastMessage({ type: "start_vote" });
+  broadcastMessage({
+    type: "start_vote",
+    president: voting.president,
+    candidate: voting.candidate.name,
+  });
   res.json(game.phase);
 };
 
@@ -245,7 +254,7 @@ const tallyVote = (req: Request, res: Response): void => {
   if (voting.ja_votes + voting.nein_votes == game.players.length) {
     endVote(voting);
   }
-  res.json("")
+  res.json("");
 };
 
 const endVote = (voting: Voting): void => {

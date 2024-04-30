@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LiberalGameBoard from "../components/GameBoards/LiberalBoard";
 import FascistGameBoard from "../components/GameBoards/FascistBoard";
 import CardDrawing from "../components/DeckActions/CardDrawing";
@@ -37,6 +37,11 @@ const GamePlayPage = () => {
   const dispatch = useDispatch();
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
+  const [president, setPresident] = useState<string>("");
+  const [candidate, setCandidate] = useState<string>("");
+
+  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
+
   const updateChancellor = async (index: number) => {
     if (basicUserInfo?.name) {
       const identity = await searchRoleByName(basicUserInfo?.name);
@@ -63,6 +68,10 @@ const GamePlayPage = () => {
       }
       if (message.type === "start_vote") {
         dispatch(toggleVotingActivity());
+        setPresident(message.president);
+        console.log(president);
+        setCandidate(message.candidate);
+        console.log(candidate);
       }
       if (message.type === "end_game") {
         setGame(true);
@@ -136,7 +145,7 @@ const GamePlayPage = () => {
 
       <Chat />
       <Popup />
-      <Vote />
+      <Vote president={president} candidate={candidate} />
       <StartGameStorytelling />
       <div>{gameState && <EndGame result={result} />}</div>
     </div>

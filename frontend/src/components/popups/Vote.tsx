@@ -9,7 +9,12 @@ import nein from "/voting_cards/nein.jpg";
 import axiosInstance from "../../api/axiosInstance";
 import { useAppSelector } from "../../hooks/redux-hooks";
 
-const Vote: React.FC = () => {
+interface VoteProps {
+  president: string;
+  candidate: string;
+}
+
+const Vote: React.FC<VoteProps> = ({ president, candidate }) => {
   const dispatch = useDispatch();
   const votingActive = useSelector(
     (state: RootState) => state.vote.votingActive
@@ -32,7 +37,8 @@ const Vote: React.FC = () => {
               <div className={`vote${votingActive ? "visible-vote" : ""}`}>
                 <div className="voteBox">
                   <p className="buttonsLabel">
-                    Do you wish for these indivials to have congressional power?
+                    President {president} has nominated {candidate} as
+                    Chancellor. Do you approve of this government?
                   </p>
                   <div className="buttonsContainer">
                     {" "}
