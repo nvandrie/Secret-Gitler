@@ -34,7 +34,9 @@ const Vote: React.FC<VoteProps> = ({ president, candidate }) => {
               <div className={`vote${votingActive ? "visible-vote" : ""}`}>
                 <div className="voteBox">
                   <p className="buttonsLabel">
-                    President {president} has nominated {candidate} as
+                    President <span className="outlinedText">{president}</span>{" "}
+                    has nominated{" "}
+                    <span className="outlinedText">{candidate}</span> as
                     Chancellor. Do you approve of this government?
                   </p>
                   <div className="buttonsContainer">
