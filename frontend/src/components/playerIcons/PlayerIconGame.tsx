@@ -12,7 +12,7 @@ interface PlayerIconGameProps {
 
 const PlayerIcon: React.FC<PlayerIconGameProps> = ({ player }) => {
   const [color, setColor] = useState("");
-  const [eligible, setEligibleColor] = useState("");
+  const [eligible, setEligibleText] = useState("");
   const [display, setDisplay] = useState("display");
 
   useEffect(() => {
@@ -28,6 +28,12 @@ const PlayerIcon: React.FC<PlayerIconGameProps> = ({ player }) => {
       }
       if (message.type === "end_vote") {
         setDisplay("")
+        const isPlayerUneligible = message.uneligible.some((uneligibleName: string) => uneligibleName === player.name);
+        if (isPlayerUneligible){
+          setEligibleText("uneligible")
+        } else {
+          setEligibleText("eligible")
+        }
       }
       if (message.type === "start_vote") {
         setColor("white")
@@ -38,9 +44,9 @@ const PlayerIcon: React.FC<PlayerIconGameProps> = ({ player }) => {
       if(message.type === "update_roles"){
         const isPlayerUneligible = message.uneligible.some((uneligibleName: string) => uneligibleName === player.name);
         if (isPlayerUneligible){
-          setEligibleColor("gray")
+          setEligibleText("uneligible")
         } else {
-          setEligibleColor("")
+          setEligibleText("eligible")
         }
       }
     };

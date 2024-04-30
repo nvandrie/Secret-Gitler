@@ -45,10 +45,10 @@ const GamePlayPage = () => {
     if (basicUserInfo?.name) {
       const identity = await searchRoleByName(basicUserInfo?.name);
       const response = await axiosInstance.post("/api/get-uneligible");
-      response.data.includes(players[index].name);
+      const unEligible = response.data.includes(players[index].name);
       if (
         identity === "president" &&
-        basicUserInfo?.name !== players[index].name
+        basicUserInfo?.name !== players[index].name && !unEligible
       ) {
         if (index !== -1) {
           // make api call to start voting

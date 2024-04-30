@@ -4,11 +4,18 @@ import axiosInstance from "../../api/axiosInstance";
 import FailedElectionCircles from "./FailedElectionCircles";
 import { useAppSelector } from "../../hooks/redux-hooks";
 import { searchRoleByName } from "../functions/IdentityCheck";
+import { useDispatch, useSelector } from "react-redux";
+import { setRemainingCards } from "../../slices/deckSlice";
+import { RootState } from "../../store";
+
 
 const ElectionTracker: React.FC = () => {
   const [failedElections, setFailedElections] = useState(0);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
-
+  const dispatch = useDispatch();
+  const remainingCards = useSelector(
+    (state: RootState) => state.deck.remainingCards
+  );
 
   useEffect(() => {
     const createNewTracker = async () => {
@@ -29,6 +36,9 @@ const ElectionTracker: React.FC = () => {
       if (message.type === "check_play_card") {
         const response = await axiosInstance.post("/api/get-tracker");
         setFailedElections(response.data.failedElections);
+        if(response.data.failedElections === 0){
+          dispatch(setRemainingCards(remainingCards - 1))
+        }
       }
       if (message.type === "end_vote"){
         if (message.result === "fail"){
@@ -50,7 +60,6 @@ const ElectionTracker: React.FC = () => {
   const failAction = async () => {
     const tracker = await axiosInstance.post("/api/check-play-card");
     const numFailed = tracker.data.failedElections;
-    console.log(numFailed)
     let play = false;
     if (numFailed === 0) {
       play = true;
@@ -65,6 +74,7 @@ const ElectionTracker: React.FC = () => {
         await axiosInstance.post("/api/add-fascist");
       }
       play = false;
+      axiosInstance.post("/api/set-president");
     }
   };
 
