@@ -1,9 +1,11 @@
-//11 fascist cards and 6 liberal, randomized
+/*
+  Deck contains 11 fascist cards and 6 liberal cards.
+*/
 export class Deck {
-  discardCards: string[];
-  remainingCards: string[];
-  drawnCards: string[];
-  allCards: string[];
+  discardCards: string[]; // cards in the discard pile
+  remainingCards: string[]; // cards in the draw pile
+  drawnCards: string[]; // three cards drawn by president
+  allCards: string[]; // contains all cards across all decks
 
   constructor(
     discardCards: string[],
