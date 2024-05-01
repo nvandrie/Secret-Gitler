@@ -29,6 +29,9 @@ interface Player {
   identity: "fascist" | "hitler" | "liberal";
 }
 
+/*
+The main page once game has started with all players in the lobby.
+*/
 const GamePlayPage = () => {
   const [selectedCards, setSelectedCards] = useState<Card[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
@@ -48,7 +51,8 @@ const GamePlayPage = () => {
       const unEligible = response.data.includes(players[index].name);
       if (
         identity === "president" &&
-        basicUserInfo?.name !== players[index].name && !unEligible
+        basicUserInfo?.name !== players[index].name &&
+        !unEligible
       ) {
         if (index !== -1) {
           // make api call to start voting

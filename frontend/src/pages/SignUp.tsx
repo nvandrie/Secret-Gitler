@@ -9,6 +9,9 @@ import {
   NotificationType,
 } from "./../slices/notificationSlice";
 
+/*
+Handles when users don't have an account and need to sign up for one.
+*/
 const SignUp = () => {
   const dispatch = useAppDispatch();
   const [name, setName] = useState("");

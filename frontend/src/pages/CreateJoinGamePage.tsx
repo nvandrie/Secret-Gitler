@@ -6,20 +6,24 @@ import { setLobby } from "../slices/lobbySlice";
 import axiosInstance from "../api/axiosInstance";
 import { useAppSelector } from "../hooks/redux-hooks";
 
+/*
+Once users "fly to germany" users are prompted with the choice to join or create a game.
+*/
 
 const CreateJoinGamePage = () => {
   const dispatch = useDispatch();
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
-
   const createLobby = async () => {
     const response = await axiosInstance.post("/api/create-lobby");
     console.log("Created lobby with ID:", response.data.id);
     dispatch(setLobby(response.data.id));
-    const lobby = await axiosInstance.post("/api/add-player", {player: basicUserInfo?.name, lobbyCode: response.data.id});
-    console.log("Lobby: ", lobby.data)
+    const lobby = await axiosInstance.post("/api/add-player", {
+      player: basicUserInfo?.name,
+      lobbyCode: response.data.id,
+    });
+    console.log("Lobby: ", lobby.data);
   };
-
 
   return (
     <div className="GenericPage">
