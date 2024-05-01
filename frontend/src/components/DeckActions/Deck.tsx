@@ -9,9 +9,8 @@ import {
   setRemainingCards,
   setDraw,
 } from "../../slices/deckSlice";
-import { searchRoleByName } from "../functions/IdentityCheck"
-import { useAppSelector } from '../../hooks/redux-hooks';
-
+import { searchRoleByName } from "../functions/IdentityCheck";
+import { useAppSelector } from "../../hooks/redux-hooks";
 
 const Deck: React.FC = () => {
   const dispatch = useDispatch();
@@ -37,64 +36,65 @@ const Deck: React.FC = () => {
     createNewDeck();
   }, []);
 
-    useEffect(() => {
-        const socket = new WebSocket('ws://localhost:3000');
-      
-        socket.onmessage = async (event) => {
-          const message = JSON.parse(event.data);
-          if (message.type === 'draw_cards') {
-            if (basicUserInfo?.name){
-            const identity = await searchRoleByName(basicUserInfo?.name) 
-            if(identity !== "president"){
-              const response = await axiosInstance.post("/api/get-cards");
-              dispatch(setCurrentCards(["default", "default", "default"]));
-              dispatch(setRemainingCards(response.data.remainingCards.length));
-              dispatch(setDiscardedCards(response.data.discardCards.length - 3))
-              dispatch(setDraw(false))
-            }
-          }
-          }
-        };
-      
-        return () => {
-          socket.close();
-        };
-      }, []);
+  useEffect(() => {
+    const socket = new WebSocket("ws://localhost:3000");
 
-      const handleDeckClick = async () => {
+    socket.onmessage = async (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type === "draw_cards") {
         if (basicUserInfo?.name) {
           const identity = await searchRoleByName(basicUserInfo?.name);
-          if (identity === "president") {
-            if (canDraw) {
-              try {
-                const response = await axiosInstance.post("/api/draw-cards");
-                dispatch(setCurrentCards(response.data.drawnCards));
-                dispatch(setRemainingCards(response.data.remainingCards.length));
-                dispatch(setDiscardedCards(response.data.discardCards.length - 3));
-                dispatch(setDraw(false));
-              } catch (error) {
-                console.error('Deck not found');
-                await axiosInstance.post("/api/new-deck");
-              }
-            }
+          if (identity !== "president") {
+            const response = await axiosInstance.post("/api/get-cards");
+            dispatch(setCurrentCards(["default", "default", "default"]));
+            dispatch(setRemainingCards(response.data.remainingCards.length));
+            dispatch(setDiscardedCards(response.data.discardCards.length - 3));
+            dispatch(setDraw(false));
           }
         }
-      };
-      
+      }
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  const handleDeckClick = async () => {
+    if (basicUserInfo?.name) {
+      const identity = await searchRoleByName(basicUserInfo?.name);
+      if (identity === "president") {
+        if (canDraw) {
+          try {
+            const response = await axiosInstance.post("/api/draw-cards");
+            dispatch(setCurrentCards(response.data.drawnCards));
+            dispatch(setRemainingCards(response.data.remainingCards.length));
+            dispatch(setDiscardedCards(response.data.discardCards.length - 3));
+            dispatch(setDraw(false));
+          } catch (error) {
+            console.error("Deck not found");
+            await axiosInstance.post("/api/new-deck");
+          }
+        }
+      }
+    }
+  };
 
   return (
     <div className="container">
       <div className="deck">
         <h3 className="deck-text">Draw</h3>
-        <div className="rectangle" onClick={handleDeckClick}>
-          <div className="inner-rectangle">
+        <div className={"deck-rectangle"} onClick={handleDeckClick}>
+          <div
+            className={"inner-rectangle" + (canDraw ? " deck-highlight" : "")}
+          >
             <p className="cards-count">{remainingCards}</p>
           </div>
         </div>
       </div>
       <div className="deck">
         <h3 className="deck-text">Discard</h3>
-        <div className="rectangle">
+        <div className="deck-rectangle">
           <div className="inner-rectangle">
             <p className="cards-count">{discardedCards}</p>
           </div>

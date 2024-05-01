@@ -28,7 +28,6 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   const [isVisible, setIsVisible] = useState(true);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
-
   const fascist_elements = useSelector(
     (state: RootState) => state.fascistBoard.elements
   );
@@ -56,22 +55,22 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   };
 
   const handleCardClick = async (card: Card) => {
-    if (basicUserInfo?.name){
-      const identity = await searchRoleByName(basicUserInfo?.name) 
-    if(identity === "chancellor"){
-    if (card.type === "liberal") {
-      await axiosInstance.post("/api/add-liberal");
-    } else {
-      await axiosInstance.post("/api/add-fascist");
+    if (basicUserInfo?.name) {
+      const identity = await searchRoleByName(basicUserInfo?.name);
+      if (identity === "chancellor") {
+        if (card.type === "liberal") {
+          await axiosInstance.post("/api/add-liberal");
+        } else {
+          await axiosInstance.post("/api/add-fascist");
+        }
+        await axiosInstance.post("/api/remove-card", {
+          cardToRemove: JSON.stringify(card.type),
+        });
+        setIsVisible(false);
+        axiosInstance.post("/api/set-president");
+        axiosInstance.post("/api/check-game");
+      }
     }
-    await axiosInstance.post("/api/remove-card", {
-      cardToRemove: JSON.stringify(card.type),
-    });
-    setIsVisible(false);
-    axiosInstance.post("/api/set-president");
-    axiosInstance.post("/api/check-game");
-
-  }}
   };
 
   useEffect(() => {
@@ -112,7 +111,11 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
           onClick={() => handleCardClick(card)}
         >
           {isVisible && (
-            <img className="card" src={card.path} alt={card.type} />
+            <img
+              className={`card ${card.type}`}
+              src={card.path}
+              alt={card.type}
+            />
           )}
         </div>
       ))}
