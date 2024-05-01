@@ -69,7 +69,7 @@ const removeCard = (req: Request, res: Response): void => {
   deck.allCards.splice(deck.allCards.indexOf(cardToRemove), 1);
   deck.discardCards.splice(deck.discardCards.indexOf(cardToRemove), 1);
 
-  broadcastMessage({ type: "card_click", card: cardToRemove });
+  broadcastMessage({ type: "card_click", card: cardToRemove, action: "normal" });
 
   res.json(deck);
 };
@@ -88,7 +88,7 @@ const getTopCard = (req: Request, res: Response): void => {
   deck.remainingCards = deck.remainingCards.slice(1);
 
 
-  broadcastMessage({ type: "card_click", card: topCard[0] });
+  broadcastMessage({ type: "card_click", card: topCard[0], action: "failure"});
   res.json({
     deck: deck,
     topCard: topCard,
