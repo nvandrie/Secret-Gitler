@@ -23,6 +23,8 @@ interface CardSelectingProps {
 const FASCIST_MAX_CARDS = 6;
 const LIBERAL_MAX_CARDS = 5;
 
+// handles the selecting of one card from the two cards to the right of the deck that appear
+// when the chancellor needs to select a card to play on the boards.
 const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   const dispatch = useDispatch();
   const [isVisible, setIsVisible] = useState(true);
@@ -35,6 +37,7 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
     (state: RootState) => state.liberalBoard.elements
   );
 
+  // adds a libarl card to the board
   const addLiberalCard = () => {
     if (liberal_elements.length < LIBERAL_MAX_CARDS) {
       dispatch(
@@ -46,6 +49,7 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
     }
   };
 
+  // adds a fascist card to the board
   const addFascistCard = () => {
     if (fascist_elements.length < FASCIST_MAX_CARDS) {
       dispatch(
@@ -54,6 +58,12 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
     }
   };
 
+  // handles if one of the two cards is clicked.
+  // checks to see if player is chancellor and if so, calls the appropriate add card function
+  // depending on the card type
+  // also removes a card from the deck
+  // upates the president
+  // checks the game state for win condition
   const handleCardClick = async (card: Card) => {
     if (basicUserInfo?.name) {
       const identity = await searchRoleByName(basicUserInfo?.name);
@@ -80,11 +90,14 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:3000");
 
+    // displays the cards if should be displayed (if president has sent over two cards)
     socket.onmessage = async (event) => {
       const message = JSON.parse(event.data);
       if (message.type === "select_cards") {
         setIsVisible(true);
       }
+      // calls the appropriate functions if a player clicks on the card
+      // adds the appropate card to the discard pile
       if (message.type === "card_click") {
         setIsVisible(false);
         const response = await axiosInstance.post("/api/get-cards");
@@ -102,6 +115,8 @@ const CardSelecting: React.FC<CardSelectingProps> = ({ selectedCards }) => {
     };
   }, []);
 
+  // correctly displays the two cards to the right of the deck at the appropriate time
+  // display conditional upon player identity
   return (
     <div className="card-display">
       {selectedCards.map((card, index) => (
