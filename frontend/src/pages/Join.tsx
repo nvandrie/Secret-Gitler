@@ -8,6 +8,10 @@ import { useDispatch } from "react-redux";
 import { setLobby } from "../slices/lobbySlice";
 import { TextField } from "@mui/material";
 
+/*
+Page where users can type in already-generated lobby codes to join same game as their friends.
+Handles if lobby does not exist.
+*/
 const JoinLobby: React.FC = () => {
   const [lobbyCode, setLobbyCode] = useState("");
   const [loading, setLoading] = useState(false);

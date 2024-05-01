@@ -2,6 +2,10 @@ import "../styling/App.css";
 import text_logo from "/logos/text_logo.png";
 import { Link } from "react-router-dom";
 
+/*
+First page users see when they go to website.
+Gives option to login or signup.
+*/
 const LandingOptions = () => {
   return (
     <div className="GenericPage">

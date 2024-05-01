@@ -5,6 +5,11 @@ import PlayerIcon from "../components/playerIcons/PlayerIcon";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
 
+/*
+Landing page for users to wait for their party to join the game.
+Displays all users in lobby, lobby code, and join game button.
+When all desired players have entered the lobby, game play may be started by pressing Start Game button.
+*/
 const LobbyPage: React.FC = () => {
   const lobbyId = useSelector((state: RootState) => state.lobby.variable);
   const [players, setPlayers] = useState<string[]>([]);
@@ -48,9 +53,10 @@ const LobbyPage: React.FC = () => {
 
   const startGame = async () => {
     await axiosInstance.post("/api/create-game");
-    await axiosInstance.post(`/api/initalize-players`, {players: JSON.stringify(players)});
+    await axiosInstance.post(`/api/initalize-players`, {
+      players: JSON.stringify(players),
+    });
   };
-
 
   return (
     <div className="GenericPage">

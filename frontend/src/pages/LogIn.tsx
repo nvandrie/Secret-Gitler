@@ -9,6 +9,9 @@ import {
   NotificationType,
 } from "../slices/notificationSlice";
 
+/*
+Handles login for when users already have an account.
+*/
 const LogIn = () => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState("");

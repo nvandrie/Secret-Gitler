@@ -6,6 +6,12 @@ import { getUser, logout } from "../slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+/*
+Home landing page once users log into their account.
+Welcomed with a message to ensure their username is correct.
+Given the option to play using the "fly to germany" button.
+Animation for fun meow!
+*/
 const Home = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
