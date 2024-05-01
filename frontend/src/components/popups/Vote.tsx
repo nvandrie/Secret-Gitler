@@ -21,9 +21,11 @@ const Vote: React.FC<VoteProps> = ({ president, candidate }) => {
   );
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
-
   const handleToggleVoting = (vote: "ja" | "nein") => {
-    axiosInstance.post("/api/tally-vote", { vote: vote, player: basicUserInfo?.name });
+    axiosInstance.post("/api/tally-vote", {
+      vote: vote,
+      player: basicUserInfo?.name,
+    });
     dispatch(toggleVotingActivity());
     dispatch(setDraw(true));
   };
