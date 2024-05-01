@@ -261,7 +261,7 @@
 .RedText {
   font-family: "Patua One", serif;
   color: var(--light-red);
-  font-size: 80px;
+  font-size: 200%;
   text-align: center;
 }
 /* This is the StartGameStorytelling PopUp css */
@@ -297,13 +297,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 150%;
 }
 
 .center-two-line {
-  padding: 10px;
-  padding-left: 150px;
-  padding-right: 150px;
+  padding: 0%;
+  padding-left: 15%;
+  padding-right: 15%;
   text-align: center;
 }
 
