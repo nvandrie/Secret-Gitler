@@ -28,12 +28,13 @@ const PlayerIcon: React.FC<PlayerIconGameProps> = ({ player }) => {
       }
       if (message.type === "end_vote") {
         setDisplay("")
+        if (message.uneligible){
         const isPlayerUneligible = message.uneligible.some((uneligibleName: string) => uneligibleName === player.name);
         if (isPlayerUneligible){
           setEligibleText("uneligible")
         } else {
           setEligibleText("eligible")
-        }
+        }}
       }
       if (message.type === "start_vote") {
         setColor("white")

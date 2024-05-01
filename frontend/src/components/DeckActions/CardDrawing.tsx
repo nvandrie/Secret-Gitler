@@ -60,9 +60,7 @@ const CardDrawing: React.FC<CardDrawingProps> = ({ setSelectedCards }) => {
       const message = JSON.parse(event.data);
       if (message.type === "select_cards") {
         if (basicUserInfo?.name) {
-          console.log(basicUserInfo?.name);
           const identity = await searchRoleByName(basicUserInfo?.name);
-          console.log(identity);
           if (identity !== "chancellor") {
             setSelectedCards(convertDataToCards(["default", "default"]));
           } else {

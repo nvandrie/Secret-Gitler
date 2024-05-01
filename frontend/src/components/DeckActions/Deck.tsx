@@ -74,6 +74,7 @@ const Deck: React.FC = () => {
                 dispatch(setDraw(false));
               } catch (error) {
                 console.error('Deck not found');
+                await axiosInstance.post("/api/new-deck");
               }
             }
           }
