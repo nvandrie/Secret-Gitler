@@ -199,6 +199,9 @@ const checkGame = (req: Request, res: Response): void => {
   res.json(result);
 };
 
+/*
+  Initiates a voting phase and broadcasts "voting" object
+*/
 const startVote = (req: Request, res: Response): void => {
   if (game == null) {
     res.status(500).json({ error: "Game is not initialized" });
@@ -234,6 +237,9 @@ const startVote = (req: Request, res: Response): void => {
   res.json(game.phase);
 };
 
+/*
+  Tallies a vote received from a client and stores it to voting state
+*/
 const tallyVote = (req: Request, res: Response): void => {
   if (game == null) {
     res.status(500).json({ error: "Game is not initialized" });
@@ -245,10 +251,14 @@ const tallyVote = (req: Request, res: Response): void => {
   }
   let color = "white";
   const vote = req.body.vote;
+
+  // increment 'ja' counter and set player's background color to green
   if (vote == "ja") {
     voting.ja_votes++;
     color = "green";
   }
+
+  // increment 'nein' counter and set player's background color to red
   if (vote == "nein") {
     voting.nein_votes++;
     color = "red";
@@ -266,6 +276,9 @@ const tallyVote = (req: Request, res: Response): void => {
   res.json("");
 };
 
+/*
+  Ends voting phase. Receives a voting object as a parameter. If voting passes, set the elected chancellor and broadcast the result.
+*/
 const endVote = (voting: Voting): void => {
   if (voting.ja_votes > voting.nein_votes) {
     voting.result = "pass";
