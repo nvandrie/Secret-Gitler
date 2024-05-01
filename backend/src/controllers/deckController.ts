@@ -4,6 +4,7 @@ import { broadcastMessage } from "../index";
 
 let deck: Deck | null = null;
 
+//shuffles
 function shuffleDeck(toShuffle: string[]) {
   for (let i = toShuffle.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -12,6 +13,7 @@ function shuffleDeck(toShuffle: string[]) {
   return toShuffle;
 }
 
+//creates new deck with 11 fascist and 6 hitler
 const newDeck = (req: Request, res: Response): void => {
   const numFascist = 11;
   const numLiberal = 6;
@@ -32,16 +34,18 @@ const newDeck = (req: Request, res: Response): void => {
   res.json(deck);
 };
 
+//draws three cards from remaining cards, updates deck object
 const drawCards = (req: Request, res: Response): void => {
   if (!deck) {
     res.status(404).json({ message: "Deck not found" });
     return;
   }
 
+  //draws cards from remaining cards
   if (deck.remainingCards.length >= 3) {
     deck.drawnCards = deck.remainingCards.slice(0, 3);
     deck.remainingCards = deck.remainingCards.slice(3);
-  } else {
+  } else { //reshuffles remaining cards
     const left = deck.remainingCards.length;
     const newDeck = shuffleDeck(deck.discardCards);
     const cardsToAdd = newDeck
@@ -57,6 +61,7 @@ const drawCards = (req: Request, res: Response): void => {
   res.json(deck);
 };
 
+//removes card from deck once played on board
 const removeCard = (req: Request, res: Response): void => {
   const drawnCardsString = req.body.cardToRemove;
   const cardToRemove = JSON.parse(drawnCardsString);
@@ -74,10 +79,12 @@ const removeCard = (req: Request, res: Response): void => {
   res.json(deck);
 };
 
+//simple return so frontend can access cards
 const getCard = (req: Request, res: Response): void => {
   res.json(deck);
 };
 
+//returns top card from remaining cards and updates deck object
 const getTopCard = (req: Request, res: Response): void => {
   if (!deck) {
     res.status(404).json({ message: "Deck not found" });
@@ -95,11 +102,14 @@ const getTopCard = (req: Request, res: Response): void => {
   });
 };
 
+//resets deck object when game concludes
 const clearDeck = (req: Request, res: Response): void => {
   deck = null
   res.json(true);
 };
 
+//initalizes the selecting of cards and passes correct cards to frontend
+//two selected cards will get passed in request
 const startSelect = (req: Request, res: Response): void => {
   const drawnCardsString = req.body.selectedCards;
   const selectedCard = JSON.parse(drawnCardsString);
