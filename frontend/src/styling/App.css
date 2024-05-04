@@ -101,30 +101,30 @@
   left: 30%;
 }
 
-.green {
-  background-color: #59a96a;
-}
-.red {
-  background-color: var(--dark-red);
+.vote{
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .uneligible {
   background-color: var(--dark-grey);
 }
 .eligible:hover{
-  cursor: pointer
+  cursor: pointer;
+  transform: scale(1.05);
 }
 
 .crown{
   position: relative;
   margin: -30px;
-  margin-top: 10px;
+  margin-top: -3px;
   width: 40%;
   left: 49%;
 }
 
-.display {
-  background-color: white !important;
+.crown.default{
+  display: none;
 }
 
 .player-name {
@@ -149,10 +149,6 @@
 
 .chancellor {
   fill: red;
-}
-
-.default {
-  display: none;
 }
 
 .game-code {
