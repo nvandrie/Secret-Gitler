@@ -82,6 +82,7 @@ const GamePlayPage = () => {
       if (message.type === "end_game") {
         setGame(true);
         setResult(message.result);
+        await axiosInstance.post("/api/end-game");
       }
     };
 
