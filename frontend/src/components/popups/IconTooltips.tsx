@@ -71,6 +71,31 @@ const IconTooltips: React.FC = () => {
                 A player with a lightened icon is elibible to be Chancellor.
               </div>
             </li>
+            <li className="icon-item">
+              <div className="icon-wrapper">
+                <img
+                  src="misc/ElectionTrackerNoFails.png"
+                  alt="Election Tracker No Fails"
+                />
+              </div>
+              <div className="description">
+                This represents a reset Election Tracker. Zero governments have
+                failed this cycle.
+              </div>
+            </li>
+            <li className="icon-item">
+              <div className="icon-wrapper">
+                <img
+                  src="misc/ElectionTrackerTwoFails.png"
+                  alt="Election Tracker Two Fails"
+                />
+              </div>
+              <div className="description">
+                This Election Tracker displays that two governments have failed
+                this cycle. If a third fails, the top card from the deck will be
+                played and the Election Tracker will reset.
+              </div>
+            </li>
           </ul>
         </div>
       )}
