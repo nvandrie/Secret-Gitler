@@ -8,14 +8,14 @@ const FailedElectionCircles: React.FC<{ count: number }> = ({ count }) => {
       if (i < count + 1) {
         circlesWithArrows.push(
           <React.Fragment key={i}>
-            <div className="progress filled"></div>
+            <div className="progress filled">{i}</div>
             {i < 2 && <div className="arrow">&#9660;</div>}
           </React.Fragment>
         );
       } else {
         circlesWithArrows.push(
           <React.Fragment key={i}>
-            <div className="progress"></div>
+            <div className="progress">{i}</div>
             {i < 2 && <div className="arrow">&#9660;</div>}
           </React.Fragment>
         );
