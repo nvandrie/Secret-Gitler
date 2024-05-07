@@ -119,6 +119,11 @@
   margin-top: 15%;
 }
 
+.clicked{
+  border: black solid 3px;
+  box-shadow: 0px 0px 30px 1px #fff;
+}
+
 .container {
   display: flex;
   gap: 10px;

@@ -48,6 +48,10 @@ const ElectionTracker: React.FC = () => {
               failAction()
             }
           }
+        } else {
+          setFailedElections(0)
+          await axiosInstance.post("/api/reset-tracker");
+
         }
       }
     };
@@ -60,6 +64,7 @@ const ElectionTracker: React.FC = () => {
   const failAction = async () => {
     const tracker = await axiosInstance.post("/api/check-play-card");
     const numFailed = tracker.data.failedElections;
+    axiosInstance.post("/api/set-president");
     let play = false;
     if (numFailed === 0) {
       play = true;
@@ -74,7 +79,6 @@ const ElectionTracker: React.FC = () => {
         await axiosInstance.post("/api/add-fascist");
       }
       play = false;
-      axiosInstance.post("/api/set-president");
     }
   };
 

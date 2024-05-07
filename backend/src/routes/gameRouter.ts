@@ -25,6 +25,7 @@ import {
   newTracker,
   checkPlayCard,
   getTracker,
+  resetTrackerApi
 } from "../controllers/trackerController";
 
 const router = express.Router();
@@ -33,6 +34,7 @@ const router = express.Router();
 router.post("/api/new-tracker", newTracker);
 router.post("/api/check-play-card", checkPlayCard);
 router.post("/api/get-tracker", getTracker);
+router.post("/api/reset-tracker", resetTrackerApi)
 
 // deck routes
 router.post("/api/new-deck", newDeck);

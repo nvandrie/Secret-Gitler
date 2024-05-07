@@ -7,11 +7,14 @@ import fascist_identity from "/identities/fascist_identity.png";
 import hitler_identity from "/identities/hitler_identity.png";
 import fascist_party from "/party_membership_cards/fascist_party_mem.png";
 import liberal_party from "/party_membership_cards/liberal_party_mem.png";
+import axiosInstance from "../../api/axiosInstance";
 
 const Popup: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [playerIdentity, setPlayerIdentity] = useState<string | null>(null);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
+  const [teammate, setTeammate] = useState<string>("");
+
 
   useEffect(() => {
     const fetchIdentity = async () => {
@@ -19,6 +22,17 @@ const Popup: React.FC = () => {
         if (basicUserInfo?.name) {
           const identity = await searchIdentityByName(basicUserInfo.name);
           setPlayerIdentity(identity);
+          if (identity === "fascist" || identity === "hitler"){
+            const response = await axiosInstance.post(`/api/get-players`);
+            const players = response.data;
+            if(identity === "fascist"){
+              const teammate = players.find((player: { identity: string; }) => (player.identity === "fascist" || player.identity === "hitler"));
+              setTeammate(teammate.name)
+            } else if(identity === "hitler"){
+              const teammate = players.find((player: { identity: string; }) => player.identity === "hitler");
+              setTeammate(teammate.name)
+            }
+          }
         }
       } catch (error) {
         console.error("Error fetching identity:", error);
@@ -68,6 +82,12 @@ const Popup: React.FC = () => {
               />
             </div>
           </div>
+          {playerIdentity !== "liberal" && (
+            <p>
+            You are a Fascist. Work with your teammate, 
+            {" "+teammate}, to achieve victory!
+          </p>
+          )}
         </div>
       </div>
     </div>

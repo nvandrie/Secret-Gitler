@@ -25,6 +25,16 @@ const resetTracker = () => {
   broadcastMessage({ type: "reset_tracker" });
 };
 
+// gets the election tracker
+const resetTrackerApi = (req: Request, res: Response): void => {
+  if (tracker == null) {
+    return;
+  }
+
+  tracker.failedElections = 0;
+  broadcastMessage({ type: "reset_tracker" });
+};
+
 // Increases failed elections by 1
 const incrementTracker = () => {
   if (tracker == null) {
@@ -66,4 +76,4 @@ const checkPlayCard = (req: Request, res: Response): void => {
   res.json(tracker);
 };
 
-export { newTracker, checkPlayCard, getTracker };
+export { newTracker, checkPlayCard, getTracker, resetTrackerApi };
