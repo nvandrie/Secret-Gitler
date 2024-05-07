@@ -29,7 +29,7 @@ const authenticate = asyncHandler(
       req.user = user;
       next();
     } catch (e) {
-      throw new AuthenticationError("Invalid token");
+      throw new AuthenticationError("Please log out and try again");
     }
   }
 );
