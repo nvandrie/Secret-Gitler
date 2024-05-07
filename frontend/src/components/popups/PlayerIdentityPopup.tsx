@@ -26,10 +26,10 @@ const Popup: React.FC = () => {
             const response = await axiosInstance.post(`/api/get-players`);
             const players = response.data;
             if(identity === "fascist"){
-              const teammate = players.find((player: { identity: string; }) => (player.identity === "fascist" || player.identity === "hitler"));
+              const teammate = players.find((player: { identity: string; }) => (player.identity === "hitler"));
               setTeammate(teammate.name)
             } else if(identity === "hitler"){
-              const teammate = players.find((player: { identity: string; }) => player.identity === "hitler");
+              const teammate = players.find((player: { identity: string; }) => player.identity === "fascist");
               setTeammate(teammate.name)
             }
           }

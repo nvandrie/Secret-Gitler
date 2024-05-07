@@ -103,8 +103,10 @@
 
 .vote{
   position: relative;
-  height: 100%;
-  width: 100%;
+  left: 15%;
+  top: 15%;
+  height: 70%;
+  width: 70%;
 }
 
 .uneligible {
