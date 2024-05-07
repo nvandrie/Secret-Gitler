@@ -50,7 +50,7 @@ const ChatPopup: React.FC = () => {
     <div className={`right-slide-out ${isVisible ? "visible-chat" : ""}`}>
       {isVisible && (
         <div className={`content-chat ${isVisible ? "visible-chat" : ""}`}>
-          <h1>Chat</h1>
+          <h1 className="ChatHeader">Chat</h1>
           <div className="player-chat" ref={chatContainerRef}>
             {chats.map((chat, index) => (
               <div key={index}>
@@ -68,10 +68,15 @@ const ChatPopup: React.FC = () => {
           <div className="personal-chat">
             <input
               type="text"
+              className="TextField"
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
-            <button disabled={!input.trim()} onClick={sendChat}>
+            <button
+              className="SendButton"
+              disabled={!input.trim()}
+              onClick={sendChat}
+            >
               Send
             </button>
           </div>
