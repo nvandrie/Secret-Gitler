@@ -54,7 +54,7 @@ const IconTooltips: React.FC = () => {
             </li>
             <li className="icon-item">
               <div className="icon-wrapper">
-                <img src="misc/FilledPlayerIcon.png" alt="Filled Player Icon" />
+                <img src="misc/PlayerIconFilled.png" alt="Filled Player Icon" />
               </div>
               <div className="description">
                 A player with a darkened icon is ineligible to be Chancellor.
@@ -63,7 +63,7 @@ const IconTooltips: React.FC = () => {
             <li className="icon-item">
               <div className="icon-wrapper">
                 <img
-                  src="misc/UnfilledPlayerIcon.png"
+                  src="misc/PlayerIconUnfilled.png"
                   alt="Unfilled Player Icon"
                 />
               </div>
@@ -74,7 +74,7 @@ const IconTooltips: React.FC = () => {
             <li className="icon-item">
               <div className="icon-wrapper">
                 <img
-                  src="misc/ElectionTrackerNoFails.png"
+                  src="misc/ElectionTrackerEmpty.png"
                   alt="Election Tracker No Fails"
                 />
               </div>
@@ -86,7 +86,7 @@ const IconTooltips: React.FC = () => {
             <li className="icon-item">
               <div className="icon-wrapper">
                 <img
-                  src="misc/ElectionTrackerTwoFails.png"
+                  src="misc/ElectionTrackerFilled.png"
                   alt="Election Tracker Two Fails"
                 />
               </div>
