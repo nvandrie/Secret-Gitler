@@ -14,9 +14,4 @@ const sendChat = (req: Request, res: Response): void => {
   res.json("Chat message received");
 };
 
-const getChats = (req: Request, res: Response): void => {
-  broadcastMessage(gameChat);
-  res.json("Chats sent to clients");
-};
-
-export { sendChat, getChats };
+export { sendChat };
