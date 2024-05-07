@@ -152,7 +152,7 @@
   align-items: center;
 }
 
-.deck-highlight {
+.president.deck-highlight {
   width: 110px;
   height: 160px;
   border: 10px solid yellow;
@@ -163,8 +163,8 @@
   transition: transform 0.3s ease;
 }
 
-.deck-highlight:hover {
-  transform: scale(1.05);
+.president.deck-highlight:hover {
+  transform: scale(1.1);
 }
 
 .inner-rectangle {

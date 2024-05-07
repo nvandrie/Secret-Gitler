@@ -23,6 +23,23 @@ const Deck: React.FC = () => {
   const canDraw = useSelector((state: RootState) => state.deck.canDraw);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
+  const [role, setRole] = useState<string>("");
+
+  useEffect(() => {
+    const getPlayerRole = async () => {
+      if (basicUserInfo?.name) {
+        const identity = await searchRoleByName(basicUserInfo?.name);
+        setRole(identity || "");
+      }
+    };
+
+    getPlayerRole();
+
+    const intervalId = setInterval(getPlayerRole, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [basicUserInfo]);
+
   useEffect(() => {
     const createNewDeck = async () => {
       try {
@@ -86,7 +103,9 @@ const Deck: React.FC = () => {
         <h3 className="deck-text">Draw</h3>
         <div className={"deck-rectangle"} onClick={handleDeckClick}>
           <div
-            className={"inner-rectangle" + (canDraw ? " deck-highlight" : "")}
+            className={
+              `inner-rectangle ${role}` + (canDraw ? " deck-highlight" : "")
+            }
           >
             <p className="cards-count">{remainingCards}</p>
           </div>

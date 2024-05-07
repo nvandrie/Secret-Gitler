@@ -313,3 +313,107 @@
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
     1px 1px 0 black;
 }
+
+.icon-tooltips-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.icon-tooltips-container * {
+  pointer-events: auto;
+}
+
+.icon-tooltips-toggle-button {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  padding: 10px 15px;
+  font-family: "Patua One", serif;
+  background-color: #f1f1f1;
+  color: #c13423;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.icon-tooltips-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: auto;
+  max-height: 80%;
+  background-color: #f1f1f1;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.icon-tooltips-content h2 {
+  margin-top: 0;
+}
+
+.icon-tooltips-content ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.icon-tooltips-content li {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  text-align: left;
+}
+
+.icon-tooltips-content li img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.icon-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.icon-item {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  text-align: left;
+}
+
+.icon-wrapper {
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+}
+
+.icon-wrapper svg {
+  width: 100%;
+  height: 100%;
+}
+
+.description {
+  margin-left: 50px;
+  flex-grow: 1;
+}
