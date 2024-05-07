@@ -7,6 +7,7 @@ import { searchRoleByName } from "../functions/IdentityCheck";
 import { useDispatch, useSelector } from "react-redux";
 import { setRemainingCards } from "../../slices/deckSlice";
 import { RootState } from "../../store";
+import { setDraw } from "../../slices/deckSlice";
 
 
 const ElectionTracker: React.FC = () => {
@@ -51,7 +52,7 @@ const ElectionTracker: React.FC = () => {
         } else {
           setFailedElections(0)
           await axiosInstance.post("/api/reset-tracker");
-
+          dispatch(setDraw(true));
         }
       }
     };

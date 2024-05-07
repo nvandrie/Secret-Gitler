@@ -14,6 +14,7 @@ const Popup: React.FC = () => {
   const [playerIdentity, setPlayerIdentity] = useState<string | null>(null);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
   const [teammate, setTeammate] = useState<string>("");
+  const [loaded, setLoad] = useState<boolean>(false)
 
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const Popup: React.FC = () => {
         if (basicUserInfo?.name) {
           const identity = await searchIdentityByName(basicUserInfo.name);
           setPlayerIdentity(identity);
-          if (identity === "fascist" || identity === "hitler"){
+          if ((identity === "fascist" || identity === "hitler") && !loaded){
             const response = await axiosInstance.post(`/api/get-players`);
             const players = response.data;
             if(identity === "fascist"){
@@ -32,6 +33,7 @@ const Popup: React.FC = () => {
               const teammate = players.find((player: { identity: string; }) => player.identity === "fascist");
               setTeammate(teammate.name)
             }
+            setLoad(true)
           }
         }
       } catch (error) {

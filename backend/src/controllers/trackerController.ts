@@ -33,6 +33,7 @@ const resetTrackerApi = (req: Request, res: Response): void => {
 
   tracker.failedElections = 0;
   broadcastMessage({ type: "reset_tracker" });
+  res.json("")
 };
 
 // Increases failed elections by 1

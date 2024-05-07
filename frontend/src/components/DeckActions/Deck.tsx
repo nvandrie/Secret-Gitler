@@ -78,8 +78,10 @@ const Deck: React.FC = () => {
   }, []);
 
   const handleDeckClick = async () => {
+    console.log(basicUserInfo?.name)
     if (basicUserInfo?.name) {
       const identity = await searchRoleByName(basicUserInfo?.name);
+      console.log(identity)
       if (identity === "president") {
         if (canDraw) {
           try {

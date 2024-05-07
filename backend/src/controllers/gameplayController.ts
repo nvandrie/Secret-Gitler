@@ -179,7 +179,8 @@ const setPresident = (req: Request, res: Response): void => {
 //return players array
 const getPlayers = (req: Request, res: Response): void => {
   if (game == null) {
-    return;
+    res.json("fail");
+    return
   }
   res.json(game.players);
 };

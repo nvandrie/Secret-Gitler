@@ -27,7 +27,6 @@ const Vote: React.FC<VoteProps> = ({ president, candidate }) => {
       player: basicUserInfo?.name,
     });
     dispatch(toggleVotingActivity());
-    dispatch(setDraw(true));
   };
 
   return (
