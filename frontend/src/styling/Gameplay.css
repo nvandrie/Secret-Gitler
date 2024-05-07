@@ -23,7 +23,8 @@
 
 .tracker-text {
   font-weight: bold;
-  text-decoration: underline;
+  font-family: "Patua One", serif;
+  letter-spacing: 0.07em;
   color: var(--white);
 }
 
@@ -152,7 +153,7 @@
   align-items: center;
 }
 
-.deck-highlight {
+.president.deck-highlight {
   width: 110px;
   height: 160px;
   border: 10px solid yellow;
@@ -163,8 +164,8 @@
   transition: transform 0.3s ease;
 }
 
-.deck-highlight:hover {
-  transform: scale(1.05);
+.president.deck-highlight:hover {
+  transform: scale(1.1);
 }
 
 .inner-rectangle {
@@ -181,6 +182,8 @@
   justify-content: center;
   align-items: center;
   color: var(--white);
+  font-family: "Patua One", serif;
+  letter-spacing: 0.07em;
 }
 
 .deck {
@@ -189,6 +192,8 @@
 
 .cards-count {
   font-size: 70px;
+  font-family: "Patua One", serif;
+  color: var(--dark-grey);
 }
 
 .tracker-count {
@@ -212,11 +217,22 @@
   height: 70px;
   border-radius: 50%;
   margin: 5px;
-  border: 2px solid black;
+  border: 2px solid var(--beige);
+  font-family: "Patua One", serif;
+  color: var(--beige);
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .filled {
   background-color: var(--beige);
+  color: var(--dark-grey);
+}
+
+.arrow {
+  color: var(--beige);
 }
 
 .rolling-banner {
@@ -230,13 +246,15 @@
   color: #fff;
   padding: 10px 0;
   border-bottom: 2px solid black;
+  font-family: "Patua One", serif;
+  letter-spacing: 0.07em;
 }
 
 .rolling-text {
   display: inline-block;
   position: relative;
   left: 100%;
-  animation: roll 15s linear infinite;
+  animation: roll 20s linear infinite;
 }
 
 @keyframes roll {
