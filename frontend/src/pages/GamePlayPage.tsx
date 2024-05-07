@@ -6,7 +6,6 @@ import CardSelecting from "../components/DeckActions/CardSelecting";
 import Deck from "../components/DeckActions/Deck";
 import Popup from "../components/popups/PlayerIdentityPopup";
 import IconTooltips from "../components/popups/IconTooltips";
-import Chat from "../components/popups/ChatPopup";
 import StartGameStorytelling from "../components/popups/StartGameStorytelling";
 import PlayerIconGame from "../components/playerIcons/PlayerIconGame";
 import Vote from "../components/popups/Vote";
@@ -19,7 +18,6 @@ import { useAppSelector } from "../hooks/redux-hooks";
 import { searchRoleByName } from "../components/functions/IdentityCheck";
 import TooltipBar from "../components/tooltipBar";
 import ChatPopup from "../components/popups/ChatPopup";
-import { Icon } from "@mui/material";
 
 interface Card {
   type: "fascist" | "liberal" | "default";
