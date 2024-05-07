@@ -18,6 +18,7 @@ import EndGame from "../components/popups/EndGame";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { searchRoleByName } from "../components/functions/IdentityCheck";
 import TooltipBar from "../components/tooltipBar";
+import ChatPopup from "../components/popups/ChatPopup";
 import { Icon } from "@mui/material";
 
 interface Card {
@@ -155,7 +156,7 @@ const GamePlayPage = () => {
         </div>
       </div>
 
-      <Chat />
+      <ChatPopup />
       <Popup />
       <IconTooltips />
       <Vote president={president} candidate={candidate} />
