@@ -108,8 +108,10 @@
   padding: 20px;
   border-radius: 10px;
   height: 80%;
+  max-height: 80%;
   width: 80%;
   border: 2px solid black;
+  overflow-y: auto;
 }
 
 .personal-chat {
@@ -119,6 +121,10 @@
   height: 5%;
   width: 85%;
   border: 2px solid black;
+}
+
+.user-chat {
+  color: var(--medium-red);
 }
 
 .visible-chat {

@@ -9,9 +9,10 @@ import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRouter";
 import { authenticate } from "./middleware/authMiddleware";
 import { errorHandler } from "./middleware/errorMiddleware";
-import gameRouter from "./routes/gameRouter"
+import gameRouter from "./routes/gameRouter";
 import WebSocket from "ws";
-import http from 'http';
+import http from "http";
+import chatRouter from "./routes/chatRouter";
 
 interface UserBasicInfo {
   _id: string;
@@ -31,13 +32,13 @@ const app = express();
 const port = 3000;
 app.use(helmet());
 
-const whitelist = ['http://localhost:5173'];
+const whitelist = ["http://localhost:5173"];
 const corsOptions: cors.CorsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true,
@@ -54,6 +55,7 @@ app.use("/users", authenticate, userRouter);
 app.use(errorHandler);
 app.use(lobbyRouter);
 app.use(gameRouter);
+app.use(chatRouter);
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
@@ -62,17 +64,15 @@ server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-wss.on('connection', (ws: WebSocket) => {
-
-  ws.on('message', (message: string) => {
+wss.on("connection", (ws: WebSocket) => {
+  ws.on("message", (message: string) => {
     console.log(`Received message: ${message}`);
-    wss.clients.forEach(client => {
+    wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(message);
       }
     });
   });
-
 });
 
 const broadcastMessage = (message: any) => {
@@ -87,4 +87,3 @@ const broadcastMessage = (message: any) => {
 export { broadcastMessage };
 
 connectUserDB();
-

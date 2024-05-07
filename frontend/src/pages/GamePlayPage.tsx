@@ -5,7 +5,6 @@ import CardDrawing from "../components/DeckActions/CardDrawing";
 import CardSelecting from "../components/DeckActions/CardSelecting";
 import Deck from "../components/DeckActions/Deck";
 import Popup from "../components/popups/PlayerIdentityPopup";
-import Chat from "../components/popups/ChatPopup";
 import StartGameStorytelling from "../components/popups/StartGameStorytelling";
 import PlayerIconGame from "../components/playerIcons/PlayerIconGame";
 import Vote from "../components/popups/Vote";
@@ -17,6 +16,7 @@ import EndGame from "../components/popups/EndGame";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { searchRoleByName } from "../components/functions/IdentityCheck";
 import TooltipBar from "../components/tooltipBar";
+import ChatPopup from "../components/popups/ChatPopup";
 
 interface Card {
   type: "fascist" | "liberal" | "default";
@@ -153,7 +153,7 @@ const GamePlayPage = () => {
         </div>
       </div>
 
-      <Chat />
+      <ChatPopup />
       <Popup />
       <Vote president={president} candidate={candidate} />
       <StartGameStorytelling />
