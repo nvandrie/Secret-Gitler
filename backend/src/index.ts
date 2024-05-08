@@ -66,7 +66,6 @@ server.listen(port, () => {
 
 wss.on("connection", (ws: WebSocket) => {
   ws.on("message", (message: string) => {
-    console.log(`Received message: ${message}`);
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(message);

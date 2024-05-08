@@ -31,7 +31,6 @@ const JoinLobby: React.FC = () => {
         player: basicUserInfo?.name,
         lobbyCode: lobbyCode,
       });
-      console.log("Lobby: ", lobby.data);
       setSuccessMessage("Successfully joined the lobby!");
       dispatch(setLobby(lobby.data.id));
       navigate("/lobby");
