@@ -76,9 +76,7 @@ const GamePlayPage = () => {
       if (message.type === "start_vote") {
         dispatch(toggleVotingActivity());
         setPresident(message.president);
-        console.log(president);
         setCandidate(message.candidate);
-        console.log(candidate);
       }
       if (message.type === "end_game") {
         setGame(true);

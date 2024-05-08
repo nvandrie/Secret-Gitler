@@ -38,7 +38,8 @@ const ElectionTracker: React.FC = () => {
         const response = await axiosInstance.post("/api/get-tracker");
         setFailedElections(response.data.failedElections);
         if(response.data.failedElections === 0){
-          dispatch(setRemainingCards(remainingCards - 1))
+          const response = await axiosInstance.post("/api/get-cards");
+          dispatch(setRemainingCards(response.data.remainingCards.length));
         }
       }
       if (message.type === "end_vote"){
