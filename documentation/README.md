@@ -33,6 +33,6 @@ Have each 1 player create a lobby and the remaining 5 players join the game usin
 
 <!--Testing -->
 
-Testing is under the branch 'testSuites'
+Testing is under the branch 'test17420'
 cd frontend
 npm test
