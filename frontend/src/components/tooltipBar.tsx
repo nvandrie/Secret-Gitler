@@ -12,7 +12,6 @@ const tooltipBar: React.FC = () => {
     socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
       if (message.type === "end_vote") {
-        console.log(message.result);
         if (message.result == "pass") {
           setMessage(
             "The vote passed! The president has successfully elected a chancellor."
